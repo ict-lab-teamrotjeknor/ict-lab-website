@@ -17,7 +17,7 @@ namespace ict_lab_website.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Your application description page. TEST!";
 
             return View();
         }
