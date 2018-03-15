@@ -31,6 +31,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Login">Login</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Register">Register</a></li>
                 </ul>
             </div>
@@ -39,9 +40,6 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - ict_lab_website</p>
-        </footer>
     </div>
 
     <environment include="Development">

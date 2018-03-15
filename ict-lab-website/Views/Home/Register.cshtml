@@ -5,13 +5,13 @@
     ViewData["Title"] = "Register Page";
 }
 
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-10 col-md-offset-1" style="padding-top:10px;">
     <div class="well">
         <table class="table table-bordered">
             <thead>
                 <tr class="success">
                     <th colspan="2">
-                        New User Registration
+                        User Registration
                     </th>
                 </tr>
             </thead>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <h2 class="modal-title">Registration Successful!</h2>
+                            <h2 class="modal-title">Registration Successfull!</h2>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -74,6 +74,10 @@
   <script type="text/javascript">
       $('#registerButton').click(function(){
           $('#successModal').modal('show');
+      });
+
+      $('#linkClose').click(function () {
+          $('#divError').hide('fade');
       });
   </script>
 }
