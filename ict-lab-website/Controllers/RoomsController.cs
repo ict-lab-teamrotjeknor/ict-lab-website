@@ -33,5 +33,11 @@ namespace ict_lab_website.Controllers
             Repository.AddRoom(room);
             return View("Index", Repository.Rooms);
         }
+
+        [HttpGet]
+        public IActionResult AddReservation(int roomId)
+        {
+            return View();
+        }
     }
 }
