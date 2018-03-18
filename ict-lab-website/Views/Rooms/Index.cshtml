@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ict_lab_website.Models.Room>
+
+@{
+    ViewData["Title"] = "Rooms";
+}
+
+<h2>Rooms</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoomCode)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Room room in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => room.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => room.RoomCode)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@room.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@room.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@room.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
