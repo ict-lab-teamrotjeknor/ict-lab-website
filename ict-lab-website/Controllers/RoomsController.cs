@@ -15,9 +15,9 @@ namespace ict_lab_website.Controllers
             return View(Repository.Rooms);
         }
 
-        public IActionResult Details(int roomId)
+        public IActionResult Details(int ID)
         {
-            Room room = Repository.Rooms[roomId];
+            Room room = Repository.GetRoom(ID);
             return View(room);
         }
 
@@ -34,8 +34,7 @@ namespace ict_lab_website.Controllers
             return View("Index", Repository.Rooms);
         }
 
-        [HttpGet]
-        public IActionResult AddReservation(int roomId)
+        public IActionResult AddReservation()
         {
             return View();
         }

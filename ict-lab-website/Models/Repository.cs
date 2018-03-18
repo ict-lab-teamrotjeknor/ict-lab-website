@@ -21,5 +21,11 @@ namespace ict_lab_website.Models
         {
             rooms.Add(room);
         }
+
+        public static Room GetRoom(int id)
+        {
+            Room room = rooms.FirstOrDefault(x => x.ID == id);
+            return room; 
+        }
     }
 }
