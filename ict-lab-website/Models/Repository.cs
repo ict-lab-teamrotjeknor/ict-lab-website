@@ -27,5 +27,15 @@ namespace ict_lab_website.Models
             Room room = rooms.FirstOrDefault(x => x.ID == id);
             return room; 
         }
+
+        public static List<Room> GenerateExampleData()
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                AddRoom(new Room { ID = i, RoomCode = $"H4.40{i}" });
+            }
+
+            return Rooms;
+        }
     }
 }
