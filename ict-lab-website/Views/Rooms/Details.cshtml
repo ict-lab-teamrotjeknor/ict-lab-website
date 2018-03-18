@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details of room @Model.RoomCode</h2>
 
 <div>
-    <h4>Room</h4>
+    <h4>Information</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -25,6 +25,20 @@
     </dl>
 
     <h4>Reservations</h4>
+    <hr/>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="weeknr">Week</label>
+            <select class="form-control" id="weeknr">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Change</button>
+    </form>
+    <br/>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -88,6 +102,6 @@
 </div>
 
 <div>
-   <a asp-action="AddReservation">Add reservation</a>
+   <a asp-action="AddReservation">Add reservation</a> |
     <a asp-action="Index">Back to list</a>
 </div>
