@@ -6,9 +6,14 @@
 
 <h2>Rooms</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<form class="form-inline">
+    <div class="form-group">
+        <label for="Searchbar">Search</label>
+        <input type="search" class="form-control" id="Searchbar">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -39,3 +44,7 @@
 }
     </tbody>
 </table>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
