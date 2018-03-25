@@ -29,6 +29,7 @@
                         <button class="btn btn-default" id="editUser" type="submit"><i class="glyphicon glyphicon-pencil"></i></button>
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-user"></i></button>
                         <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+                        <button class="btn btn-default" id="sendMessage" type="submit"><i class="glyphicon glyphicon-comment"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -108,6 +109,33 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" tabindex="-1" id="sendMessageModal"
+             data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                        <h4 class="modal-title">Send Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input style="height:200px; width:550px;" type="text" placeholder="Enter your text here ..."/>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success"
+                                data-dismiss="modal">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
         
         <div id="divError" class="alert alert-danger collapse">
             <a id="linkClose" href="#" class="close">&times;</a>
@@ -122,6 +150,10 @@
   <script type="text/javascript">
       $('#editUser').click(function(){
           $('#editModal').modal('show');
+      });
+
+      $('#sendMessage').click(function(){
+          $('#sendMessageModal').modal('show');
       });
   </script>
 }
