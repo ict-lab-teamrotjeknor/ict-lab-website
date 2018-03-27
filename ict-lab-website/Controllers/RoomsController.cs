@@ -7,15 +7,21 @@ namespace ict_lab_website.Controllers
 {
     public class RoomsController : Controller
     {
+        private IRoomRepository repository;
+
+        public RoomsController(IRoomRepository repository)
+        {
+            this.repository = repository;
+        }
+
         public IActionResult Index()
         {
-            Repository.GenerateExampleData();
-            return View(Repository.Rooms);
+            return View(repository.Rooms);
         }
 
         public IActionResult Details(int ID)
         {
-            Room room = Repository.GetRoom(ID);
+            Room room = repository.GetById(ID);
             return View(room);
         }
 
@@ -28,8 +34,8 @@ namespace ict_lab_website.Controllers
         [HttpPost]
         public IActionResult Create(Room room)
         {
-            Repository.AddRoom(room);
-            return View("Index", Repository.Rooms);
+            repository.Add(room);
+            return View("Index", repository.Rooms);
         }
 
         public IActionResult AddReservation()
