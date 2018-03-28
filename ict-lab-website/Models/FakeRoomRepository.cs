@@ -7,6 +7,7 @@ namespace ict_lab_website.Models
 {
     public class FakeRoomRepository : IRoomRepository
     {
+        public static FakeRoomRepository SharedRepository { get; } = new FakeRoomRepository();
         private List<Room> rooms;
 
         public FakeRoomRepository()

@@ -9,6 +9,6 @@ namespace ict_lab_website.Models
     {
         public int ID { get; set; }
         public string RoomCode { get; set; }
-        public List<Reservation> Reservations { get; set; }
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

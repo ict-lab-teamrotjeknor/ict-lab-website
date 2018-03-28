@@ -9,9 +9,9 @@ namespace ict_lab_website.Controllers
     {
         private IRoomRepository repository;
 
-        public RoomsController(IRoomRepository repository)
+        public RoomsController()
         {
-            this.repository = repository;
+            this.repository = FakeRoomRepository.SharedRepository;
         }
 
         public IActionResult Index()
@@ -38,9 +38,19 @@ namespace ict_lab_website.Controllers
             return View("Index", repository.Rooms);
         }
 
+        [HttpGet]
         public IActionResult AddReservation()
         {
-            return View();
+            return View(new Reservation());
         }
+
+        [HttpPost]
+        public IActionResult AddReservation(Reservation reservation)
+        {
+            Room room = repository.GetById(reservation.RoomID);
+            room.Reservations.Add(reservation);
+            return RedirectToAction("Details", new { id = room.ID });
+        }
+
     }
 }
