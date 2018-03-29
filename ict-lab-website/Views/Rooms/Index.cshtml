@@ -36,9 +36,7 @@
                 @Html.DisplayFor(modelItem => room.RoomCode)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@room.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@room.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@room.ID">Delete</a>
+                <a asp-action="Schedule" asp-route-id="@room.ID">View schedule</a>
             </td>
         </tr>
 }
