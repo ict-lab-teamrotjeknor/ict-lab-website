@@ -19,7 +19,7 @@ namespace ict_lab_website.Controllers
             return View(repository.Rooms);
         }
 
-        public IActionResult Details(int ID)
+        public IActionResult Schedule(int ID)
         {
             Room room = repository.GetById(ID);
             return View(room);
@@ -49,7 +49,7 @@ namespace ict_lab_website.Controllers
         {
             Room room = repository.GetById(reservation.RoomID);
             room.Reservations.Add(reservation);
-            return RedirectToAction("Details", new { id = room.ID });
+            return RedirectToAction("Schedule", new { id = room.ID });
         }
 
     }

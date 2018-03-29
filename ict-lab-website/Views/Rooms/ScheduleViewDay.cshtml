@@ -1,0 +1,11 @@
+﻿@model Room
+
+<h2>Reservations</h2>
+<hr />
+<ol>
+    @foreach (Reservation reservation in Model.Reservations)
+    {
+        <li><b>@reservation.Subject</b>: @reservation.Reserver - <i> At @reservation.DateAndTime , for @reservation.Length hours</i></li>
+    }
+</ol>
+
