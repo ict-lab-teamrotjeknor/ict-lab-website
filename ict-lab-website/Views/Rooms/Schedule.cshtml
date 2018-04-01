@@ -12,26 +12,40 @@
         <ul class="nav navbar-nav">
             <li><a asp-action="AddReservation"> <span class= "glyphicon glyphicon-plus"></span>Add reservation</a></li>
         </ul>
-        <ul class="nav navbar-nav">
-            <li>
-                <p class="navbar-text">
-                    <span class="glyphicon glyphicon-chevron-left"></span>29 March 2018<span class="glyphicon glyphicon-chevron-right"></span>
-                </p>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    View
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="year">Year</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="month">Month</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="week">Week</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="day">Day</a></li>
+                </ul>
             </li>
         </ul>
-        <form class="navbar-form navbar-right" asp-controller="Rooms" asp-action="Schedule" method="get">
-            <select name="View">
-                <option value="">Day</option>
-                <option value="">Week</option>
-                <option value="">Month</option>
-                <option value="">Year</option>
-            </select>
-        </form>
+
     </div>
 </nav>
 
 <main>
-    @Html.Partial("ScheduleViewDay", Model)
+    @switch (ViewBag.View)
+    {
+        case "day":
+            @Html.Partial("ScheduleViewDay", Model)
+            break;
+        case "week":
+            @Html.Partial("ScheduleViewWeek", Model)
+            break;
+        case "month":
+            @Html.Partial("ScheduleViewMonth", Model)
+            break;
+        case "year":
+            @Html.Partial("ScheduleViewYear", Model)
+            break;
+    }
 </main>
 
 
