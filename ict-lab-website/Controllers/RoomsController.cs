@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ict_lab_website.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +20,11 @@ namespace ict_lab_website.Controllers
             return View(repository.Rooms);
         }
 
-        public IActionResult Schedule(int ID, ScheduleView view = ScheduleView.Day)
+        public IActionResult Schedule(int ID, DateTime dateTime, ScheduleView view = ScheduleView.Day)
         {
             Room room = repository.GetById(ID);
-            ViewBag.View = view;
-            return View(room);
+            RoomReservationsViewModel roomReservationsViewModel = new RoomReservationsViewModel(room, view, dateTime);
+            return View(roomReservationsViewModel);
         }
 
         [HttpGet]
@@ -50,7 +51,7 @@ namespace ict_lab_website.Controllers
         {
             Room room = repository.GetById(reservation.RoomID);
             room.Reservations.Add(reservation);
-            return RedirectToAction("Schedule", new { id = room.ID });
+            return RedirectToAction("Schedule", new { id = room.ID, dateTime = reservation.DateAndTime});
         }
 
     }

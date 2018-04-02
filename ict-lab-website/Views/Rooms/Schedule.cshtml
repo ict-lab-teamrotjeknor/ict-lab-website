@@ -1,4 +1,4 @@
-﻿@model ict_lab_website.Models.Room
+﻿@model RoomReservationsViewModel
 
 @{
     ViewData["Title"] = "Schedule";
@@ -7,7 +7,7 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">@Model.RoomCode</a>
+            <a class="navbar-brand" href="#">@Model.Room.RoomCode</a>
         </div>
         <ul class="nav navbar-nav">
             <li><a asp-action="AddReservation"> <span class= "glyphicon glyphicon-plus"></span>Add reservation</a></li>
@@ -19,10 +19,10 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Year">Year</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Month">Month</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Week">Week</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Day">Day</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime">Year</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime">Month</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime">Week</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime">Day</a></li>
                 </ul>
             </li>
         </ul>
@@ -31,7 +31,7 @@
 </nav>
 
 <main>
-    @switch (ViewBag.View)
+    @switch (Model.View)
     {
         case ScheduleView.Day:
             @Html.Partial("ScheduleViewDay", Model)
