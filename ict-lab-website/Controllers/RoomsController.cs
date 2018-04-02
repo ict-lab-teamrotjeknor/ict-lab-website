@@ -19,7 +19,7 @@ namespace ict_lab_website.Controllers
             return View(repository.Rooms);
         }
 
-        public IActionResult Schedule(int ID, string view = "day")
+        public IActionResult Schedule(int ID, ScheduleView view = ScheduleView.Day)
         {
             Room room = repository.GetById(ID);
             ViewBag.View = view;

@@ -19,10 +19,10 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="year">Year</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="month">Month</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="week">Week</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="day">Day</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Year">Year</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Month">Month</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Week">Week</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.ID" asp-route-view="@ScheduleView.Day">Day</a></li>
                 </ul>
             </li>
         </ul>
@@ -33,16 +33,16 @@
 <main>
     @switch (ViewBag.View)
     {
-        case "day":
+        case ScheduleView.Day:
             @Html.Partial("ScheduleViewDay", Model)
             break;
-        case "week":
+        case ScheduleView.Week:
             @Html.Partial("ScheduleViewWeek", Model)
             break;
-        case "month":
+        case ScheduleView.Month:
             @Html.Partial("ScheduleViewMonth", Model)
             break;
-        case "year":
+        case ScheduleView.Year:
             @Html.Partial("ScheduleViewYear", Model)
             break;
     }
