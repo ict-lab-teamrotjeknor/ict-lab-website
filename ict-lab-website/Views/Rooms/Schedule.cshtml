@@ -1,0 +1,51 @@
+﻿@model RoomReservationsViewModel
+
+@{
+    ViewData["Title"] = "Schedule";
+}
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">@Model.Room.RoomCode</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a asp-action="AddReservation"> <span class= "glyphicon glyphicon-plus"></span>Add reservation</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    View
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime">Year</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime">Month</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime">Week</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime">Day</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+<main>
+    @switch (Model.View)
+    {
+        case ScheduleView.Day:
+            @Html.Partial("ScheduleViewDay", Model)
+            break;
+        case ScheduleView.Week:
+            @Html.Partial("ScheduleViewWeek", Model)
+            break;
+        case ScheduleView.Month:
+            @Html.Partial("ScheduleViewMonth", Model)
+            break;
+        case ScheduleView.Year:
+            @Html.Partial("ScheduleViewYear", Model)
+            break;
+    }
+</main>
+
+

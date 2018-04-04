@@ -1,0 +1,19 @@
+﻿@model RoomReservationsViewModel
+
+<h2>This is a placeholder for the 'day' view (formatted as: dd/mm/yyyy)</h2>
+<h3> @Model.DateAndTime.ToString("dd/MM/yyyy")</h3>
+<hr />
+<form asp-controller="Rooms" asp-action="Schedule">
+    <p>
+        Date <input type="date" name="dateTime">
+        <input type="submit" value="Change" />
+    </p>
+</form>
+
+<ol>
+    @foreach (Reservation reservation in Model.Reservations)
+    {
+        <li><b>@reservation.Subject</b>: @reservation.Reserver - <i> At @reservation.DateAndTime , for @reservation.Length hours</i></li>
+    }
+</ol>
+
