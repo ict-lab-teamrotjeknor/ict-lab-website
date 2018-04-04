@@ -56,7 +56,7 @@ namespace ict_lab_website.Models
             return reservationsForYear.ToList<Reservation>();
         }
 
-        //This method returns the weeknumber according to the ISO-8601 standard. 
+        //This method returns the weeknumber according to the ISO-8601 standard, because the one from .Net does strange things with weeks at the end of the year.
         //This method was found on: 
         //https://stackoverflow.com/questions/11154673/get-the-correct-week-number-of-a-given-date?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
         private int GetIso8601WeekOfYear(DateTime time)

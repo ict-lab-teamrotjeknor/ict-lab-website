@@ -15,9 +15,15 @@ namespace ict_lab_website.Controllers
             this.repository = FakeRoomRepository.SharedRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            return View(repository.Rooms);
+            var rooms = repository.Rooms;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                rooms = rooms.Where(room => room.RoomCode.Contains(searchString));
+            }
+
+            return View(rooms);            
         }
 
         public IActionResult Schedule(int ID, DateTime dateTime, ScheduleView view = ScheduleView.Day)

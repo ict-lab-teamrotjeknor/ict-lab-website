@@ -7,11 +7,16 @@
 <br>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a asp-controller="Rooms" asp-action="Index"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+        </ul>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">@Model.Room.RoomCode</a>
+            <p class="navbar-brand">
+                @Model.Room.RoomCode
+            </p>
         </div>
         <ul class="nav navbar-nav">
-            <li><a asp-action="AddReservation"> <span class= "glyphicon glyphicon-plus"></span>Add reservation</a></li>
+            <li><a asp-action="AddReservation"> <span class= "glyphicon glyphicon-plus"></span> Add reservation</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
