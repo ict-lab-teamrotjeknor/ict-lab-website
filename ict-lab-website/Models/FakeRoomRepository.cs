@@ -20,7 +20,7 @@ namespace ict_lab_website.Models
                     RoomCode = "H.4.104",
                     Reservations = new List<Reservation>
                     {
-                        new Reservation {RoomID = 1, DateAndTime = new DateTime(2018, 03, 26, 12, 10, 0), Length = 2, Reserver = "COSTG", Subject = "INFDTA02-1" }
+                        new Reservation {RoomID = 1, DateAndTime = new DateTime(2018, 04, 05, 12, 10, 0), Length = 2, Reserver = "COSTG", Subject = "INFDTA02-1" }
                     }
                 },
                 new Room { ID = 2, RoomCode = "H.4.204" },
