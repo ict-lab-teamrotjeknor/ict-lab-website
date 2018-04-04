@@ -6,12 +6,13 @@
 
 <h2>Rooms</h2>
 
-<form class="form-inline">
+<form class="form-inline" asp-controller="Rooms" asp-action="Index">
     <div class="form-group">
-        <label for="Searchbar">Search</label>
-        <input type="search" class="form-control" id="Searchbar">
+        <label for="searchBar">Room</label>
+        <input type="search" class="form-control" id="searchBar" name="searchString">
+        <button type="submit" class="btn btn-primary">Search</button>
     </div>
-    <button type="submit" class="btn btn-primary">Search</button>
+        
 </form>
 
 <table class="table">
