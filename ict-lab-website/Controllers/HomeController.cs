@@ -5,11 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ict_lab_website.Models;
+using Newtonsoft.Json;
+using ict_lab_website.Process;
+using Newtonsoft.Json.Linq;
 
 namespace ict_lab_website.Controllers
 {
     public class HomeController : Controller
     {
+        private ApiCalls _apiCalls;  
+
+        public HomeController(){
+            _apiCalls = new ApiCalls();
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -34,8 +43,16 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Register r)
+        public IActionResult Register(RegisterViewModel r)
         {
+            var test = r;
+            var stringJson = JsonConvert.SerializeObject(r);
+            var rJson = JObject.Parse(stringJson);
+
+            var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
+
+            Console.WriteLine("test");
+
             return RedirectToAction("Index", "Rooms");
         }
 

@@ -1,4 +1,6 @@
-﻿@*
+﻿@model ict_lab_website.Models.RegisterViewModel
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -18,32 +20,10 @@
                 </tr>
             </thead>
             <tbody>
-                <form method="post" action="145.24.222.103:8080/authentication/signup">
-                <tr>
-                    <td>First Name</td>
-                    <td><input type="text" id="txtFirstName"/> </td>
-                </tr>
-                <tr>
-                    <td>Surname</td>
-                    <td><input type="text" id="txtSurname"/> </td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td><input type="text" id="txtEmail"/> </td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td><input type="password" id="txtPassword"/></td>
-                </tr>
-                <tr>
-                    <td>Confirm Password</td>
-                    <td><input type="password" id="txtConfirmPassword"/></td>
-                </tr>
-                <tr class="success">
-                    <td colspan="2">
-                        <input id="registerButton" class="btn btn-success" type="submit" value="Register" />
-                    </td>
-                </tr>
+                <form method="post" asp-controller="Home" asp-action="Register">
+                    Email:  <input asp-for="Email" /> <br />
+                    Password: <input asp-for="Password" /><br />
+                    <input class="btn btn-success" type="submit" value="Register" />
                 </form>
             </tbody>
         </table>
