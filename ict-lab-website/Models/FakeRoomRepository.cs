@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ict_lab_website.Process;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace ict_lab_website.Models
     {
         public static FakeRoomRepository SharedRepository { get; } = new FakeRoomRepository();
         private List<Room> rooms;
+        private ApiCalls apiCalls = new ApiCalls();
+        private string url = "http://145.24.222.103:8080/manage/getallrooms";
 
         public FakeRoomRepository()
         {
@@ -43,7 +46,7 @@ namespace ict_lab_website.Models
             //    new Room { Id = 5, Name = "H.3.305" },
             //    new Room { Id = 6, Name = "WD.1.304" }
             //};
-            rooms = APIConnection.GetAllRooms("http://145.24.222.103:8080/manage/getallrooms");
+            rooms = apiCalls.GetAllRooms(url);
         }
 
 

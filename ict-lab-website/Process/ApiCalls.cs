@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using ict_lab_website.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ict_lab_website.Process
@@ -40,6 +43,34 @@ namespace ict_lab_website.Process
             }
 
             return result;
+        }
+
+        private string GetRequest(string url)
+        {
+            var json = "";
+            using (var client = new WebClient())
+            {
+                json = client.DownloadString(url);
+            }
+            return json;
+        }
+
+        public List<Room> GetAllRooms(string url)
+        {
+            List<Room> rooms = new List<Room>();
+            var json = GetRequest(url);
+            var classRooms = JObject.Parse(json)["Classroom"];
+
+            foreach (JToken classrooms in classRooms)
+            {
+                foreach (JToken room in classrooms.Children())
+                {
+                    Room r = JsonConvert.DeserializeObject<Room>(room.ToString());
+                    rooms.Add(r);
+                }
+
+            }
+            return rooms;
         }
     }
 }
