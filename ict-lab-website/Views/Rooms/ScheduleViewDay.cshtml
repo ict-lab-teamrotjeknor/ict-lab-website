@@ -1,7 +1,6 @@
 ﻿@model RoomReservationsViewModel
 
-<h2>Reservations for the day:</h2>
-<h3> @Model.DateAndTime.ToString("dd/MM/yyyy")</h3>
+<h2>Reservations for @Model.DateAndTime.ToString("dd/MM/yyyy") </h2>
 <hr />
 <form asp-controller="Rooms" asp-action="Schedule">
     <p>
