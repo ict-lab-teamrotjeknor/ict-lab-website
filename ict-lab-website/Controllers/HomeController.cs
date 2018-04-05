@@ -15,9 +15,16 @@ namespace ict_lab_website.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel userLogin)
+        {
+            return RedirectToAction("Index", "Rooms");   
         }
 
         public IActionResult Register()
