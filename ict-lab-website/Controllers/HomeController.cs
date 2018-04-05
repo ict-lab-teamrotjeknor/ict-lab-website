@@ -22,7 +22,7 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel userLogin)
+        public IActionResult Login(Login l)
         {
             return RedirectToAction("Index", "Rooms");   
         }
