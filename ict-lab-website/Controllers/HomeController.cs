@@ -27,9 +27,16 @@ namespace ict_lab_website.Controllers
             return RedirectToAction("Index", "Rooms");   
         }
 
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(Register r)
+        {
+            return RedirectToAction("Index", "Rooms");
         }
 
         public IActionResult Error()
