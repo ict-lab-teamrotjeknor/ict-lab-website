@@ -20,15 +20,15 @@ namespace ict_lab_website.Controllers
             var rooms = repository.Rooms;
             if (!String.IsNullOrEmpty(searchString))
             {
-                rooms = rooms.Where(room => room.RoomCode.Contains(searchString));
+                rooms = rooms.Where(room => room.Name.Contains(searchString));
             }
 
             return View(rooms);            
         }
 
-        public IActionResult Schedule(int ID, DateTime dateTime, ScheduleView view = ScheduleView.Day)
+        public IActionResult Schedule(string Id, DateTime dateTime, ScheduleView view = ScheduleView.Day)
         {
-            Room room = repository.GetById(ID);
+            Room room = repository.GetById(Id);
             RoomReservationsViewModel roomReservationsViewModel = new RoomReservationsViewModel(room, view, dateTime);
             return View(roomReservationsViewModel);
         }
@@ -55,9 +55,9 @@ namespace ict_lab_website.Controllers
         [HttpPost]
         public IActionResult AddReservation(Reservation reservation)
         {
-            Room room = repository.GetById(reservation.RoomID);
+            Room room = repository.GetByName(reservation.RoomName);
             room.Reservations.Add(reservation);
-            return RedirectToAction("Schedule", new { id = room.ID, dateTime = reservation.DateAndTime});
+            return RedirectToAction("Schedule", new { id = room.Id, dateTime = reservation.DateAndTime});
         }
 
     }

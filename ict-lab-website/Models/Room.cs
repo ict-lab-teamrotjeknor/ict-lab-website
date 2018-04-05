@@ -8,8 +8,8 @@ namespace ict_lab_website.Models
 {
     public class Room
     {
-        public int ID { get; set; }
-        public string RoomCode { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
         public List<Reservation> GetReservationsFor(ScheduleView scheduleView, DateTime dateTime)
