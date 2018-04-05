@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => room.RoomCode)
             </td>
             <td>
-                <a asp-action="Schedule" asp-route-id="@room.ID" asp-route-dateTime="@DateTime.Today">View schedule</a>
+                <a asp-action="Schedule" asp-route-id="@room.ID">View schedule</a>
             </td>
         </tr>
 }
