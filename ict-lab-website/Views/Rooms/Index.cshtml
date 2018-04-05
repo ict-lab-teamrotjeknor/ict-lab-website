@@ -20,10 +20,7 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RoomCode)
+                    @Html.DisplayNameFor(model => model.Name)
                 </th>
             <th></th>
         </tr>
@@ -32,13 +29,10 @@
 @foreach (Room room in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => room.ID)
+                @Html.DisplayFor(modelItem => room.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => room.RoomCode)
-            </td>
-            <td>
-                <a asp-action="Schedule" asp-route-id="@room.ID">View schedule</a>
+                <a asp-action="Schedule" asp-route-id="@room.Id">View schedule</a>
             </td>
         </tr>
 }

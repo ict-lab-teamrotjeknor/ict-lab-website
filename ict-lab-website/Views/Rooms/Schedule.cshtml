@@ -12,7 +12,7 @@
         </ul>
         <div class="navbar-header">
             <p class="navbar-brand">
-                @Model.Room.RoomCode
+                @Model.Room.Name
             </p>
         </div>
         <ul class="nav navbar-nav">
@@ -25,10 +25,10 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime">Year</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime">Month</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime">Week</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime">Day</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime">Year</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime">Month</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime">Week</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime">Day</a></li>
                 </ul>
             </li>
         </ul>
