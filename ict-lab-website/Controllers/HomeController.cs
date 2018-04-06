@@ -8,6 +8,7 @@ using ict_lab_website.Models;
 using Newtonsoft.Json;
 using ict_lab_website.Process;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Routing;
 
 namespace ict_lab_website.Controllers
 {
@@ -51,9 +52,9 @@ namespace ict_lab_website.Controllers
 
             var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
 
-            Console.WriteLine("test");
+            var testing = r.Email;
 
-            return RedirectToAction("Index", "Rooms");
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Rooms", action = "Index", Email = r.Email }));
         }
 
         public IActionResult Error()
