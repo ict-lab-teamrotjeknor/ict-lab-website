@@ -32,8 +32,13 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Login l)
+        public IActionResult Login(LoginViewModel l)
         {
+            var stringJson = JsonConvert.SerializeObject(l);
+            var rJson = JObject.Parse(stringJson);
+
+            var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signin");
+
             return RedirectToAction("Index", "Rooms");   
         }
 
@@ -46,15 +51,12 @@ namespace ict_lab_website.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel r)
         {
-            var test = r;
             var stringJson = JsonConvert.SerializeObject(r);
             var rJson = JObject.Parse(stringJson);
 
             var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
 
-            var testing = r.Email;
-
-            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Rooms", action = "Index", Email = r.Email }));
+            return RedirectToAction("Index", "Rooms");
         }
 
         public IActionResult Error()
