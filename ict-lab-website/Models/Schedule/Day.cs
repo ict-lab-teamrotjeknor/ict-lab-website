@@ -7,7 +7,7 @@ namespace ict_lab_website.Models.Schedule
 {
     public class Day
     {
-        public int Id { get; set; }
+        public int DayNumber { get; set; }
         public List<Hour> Hours { get; set; }
     }
 }
