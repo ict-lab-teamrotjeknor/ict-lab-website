@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ict_lab_website.Models;
+using ict_lab_website.Models.Rooms;
 
 namespace ict_lab_website
 {
@@ -23,6 +24,7 @@ namespace ict_lab_website
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<IRoomRepository, ApiRoomRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

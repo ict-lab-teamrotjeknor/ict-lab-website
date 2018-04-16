@@ -45,7 +45,7 @@ namespace ict_lab_website.Process
             return result;
         }
 
-        private string GetRequest(string url)
+        public string GetRequest(string url)
         {
             var json = "";
             using (var client = new WebClient())
@@ -53,24 +53,6 @@ namespace ict_lab_website.Process
                 json = client.DownloadString(url);
             }
             return json;
-        }
-
-        public List<Room> GetAllRooms(string url)
-        {
-            List<Room> rooms = new List<Room>();
-            var json = GetRequest(url);
-            var classRooms = JObject.Parse(json)["Classroom"];
-
-            foreach (JToken classrooms in classRooms)
-            {
-                foreach (JToken room in classrooms.Children())
-                {
-                    Room r = JsonConvert.DeserializeObject<Room>(room.ToString());
-                    rooms.Add(r);
-                }
-
-            }
-            return rooms;
         }
     }
 }
