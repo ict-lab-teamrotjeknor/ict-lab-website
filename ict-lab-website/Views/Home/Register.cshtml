@@ -21,9 +21,19 @@
             </thead>
             <tbody>
                 <form method="post" asp-controller="Home" asp-action="Register">
-                    Email:  <input asp-for="Email" /> <br />
-                    Password: <input asp-for="Password" /><br />
-                    <input class="btn btn-success" type="submit" value="Register" />
+                <tr>
+                    <td>Email</td>
+                    <td><input asp-for="Email"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input asp-for="Password"></td>
+                </tr>
+                <tr class="success">
+                    <td colspan="2">
+                        <input class="btn btn-success" type="submit" value="Register" />
+                    </td>
+                </tr>
                 </form>
             </tbody>
         </table>

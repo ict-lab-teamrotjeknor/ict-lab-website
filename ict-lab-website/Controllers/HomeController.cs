@@ -8,6 +8,7 @@ using ict_lab_website.Models;
 using Newtonsoft.Json;
 using ict_lab_website.Process;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Routing;
 
 namespace ict_lab_website.Controllers
 {
@@ -31,8 +32,13 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(Login l)
+        public IActionResult Login(LoginViewModel l)
         {
+            var stringJson = JsonConvert.SerializeObject(l);
+            var rJson = JObject.Parse(stringJson);
+
+            var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signin");
+
             return RedirectToAction("Index", "Rooms");   
         }
 
@@ -45,13 +51,10 @@ namespace ict_lab_website.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel r)
         {
-            var test = r;
             var stringJson = JsonConvert.SerializeObject(r);
             var rJson = JObject.Parse(stringJson);
 
             var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
-
-            Console.WriteLine("test");
 
             return RedirectToAction("Index", "Rooms");
         }
