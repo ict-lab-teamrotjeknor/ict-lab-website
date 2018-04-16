@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ict_lab_website.Models;
+using ict_lab_website.Models.Rooms;
+using ict_lab_website.Models.Schedule;
+using ict_lab_website.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ict_lab_website.Controllers
@@ -10,9 +13,9 @@ namespace ict_lab_website.Controllers
     {
         private IRoomRepository repository;
 
-        public RoomsController()
+        public RoomsController(IRoomRepository roomRepository)
         {
-            this.repository = FakeRoomRepository.SharedRepository;
+            this.repository = roomRepository;
         }
 
         public IActionResult Index(string searchString)
@@ -49,11 +52,11 @@ namespace ict_lab_website.Controllers
         [HttpGet]
         public IActionResult AddReservation()
         {
-            return View(new Reservation());
+            return View(new FakeReservation());
         }
 
         [HttpPost]
-        public IActionResult AddReservation(Reservation reservation)
+        public IActionResult AddReservation(FakeReservation reservation)
         {
             Room room = repository.GetByName(reservation.RoomName);
             room.Reservations.Add(reservation);

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ict_lab_website.Models
+namespace ict_lab_website.Models.ViewModels
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
         [Required]
         [EmailAddress]

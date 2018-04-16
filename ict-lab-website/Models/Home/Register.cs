@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ict_lab_website.Models
+namespace ict_lab_website.Models.Home
 {
     public class Register
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ict_lab_website.Models
+namespace ict_lab_website.Models.Admin
 {
     public class Users
     {

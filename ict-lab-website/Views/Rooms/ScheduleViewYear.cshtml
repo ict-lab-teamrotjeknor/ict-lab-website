@@ -3,7 +3,7 @@
 <h2>Reservations for @Model.DateAndTime.Year</h2>
 <hr />
 <ol>
-    @foreach (Reservation reservation in Model.Reservations)
+    @foreach (var reservation in Model.Reservations)
     {
         <li><b>@reservation.Subject</b>: @reservation.Reserver - <i> At @reservation.DateAndTime , for @reservation.Length hours</i></li>
     }
