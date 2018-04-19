@@ -11,16 +11,16 @@ namespace ict_lab_website.Controllers
 {
     public class RoomsController : Controller
     {
-        private IRoomRepository repository;
+        private IRepository<Room> repository;
 
-        public RoomsController(IRoomRepository roomRepository)
+        public RoomsController(IRepository<Room> roomRepository)
         {
             this.repository = roomRepository;
         }
 
         public IActionResult Index(string searchString)
         {
-            var rooms = repository.Rooms;
+            var rooms = repository.GetAll();
             if (!String.IsNullOrEmpty(searchString))
             {
                 rooms = rooms.Where(room => room.Name.Contains(searchString));
@@ -46,7 +46,7 @@ namespace ict_lab_website.Controllers
         public IActionResult Create(Room room)
         {
             repository.Add(room);
-            return View("Index", repository.Rooms);
+            return View("Index", repository.GetAll());
         }
 
         [HttpGet]

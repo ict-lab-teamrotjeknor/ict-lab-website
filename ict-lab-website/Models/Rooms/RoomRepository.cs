@@ -8,19 +8,16 @@ using System.Threading.Tasks;
 
 namespace ict_lab_website.Models.Rooms
 {
-    public class ApiRoomRepository : IRoomRepository
+    public class RoomRepository : IRepository<Room>
     {
         private List<Room> rooms;
         private ApiCalls apiCalls = new ApiCalls();
         private string url = "http://145.24.222.103:8080/manage/getallrooms";
 
-        public ApiRoomRepository()
+        public RoomRepository()
         {
-            rooms = GetRoomsFromApi(url);
-        }
-
-        public IQueryable<Room> Rooms => rooms.AsQueryable<Room>(); 
-            
+            rooms = this.GetRoomsFromApi(url);
+        }            
 
         public void Add(Room room)
         {
@@ -30,6 +27,11 @@ namespace ict_lab_website.Models.Rooms
         public void Delete(Room room)
         {
             rooms.Remove(room);
+        }
+
+        public IQueryable<Room> GetAll()
+        {
+            return rooms.AsQueryable<Room>();
         }
 
         public Room GetById(string id)
