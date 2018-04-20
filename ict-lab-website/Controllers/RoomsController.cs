@@ -18,7 +18,7 @@ namespace ict_lab_website.Controllers
             this.repository = roomRepository;
         }
 
-        public IActionResult Index(string searchString)
+        public IActionResult Index(DateTime reserveableOn, string searchString = "H.")
         {
             var rooms = repository.GetAll();
             if (!String.IsNullOrEmpty(searchString))
