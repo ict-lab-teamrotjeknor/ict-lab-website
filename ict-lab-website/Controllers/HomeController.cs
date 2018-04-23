@@ -56,7 +56,6 @@ namespace ict_lab_website.Controllers
             var rJson = JObject.Parse(stringJson);
 
             var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
-
             return RedirectToAction("Index", "Rooms");
         }
 
