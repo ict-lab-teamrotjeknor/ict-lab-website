@@ -51,15 +51,15 @@ namespace ict_lab_website.Controllers
         [HttpGet]
         public IActionResult AddReservation()
         {
-            return View(new FakeReservation());
+            return View(new Reservation());
         }
 
         [HttpPost]
-        public IActionResult AddReservation(FakeReservation reservation)
+        public IActionResult AddReservation(Reservation reservation)
         {
             Room room = repository.GetByName(reservation.RoomName);
             room.Reservations.Add(reservation);
-            return RedirectToAction("Schedule", new { id = room.Id, dateTime = reservation.DateAndTime});
+            return RedirectToAction("Schedule", new { id = room.Id, dateTime = reservation.Date});
         }
 
     }

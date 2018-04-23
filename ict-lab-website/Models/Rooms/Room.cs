@@ -11,9 +11,9 @@ namespace ict_lab_website.Models.Rooms
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<FakeReservation> Reservations { get; set; } = new List<FakeReservation>();
+        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
-        public List<FakeReservation> GetReservationsFor(ScheduleView scheduleView, DateTime dateTime)
+        public List<Reservation> GetReservationsFor(ScheduleView scheduleView, DateTime dateTime)
         {
             switch (scheduleView)
             {
@@ -29,32 +29,32 @@ namespace ict_lab_website.Models.Rooms
             return null;
         }
 
-        private List<FakeReservation> GetReservationsForMonth(DateTime dateTime)
+        private List<Reservation> GetReservationsForMonth(DateTime dateTime)
         {
             var month = dateTime.Month;
             var year = dateTime.Year;
-            var reservationsForMonth = Reservations.Where(x => x.DateAndTime.Month == month && x.DateAndTime.Year == year);
-            return reservationsForMonth.ToList<FakeReservation>();
+            var reservationsForMonth = Reservations.Where(x => x.Date.Month == month && x.Date.Year == year);
+            return reservationsForMonth.ToList<Reservation>();
         }
 
-        private List<FakeReservation> GetReservationsForDay(DateTime dateTime)
+        private List<Reservation> GetReservationsForDay(DateTime dateTime)
         {
-            var reservationsForDay = Reservations.Where(x => x.DateAndTime.Date == dateTime.Date );
-            return reservationsForDay.ToList<FakeReservation>();
+            var reservationsForDay = Reservations.Where(x => x.Date.Date == dateTime.Date );
+            return reservationsForDay.ToList<Reservation>();
         }
 
-        private List<FakeReservation> GetReservationsForYear(DateTime dateTime)
+        private List<Reservation> GetReservationsForYear(DateTime dateTime)
         {
             var year = dateTime.Year;
-            var reservationsForYear = Reservations.Where(x => x.DateAndTime.Year == year);
-            return reservationsForYear.ToList<FakeReservation>();
+            var reservationsForYear = Reservations.Where(x => x.Date.Year == year);
+            return reservationsForYear.ToList<Reservation>();
         }
 
-        private List<FakeReservation> GetReservationsForWeek(DateTime dateTime)
+        private List<Reservation> GetReservationsForWeek(DateTime dateTime)
         {
             var week = GetIso8601WeekOfYear(dateTime);
-            var reservationsForYear = Reservations.Where(x => GetIso8601WeekOfYear(x.DateAndTime) == week);
-            return reservationsForYear.ToList<FakeReservation>();
+            var reservationsForYear = Reservations.Where(x => GetIso8601WeekOfYear(x.Date) == week);
+            return reservationsForYear.ToList<Reservation>();
         }
 
         //This method returns the weeknumber according to the ISO-8601 standard, because the one from .Net does strange things with weeks at the end of the year.

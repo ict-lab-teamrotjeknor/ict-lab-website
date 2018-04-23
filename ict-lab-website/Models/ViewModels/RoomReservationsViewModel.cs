@@ -9,7 +9,7 @@ namespace ict_lab_website.Models.ViewModels
     public class RoomReservationsViewModel
     {
         public Room Room { get;}
-        public List<FakeReservation> Reservations { get;}
+        public List<Reservation> Reservations { get;}
         public ScheduleView View { get; }
         public DateTime DateAndTime { get; }
 
