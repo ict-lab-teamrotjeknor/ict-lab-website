@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ict_lab_website.Models;
 using ict_lab_website.Models.Rooms;
+using ict_lab_website.Models.Schedule;
 using ict_lab_website.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 

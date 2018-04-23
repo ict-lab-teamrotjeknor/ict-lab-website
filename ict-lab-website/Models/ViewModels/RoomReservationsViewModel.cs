@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ict_lab_website.Models;
+using ict_lab_website.Models.Schedule;
 
 namespace ict_lab_website.Models.ViewModels
 {
