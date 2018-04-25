@@ -1,18 +1,41 @@
 ﻿@model RoomReservationsViewModel
 
-<h2>Reservations for @Model.DateAndTime.ToString("dd/MM/yyyy") </h2>
-<hr />
-<form asp-controller="Rooms" asp-action="Schedule">
-    <p>
-        Date <input type="date" name="dateTime">
-        <input type="submit" value="Change" />
-    </p>
-</form>
-
-<ol>
-    @foreach (var reservation in Model.Reservations)
-    {
-        <li><b>@reservation.Subject</b>: @reservation.Reserver - <i> At @reservation.Date , for - hours</i></li>
-    }
-</ol>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="success">
+            <th>Lesson hour</th>
+            <th style="width: 85%">Reservation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>1. 08:30 - 9:20</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>2. 09:20 - 10:10</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>3. 10:30 - 11:20</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>4. 11:20 - 12:10</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>5. 12:10 - 13:00</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>6. 13:00 - 13:50</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>7. 13:50 - 14:40</th>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
 
