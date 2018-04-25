@@ -1,11 +1,30 @@
 ﻿@model RoomReservationsViewModel
 
-<h2>Reservations for @Model.DateAndTime.Year</h2>
-<hr />
-<ol>
-    @foreach (var reservation in Model.Reservations)
-    {
-        <li><b>@reservation.Subject</b>: @reservation.Reserver - <i> At @reservation.Date, for - hours</i></li>
-    }
-</ol>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="success">
+            <th colspan="8">Reservations</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr>
+            <td>January</td>
+            <td>February</td>
+            <td>March</td>
+            <td>April</td>
+            <td>May</td>
+            <td>June</td>
+            <td>July</td>
+        </tr>
+        <tr>
+            <td>August</td>
+            <td>September</td>
+            <td>October</td>
+            <td>November</td>
+            <td>December</td>
+            <td colspan="2"></td>
+        </tr>        
+    </tbody>
+</table>
 
