@@ -1,9 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model LoginViewModel
 @{
     ViewData["Title"] = "Login Page";
 }
+
+<br>
+<br>
 
 <div class="col-md-10 col-md-offset-1" style="padding-top:10px;">
     <div class="well">
@@ -16,19 +17,21 @@
                 </tr>
             </thead>
             <tbody>
+                <form method="post" asp-controller="Home" asp-action="Login">
                 <tr>
                     <td>Email</td>
-                    <td><input type="text" id="txtEmail"/></td>
+                    <td><input asp-for="Email"></td>
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input type="password" id="txtPassword"/></td>
+                    <td><input asp-for="Password"></td>
                 </tr>
                 <tr class="success">
                     <td colspan="2">
-                        <input id="loginButton" class="btn btn-success" type="button" value="Login" />
+                        <input class="btn btn-success" type="submit" value="Login" />
                     </td>
                 </tr>
+                </form>
             </tbody>
         </table>
         
@@ -38,11 +41,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-  <script type="text/javascript" src="/scripts/main.js"></script>
-
-  <script type="text/javascript">
-    
-  </script>
-}

@@ -3,14 +3,20 @@
 @{
     ViewData["Title"] = "Schedule";
 }
-
+<br>
+<br>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a asp-controller="Rooms" asp-action="Index"><span class="glyphicon glyphicon-arrow-left"></span></a></li>
+        </ul>
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">@Model.Room.RoomCode</a>
+            <p class="navbar-brand">
+                @Model.Room.Name
+            </p>
         </div>
         <ul class="nav navbar-nav">
-            <li><a asp-action="AddReservation"> <span class= "glyphicon glyphicon-plus"></span>Add reservation</a></li>
+            <li><a asp-action="AddReservation"> <span class= "glyphicon glyphicon-plus"></span> Add reservation</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -19,14 +25,13 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime">Year</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime">Month</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime">Week</a></li>
-                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.ID" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime">Day</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime">Year</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime">Month</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime">Week</a></li>
+                    <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime">Day</a></li>
                 </ul>
             </li>
         </ul>
-
     </div>
 </nav>
 

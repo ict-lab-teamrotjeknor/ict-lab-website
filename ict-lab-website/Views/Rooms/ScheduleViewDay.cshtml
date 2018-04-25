@@ -1,7 +1,6 @@
 ﻿@model RoomReservationsViewModel
 
-<h2>This is a placeholder for the 'day' view (formatted as: dd/mm/yyyy)</h2>
-<h3> @Model.DateAndTime.ToString("dd/MM/yyyy")</h3>
+<h2>Reservations for @Model.DateAndTime.ToString("dd/MM/yyyy") </h2>
 <hr />
 <form asp-controller="Rooms" asp-action="Schedule">
     <p>
@@ -11,9 +10,9 @@
 </form>
 
 <ol>
-    @foreach (Reservation reservation in Model.Reservations)
+    @foreach (var reservation in Model.Reservations)
     {
-        <li><b>@reservation.Subject</b>: @reservation.Reserver - <i> At @reservation.DateAndTime , for @reservation.Length hours</i></li>
+        <li><b>@reservation.Subject</b>: @reservation.Reserver - <i> At @reservation.Date , for - hours</i></li>
     }
 </ol>
 

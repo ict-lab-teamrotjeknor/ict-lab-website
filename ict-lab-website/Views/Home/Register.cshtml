@@ -1,9 +1,13 @@
-﻿@*
+﻿@model RegisterViewModel
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ViewData["Title"] = "Register Page";
 }
+<br>
+<br>
 
 <div class="col-md-10 col-md-offset-1" style="padding-top:10px;">
     <div class="well">
@@ -16,31 +20,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>First Name</td>
-                    <td><input type="text" id="txtFirstName"/> </td>
-                </tr>
-                <tr>
-                    <td>Surname</td>
-                    <td><input type="text" id="txtSurname"/> </td>
-                </tr>
+                <form method="post" asp-controller="Home" asp-action="Register">
                 <tr>
                     <td>Email</td>
-                    <td><input type="text" id="txtEmail"/> </td>
+                    <td><input asp-for="Email"></td>
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input type="password" id="txtPassword"/></td>
-                </tr>
-                <tr>
-                    <td>Confirm Password</td>
-                    <td><input type="password" id="txtConfirmPassword"/></td>
+                    <td><input asp-for="Password"></td>
                 </tr>
                 <tr class="success">
                     <td colspan="2">
-                        <input id="registerButton" class="btn btn-success" type="button" value="Register" />
+                        <input class="btn btn-success" type="submit" value="Register" />
                     </td>
                 </tr>
+                </form>
             </tbody>
         </table>
         
@@ -80,10 +74,6 @@
   <script type="text/javascript" src="/scripts/main.js"></script>
 
   <script type="text/javascript">
-      $('#registerButton').click(function(){
-          $('#successModal').modal('show');
-      });
-
       $('#linkClose').click(function () {
           $('#divError').hide('fade');
       });
