@@ -8,6 +8,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/rooms.css"/>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -26,23 +27,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ict_lab_website</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
+                    <a style="float:left;" asp-area="" asp-controller="Rooms" asp-action="Index">
+                         <img border="0" src="~/images/calendar.png" width="70" height="70">
+                    </a>
+                    <div style="width:70px; height:70px; float:right; text-align:center; vertical-align:middle; line-height:70px; right:100px;">
+                        <a style="color:white;" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                    </div>
+                    <div style="width:70px; height:70px; float:right; text-align:center; vertical-align:middle; line-height:70px; right:100px;">
+                        <a style="color:white; text-align:right;" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                    </div>
+                    <div style="width:70px; height:70px; float:right; text-align:center; vertical-align:middle; line-height:70px; right:100px;">
+                        <a style="color:white; text-align:right;" asp-area="" asp-controller="Admin" asp-action="usersOverview">Users</a>
+                    </div>
             </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - ict_lab_website</p>
-        </footer>
     </div>
 
     <environment include="Development">

@@ -1,0 +1,43 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<br>
+<br>
+
+<div class="col-md-10 col-md-offset-1" style="padding-top:10px;">
+    <div class="well">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="success">
+                    <th colspan="2">
+                        User Login
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <form method="post" asp-controller="Home" asp-action="Login">
+                <tr>
+                    <td>Email</td>
+                    <td><input asp-for="Email"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input asp-for="Password"></td>
+                </tr>
+                <tr class="success">
+                    <td colspan="2">
+                        <input class="btn btn-success" type="submit" value="Login" />
+                    </td>
+                </tr>
+                </form>
+            </tbody>
+        </table>
+        
+        <div id="divError" class="alert alert-danger collapse">
+            <a id="linkClose" href="#" class="close">&times;</a>
+            <div id="divErrorText"></div>
+        </div>
+    </div>
+</div>

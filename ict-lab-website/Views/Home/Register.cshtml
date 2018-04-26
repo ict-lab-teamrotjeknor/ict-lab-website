@@ -1,0 +1,81 @@
+﻿@model RegisterViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Register Page";
+}
+<br>
+<br>
+
+<div class="col-md-10 col-md-offset-1" style="padding-top:10px;">
+    <div class="well">
+        <table class="table table-bordered">
+            <thead>
+                <tr class="success">
+                    <th colspan="2">
+                        User Registration
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <form method="post" asp-controller="Home" asp-action="Register">
+                <tr>
+                    <td>Email</td>
+                    <td><input asp-for="Email"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input asp-for="Password"></td>
+                </tr>
+                <tr class="success">
+                    <td colspan="2">
+                        <input class="btn btn-success" type="submit" value="Register" />
+                    </td>
+                </tr>
+                </form>
+            </tbody>
+        </table>
+        
+        <div class="modal fade" tabindex="-1" id="successModal"
+             data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                        <h4 class="modal-title">Success</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <h2 class="modal-title">Registration Successfull!</h2>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success"
+                                data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="divError" class="alert alert-danger collapse">
+            <a id="linkClose" href="#" class="close">&times;</a>
+            <div id="divErrorText"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+  <script type="text/javascript" src="/scripts/main.js"></script>
+
+  <script type="text/javascript">
+      $('#linkClose').click(function () {
+          $('#divError').hide('fade');
+      });
+  </script>
+}

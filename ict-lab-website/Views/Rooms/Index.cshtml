@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Room>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <h1 class="display-4">Rooms</h1>
+            <p class="lead">Enter a searchterm (i.e. room-name, location) and a date to view available timeslots for the room on that date.</p>
+            <hr class="my-4" />
+            <form class="form-inline" asp-controller="Rooms" asp-action="Index">
+                <div class="form-group">
+                    <label for="searchString">Room-name:</label>
+                    <input type="search" class="form-control" id="searchString" name="searchString" placeholder="H."/>
+                    <label for="reservableOn">Date:</label>
+                    <input type="date" class="form-control" id="reservableOn" name="reservableOn" />
+                    <button type="submit" class="btn btn btn-success">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" >
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="success">
+                    <th>Name</th>
+                    <th># available timeslots on 20-4-2018</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Room room in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => room.Name)</td>
+                        <td>@room.Reservations.Count()</td>
+                        <td><a asp-action="Schedule" asp-route-id="@room.Id">View schedule</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
