@@ -1,15 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ict_lab_website.Models.Admin
+namespace ict_lab_website.Models.Users
 {
     public class Users
     {
-        public Guid userId;
-        public string name;
-        public string surname;
-        public string email;
-        public enum roles
+        public Guid userId { get; set; }
+        public string name { get; set; }
+        public string surname { get; set; }
+        public string email { get; set; }
+        public enum roles 
         {
             Guest = 1,
             Student = 2,
@@ -19,6 +19,6 @@ namespace ict_lab_website.Models.Admin
             Rastermaker = 6,
             Administrator = 7
         }
-        public int reservationLimit;
+        public int reservationLimit { get; set; }
     }
 }
