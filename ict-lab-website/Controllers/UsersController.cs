@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ictlabwebsite.Controllers
 {
-    public class AdminController : Controller
+    public class UsersController : Controller
     {
-        public IActionResult usersOverview()
+        public IActionResult Index()
         {
+
+
             return View();
         }
     }
