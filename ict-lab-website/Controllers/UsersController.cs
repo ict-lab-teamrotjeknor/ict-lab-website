@@ -7,6 +7,7 @@ using ict_lab_website.Process;
 using ict_lab_website.Models.ViewModels;
 using ict_lab_website.Models.Users;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace ictlabwebsite.Controllers
 {
@@ -29,17 +30,20 @@ namespace ictlabwebsite.Controllers
         public IActionResult GetAllUsers()
         {
             var returnType = _apiCalls.GetRequest("http://145.24.222.103:8080/manage/getusers");
-            dynamic newReturnType = JsonConvert.DeserializeObject(returnType);
+
+            DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
+
+            DataTable dataTable = dataSet.Tables["Users"];
 
             List<string> Id = new List<string>();
-            List<string> Email = new List<string>();
 
-            foreach(var item in newReturnType)
+            foreach (DataRow row in dataTable.Rows)
             {
-                var test = item["Id"];
+                var test = row["Id"];
+                var test2 = row["Email"];
             }
 
-            return RedirectToAction("Index", new { Id = Id, Email = Email });
+            return RedirectToAction("Index");
         }
     }
 }
