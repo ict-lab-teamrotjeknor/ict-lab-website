@@ -20,10 +20,16 @@ namespace ictlabwebsite.Controllers
             _apiCalls = new ApiCalls();
         }
 
-        public IActionResult Index(List<string> Id, List<string> Email)
+        public IActionResult Index(DataTable _dataTable)
         {
-            var model = new UsersViewModel(Id, Email);
-            return View(model);
+            foreach(DataRow row in _dataTable.Rows)
+            {
+                var test = row["Id"];
+            }
+
+            UsersViewModel viewModel = new UsersViewModel(_dataTable);
+
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -35,15 +41,7 @@ namespace ictlabwebsite.Controllers
 
             DataTable dataTable = dataSet.Tables["Users"];
 
-            List<string> Id = new List<string>();
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                var test = row["Id"];
-                var test2 = row["Email"];
-            }
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { _dataTable = dataTable });
         }
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using ict_lab_website.Models;
 namespace ict_lab_website.Models.ViewModels
 {
     public class UsersViewModel
     {
-        public List<string> _userId { get; set; }
-        public List<string> _email { get; set; }
+        public DataTable _dataTable { get; }
 
-        public UsersViewModel(List<string> userId, List<string> email)
+        public UsersViewModel(DataTable dataTable)
         {
-            _userId = userId;
-            _email = email;
+            this._dataTable = dataTable;
         }
     }
 }
