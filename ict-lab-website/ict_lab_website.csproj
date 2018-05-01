@@ -17,6 +17,8 @@
     <Content Remove="Views\Home\About.cshtml" />
     <Content Remove="Views\Home\Contact.cshtml" />
     <Content Remove="Views\Home\Index.cshtml" />
+    <Content Remove="Views\Admin\usersOverview.cshtml" />
+    <Content Remove="Views\Users\AdminUsersOverview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Process\" />
