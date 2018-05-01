@@ -20,10 +20,13 @@ namespace ictlabwebsite.Controllers
             _apiCalls = new ApiCalls();
         }
 
-        public IActionResult Index(DataTable _dataTable)
+        public IActionResult Index()
         {
-            UsersViewModel viewModel = new UsersViewModel(_dataTable);
+            var returnType = _apiCalls.GetRequest("http://145.24.222.103:8080/manage/getusers");
+            DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
+            DataTable dataTable = dataSet.Tables["Users"];
 
+            UsersViewModel viewModel = new UsersViewModel(dataTable);
             return View(viewModel);
         }
 
