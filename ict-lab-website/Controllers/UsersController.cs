@@ -22,11 +22,6 @@ namespace ictlabwebsite.Controllers
 
         public IActionResult Index(DataTable _dataTable)
         {
-            foreach(DataRow row in _dataTable.Rows)
-            {
-                var test = row["Id"];
-            }
-
             UsersViewModel viewModel = new UsersViewModel(_dataTable);
 
             return View(viewModel);
@@ -40,6 +35,13 @@ namespace ictlabwebsite.Controllers
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
 
             DataTable dataTable = dataSet.Tables["Users"];
+
+            //Hiermee loopt hij door elke user heen en krijgt ie zijn id en email
+            foreach (DataRow row in dataTable.Rows)
+            {
+                var id = row["Id"];
+                var email = row["Id"];
+            }
 
             return RedirectToAction("Index", new { _dataTable = dataTable });
         }
