@@ -1,4 +1,4 @@
-﻿@model RoomReservationsViewModel
+﻿@model Dictionary<int, Reservation>
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -8,34 +8,23 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th>1. 08:30 - 9:20</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2. 09:20 - 10:10</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3. 10:30 - 11:20</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4. 11:20 - 12:10</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>5. 12:10 - 13:00</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>6. 13:00 - 13:50</th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>7. 13:50 - 14:40</th>
-            <td></td>
-        </tr>
+        @foreach (int hour in Model.Keys)
+        {
+            if (Model[hour] != null)
+            {
+                <tr>
+                    <td>@hour</td>
+                    <td><b>@Model[hour].Subject</b> - @Model[hour].Reserver</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>@hour</td>
+                    <td></td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
 

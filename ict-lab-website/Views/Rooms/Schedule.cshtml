@@ -1,4 +1,4 @@
-﻿@model RoomReservationsViewModel
+﻿@model RoomScheduleViewModel
 
 <br />
 <br/>
@@ -26,16 +26,16 @@
 @switch (Model.View)
 {
     case ScheduleView.Day:
-        @Html.Partial("ScheduleViewDay", Model)
+        @Html.Partial("ScheduleViewDay", Model.Room.RoomSchedule.GetReservationsForDay(Model.DateAndTime))
         break;
     case ScheduleView.Week:
-        @Html.Partial("ScheduleViewWeek", Model)
+        @Html.Partial("ScheduleViewWeek", Model.Room.RoomSchedule.GetReservationsForMonth(Model.DateAndTime))
         break;
     case ScheduleView.Month:
-        @Html.Partial("ScheduleViewMonth", Model)
+        @Html.Partial("ScheduleViewMonth", Model.Room.RoomSchedule.GetReservationsForMonth(Model.DateAndTime));
         break;
     case ScheduleView.Year:
-        @Html.Partial("ScheduleViewYear", Model)
+        @Html.Partial("ScheduleViewYear", Model.Room.RoomSchedule.GetReservationsForYear(Model.DateAndTime));
         break;
 }
 </div>
