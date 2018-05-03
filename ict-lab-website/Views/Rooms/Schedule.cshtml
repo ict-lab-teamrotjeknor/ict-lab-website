@@ -15,10 +15,10 @@
                 <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime">Day</a></li>
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime">Week</a></li>
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime">Month</a></li>
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime">Year</a></li>
+                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Day</a></li>
+                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Week</a></li>
+                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Month</a></li>
+                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Year</a></li>
             </ul>
         </div>
     </nav>
