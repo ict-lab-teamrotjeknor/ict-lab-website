@@ -1,4 +1,4 @@
-﻿@model Dictionary<int, Reservation>
+﻿@model RoomScheduleViewModel
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -8,19 +8,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (int hour in Model.Keys)
+        @foreach (var hour in Model.Room.RoomSchedule.GetReservationsForDay(Model.DateAndTime))
         {
-            if (Model[hour] != null)
+            if (hour.Value != null)
             {
                 <tr>
-                    <td>@hour</td>
-                    <td><b>@Model[hour].Subject</b> - @Model[hour].Reserver</td>
+                    <td>@hour.Key</td>
+                    <td><b>@hour.Value.Subject</b> - @hour.Value.Reserver</td>
                 </tr>
             }
             else
             {
                 <tr>
-                    <td>@hour</td>
+                    <td>@hour.Key</td>
                     <td></td>
                 </tr>
             }
