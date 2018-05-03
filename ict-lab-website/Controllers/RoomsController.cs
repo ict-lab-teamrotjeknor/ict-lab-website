@@ -32,7 +32,7 @@ namespace ict_lab_website.Controllers
         public IActionResult Schedule(string Id, DateTime dateTime, ScheduleView view = ScheduleView.Day)
         {
             Room room = repository.GetById(Id);
-            RoomReservationsViewModel roomReservationsViewModel = new RoomReservationsViewModel(room, view, dateTime);
+            RoomScheduleViewModel roomReservationsViewModel = new RoomScheduleViewModel(room, view, dateTime);
             return View(roomReservationsViewModel);
         }
 
@@ -48,20 +48,5 @@ namespace ict_lab_website.Controllers
             repository.Add(room);
             return View("Index", repository.GetAll());
         }
-
-        [HttpGet]
-        public IActionResult AddReservation()
-        {
-            return View(new Reservation());
-        }
-
-        [HttpPost]
-        public IActionResult AddReservation(Reservation reservation)
-        {
-            Room room = repository.GetByName(reservation.RoomName);
-            room.Reservations.Add(reservation);
-            return RedirectToAction("Schedule", new { id = room.Id, dateTime = reservation.Date});
-        }
-
     }
 }

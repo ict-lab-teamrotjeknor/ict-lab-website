@@ -34,8 +34,8 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => room.Name)</td>
-                        <td>@room.Reservations.Count()</td>
-                        <td><a asp-action="Schedule" asp-route-id="@room.Id">View schedule</a></td>
+                        <td>-</td>
+                        <td><a asp-action="Schedule" asp-route-id="@room.Id" asp-route-dateTime="@DateTime.Now">View schedule</a></td>
                     </tr>
                 }
             </tbody>

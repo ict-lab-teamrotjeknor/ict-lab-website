@@ -8,18 +8,16 @@ using ict_lab_website.Models.Schedule;
 
 namespace ict_lab_website.Models.ViewModels
 {
-    public class RoomReservationsViewModel
+    public class RoomScheduleViewModel
     {
         public Room Room { get;}
-        public List<Reservation> Reservations { get;}
         public ScheduleView View { get; }
         public DateTime DateAndTime { get; }
 
-        public RoomReservationsViewModel(Room room, ScheduleView view, DateTime dateTime)
+        public RoomScheduleViewModel(Room room, ScheduleView view, DateTime dateTime)
         {
             this.Room = room;
             this.View = view;
-            this.Reservations = room.GetReservationsFor(view, dateTime);
             this.DateAndTime = dateTime;
         }
     }
