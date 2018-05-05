@@ -4,90 +4,35 @@
     <thead>
         <tr class="success">
             <th>Lesson hour</th>
-            <th colspan="7">Reservations</th>
+            <th colspan="7">Reservations for the week of @Model.Room.RoomSchedule.GetDatesForWeek(Model.DateAndTime).First().ToString("dd MMMM yyyy")</th>
         </tr>
         <tr>
             <th></th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
+            @foreach  (var day in Model.Room.RoomSchedule.GetDatesForWeek(Model.DateAndTime))
+            {
+                <th>@day.ToString("ddd. d MMMM")</th>
+            }
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th>1. 08:30 - 9:20</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>2. 09:20 - 10:10</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>3. 10:30 - 11:20</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>4. 11:20 - 12:10</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>5. 12:10 - 13:00</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>6. 13:00 - 13:50</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <th>7. 13:50 - 14:40</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        @for (int i = 1; i <= 15; i++)
+        {
+            <tr>
+                <th>@i</th>
+                @foreach (var day in Model.Room.RoomSchedule.GetReservationsForWeek(Model.DateAndTime))
+                {
+                    if (day.Value[i] != null)
+                    {
+                        <td><b>@day.Value[i].Subject</b> - @day.Value[i].Reserver</td>
+
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                }
+            </tr>
+        }
     </tbody>
 </table>
 
