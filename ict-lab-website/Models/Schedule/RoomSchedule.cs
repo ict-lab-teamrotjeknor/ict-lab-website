@@ -122,5 +122,11 @@ namespace ict_lab_website.Models.Schedule
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
+        public int getNumberOfFreeTimeSlots(DateTime date)
+        {
+            var reservations = this.GetReservationsForDay(date);
+            return reservations.Where(x => x.Value != null).Count();
+        }
+
     }
 }
