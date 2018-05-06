@@ -9,16 +9,23 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">@Model.Room.Name</a>
             </div>
+            <form class="navbar-form navbar-left navbar-input-group" asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view ="@Model.View">
+                <div class="input-group">
+                    <input type="date" class="form-control" id="dateTime" name="dateTime" placeholder="@Model.DateAndTime.ToString("dd-MMM-yyyy")"/>
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default">Change</button>
+                    </div>                    
+                </div>
+            </form>
             <ul class="nav navbar-nav navbar-center">
-                <li><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                <li><a href="#">@Model.DateAndTime.ToString("dd/MM/yyyy")</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@(Model.DateAndTime.Day-1)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@(Model.DateAndTime.Day+1)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Day</a></li>
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Week</a></li>
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Month</a></li>
-                <li><a asp-action="Schedule" asp-route-id="@Model.Room.Id" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Year</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Day</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Week</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Month</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Year</a></li>
             </ul>
         </div>
     </nav>
