@@ -10,8 +10,8 @@
                 <div class="form-group">
                     <label for="searchString">Room-name:</label>
                     <input type="search" class="form-control" id="searchString" name="searchString" placeholder="H."/>
-                    <label for="reservableOn">Date:</label>
-                    <input type="date" class="form-control" id="reservableOn" name="reservableOn" />
+                    <label for="date">Date:</label>
+                    <input type="date" class="form-control" id="date" name="date" />
                     <button type="submit" class="btn btn btn-success">Search</button>
                 </div>
             </form>
@@ -25,8 +25,8 @@
             <thead>
                 <tr class="success">
                     <th>Name</th>
-                    <th># available timeslots on 20-4-2018</th>
-                    <th width="70%"></th>
+                    <th># available timeslots on @ViewBag.date.ToString("dd MMMM yyyy")</th>
+                    <th width="60%"></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,8 +34,8 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => room.Name)</td>
-                        <td>-</td>
-                        <td><a asp-action="Schedule" asp-route-id="@room.Id" asp-route-dateTime="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day">View schedule</a></td>
+                        <td>@(15-room.RoomSchedule.getNumberOfFreeTimeSlots(ViewBag.date))</td>
+                        <td><a asp-action="Schedule" asp-route-name="@room.Name" asp-route-dateTime="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day">View schedule</a></td>
                     </tr>
                 }
             </tbody>
