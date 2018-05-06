@@ -18,7 +18,7 @@ namespace ict_lab_website.Controllers
             this.repository = roomRepository;
         }
 
-        public IActionResult Index(DateTime reserveableOn, string searchString = "H.")
+        public IActionResult Index(DateTime date, string searchString = "H.")
         {
             var rooms = repository.GetAll();
             if (!String.IsNullOrEmpty(searchString))
@@ -26,12 +26,18 @@ namespace ict_lab_website.Controllers
                 rooms = rooms.Where(room => room.Name.Contains(searchString));
             }
 
+            if (date.Equals(new DateTime()))
+            {
+                date = DateTime.Now;
+            }
+
+            ViewBag.date = date;
             return View(rooms);            
         }
 
-        public IActionResult Schedule(string Id, DateTime dateTime, ScheduleView view = ScheduleView.Day)
+        public IActionResult Schedule(string name, DateTime dateTime, ScheduleView view = ScheduleView.Day)
         {
-            Room room = repository.GetById(Id);
+            Room room = repository.GetByName(name);
             RoomScheduleViewModel roomReservationsViewModel = new RoomScheduleViewModel(room, view, dateTime);
             return View(roomReservationsViewModel);
         }
