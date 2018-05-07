@@ -9,7 +9,7 @@ namespace ict_lab_website.Models.Schedule
     public class RoomSchedule
     {
         // A dictionary for the schedule, which can be accessed in the form reservations[year][month][day][lessonhour].
-        //For example: Reservations[2018][05][01] returns a list of reservations for 01-05-2018.  
+        //For example: Reservations[2018][05][01][01] returns the reservation on the first lesson-hour on 01-05-2018.  
         public Dictionary<int, Dictionary<int, Dictionary<int, Dictionary<int, Reservation>>>> Reservations { get; set; }
 
         public RoomSchedule()
@@ -61,18 +61,71 @@ namespace ict_lab_website.Models.Schedule
             return Reservations[date.Year][date.Month][date.Day];
         }
 
+        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date)
+        {
+            Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
+            int weeknumber = GetIso8601WeekOfYear(date);
+            var ReservationsForYear = GetReservationsForYear(date);
+
+            foreach(int monthKey in ReservationsForYear.Keys)
+            {
+                var reservationsForMonth = ReservationsForYear[monthKey];
+                foreach(int dayKey in reservationsForMonth.Keys)
+                {
+                    var reservationsForDay = reservationsForMonth[dayKey];
+
+                    DateTime day = new DateTime(date.Year, monthKey, dayKey);
+                    int currentWeekNumber = GetIso8601WeekOfYear(day);
+                    if (currentWeekNumber == weeknumber)
+                    {
+                        reservationsForWeek.Add(dayKey, reservationsForDay);
+                    }
+                }
+            }
+            return reservationsForWeek;
+        }
+
+        public List<DateTime> GetDatesForWeek(DateTime date)
+        {
+            List<DateTime> datesForWeek = new List<DateTime>();
+            int weeknumber = GetIso8601WeekOfYear(date);
+            var ReservationsForYear = GetReservationsForYear(date);
+
+            foreach (int monthKey in ReservationsForYear.Keys)
+            {
+                var reservationsForMonth = ReservationsForYear[monthKey];
+                foreach (int dayKey in reservationsForMonth.Keys)
+                {
+                    var reservationsForDay = reservationsForMonth[dayKey];
+
+                    DateTime day = new DateTime(date.Year, monthKey, dayKey);
+                    int currentWeekNumber = GetIso8601WeekOfYear(day);
+                    if (currentWeekNumber == weeknumber)
+                    {
+                        datesForWeek.Add(day);
+                    }
+                }
+            }
+            return datesForWeek;
+        }
 
         //This method returns the weeknumber according to the ISO-8601 standard, because the one from .Net does strange things with weeks at the end of the year.
         //This method was found on: 
         //https://stackoverflow.com/questions/11154673/get-the-correct-week-number-of-a-given-date?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-        private int GetIso8601WeekOfYear(DateTime time)
+        private int GetIso8601WeekOfYear(DateTime date)
         {
-            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(time);
+            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(date);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
             {
-                time = time.AddDays(3);
+                date = date.AddDays(3);
             }
-            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+
+        public int getNumberOfFreeTimeSlots(DateTime date)
+        {
+            var reservations = this.GetReservationsForDay(date);
+            return reservations.Where(x => x.Value != null).Count();
         }
 
     }
