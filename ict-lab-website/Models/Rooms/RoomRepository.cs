@@ -47,19 +47,25 @@ namespace ict_lab_website.Models.Rooms
         private List<Room> GetRoomsFromApi(string url)
         {
             List<Room> rooms = new List<Room>();
-            var json = apiCalls.GetRequest(url);
-            var classRooms = JObject.Parse(json)["Classroom"];
 
-            foreach (JToken classrooms in classRooms)
-            {
-                foreach (JToken room in classrooms.Children())
+            try {
+                var json = apiCalls.GetRequest(url);
+                var classRooms = JObject.Parse(json)["Classroom"];
+
+                foreach (JToken classrooms in classRooms)
                 {
-                    Room r = JsonConvert.DeserializeObject<Room>(room.ToString());
-                    rooms.Add(r);
-                }
+                    foreach (JToken room in classrooms.Children())
+                    {
+                        Room r = JsonConvert.DeserializeObject<Room>(room.ToString());
+                        rooms.Add(r);
+                    }
 
+                }
+                return rooms;
+                
+            } catch(Exception e) {
+                return rooms;
             }
-            return rooms;
         }
     }
 }

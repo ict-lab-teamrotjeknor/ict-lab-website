@@ -48,11 +48,24 @@ namespace ict_lab_website.Process
         public string GetRequest(string url)
         {
             var json = "";
-            using (var client = new WebClient())
+            try 
             {
-                json = client.DownloadString(url);
+                using (var client = new WebClient())
+                {
+                    json = client.DownloadString(url);
+                }
+                return json;
+
+            } catch (WebException e)
+            {
+                var test = e.Message;
+                return e.Message;
+
+            } catch (Exception ex) {
+                
+                var test = ex.Message;
+                return ex.Message;
             }
-            return json;
         }
     }
 }

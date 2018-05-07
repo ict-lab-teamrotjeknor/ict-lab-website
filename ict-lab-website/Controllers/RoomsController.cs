@@ -21,6 +21,13 @@ namespace ict_lab_website.Controllers
         public IActionResult Index(DateTime date, string searchString = "H.")
         {
             var rooms = repository.GetAll();
+
+            var b = true;
+
+            if (!rooms.Any()){
+                b = false;
+            }
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 rooms = rooms.Where(room => room.Name.Contains(searchString));
@@ -32,6 +39,7 @@ namespace ict_lab_website.Controllers
             }
 
             ViewBag.date = date;
+            ViewBag.b = b;
             return View(rooms);            
         }
 
