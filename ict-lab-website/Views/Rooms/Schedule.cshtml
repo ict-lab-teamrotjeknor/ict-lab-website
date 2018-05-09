@@ -17,10 +17,29 @@
                     </div>                    
                 </div>
             </form>
+
             <ul class="nav navbar-nav navbar-center">
-                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@(Model.DateAndTime.Day-1)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@(Model.DateAndTime.Day+1)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                @switch (Model.View)
+                {
+                    case ScheduleView.Day:
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-1).Year-@Model.DateAndTime.AddDays(-1).Month-@(Model.DateAndTime.AddDays(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(1).Year-@Model.DateAndTime.AddDays(1).Month-@(Model.DateAndTime.AddDays(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        break;
+                    case ScheduleView.Week:
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-7).Year-@Model.DateAndTime.AddDays(-7).Month-@(Model.DateAndTime.AddDays(-7).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(7).Year-@Model.DateAndTime.AddDays(7).Month-@(Model.DateAndTime.AddDays(7).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        break;
+                    case ScheduleView.Month:
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(-1).Year-@Model.DateAndTime.AddMonths(-1).Month-@(Model.DateAndTime.AddMonths(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(1).Year-@Model.DateAndTime.AddMonths(1).Month-@(Model.DateAndTime.AddMonths(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        break;
+                    case ScheduleView.Year:
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(-1).Year-@Model.DateAndTime.AddYears(-1).Month-@(Model.DateAndTime.AddYears(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(1).Year-@Model.DateAndTime.AddYears(1).Month-@(Model.DateAndTime.AddYears(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        break;
+                 }
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Day</a></li>
                 <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Week</a></li>
@@ -31,7 +50,7 @@
     </nav>
 
     @switch (Model.View)
-    {
+                {
         case ScheduleView.Day:
             @Html.Partial("ScheduleViewDay", Model);
             break;
