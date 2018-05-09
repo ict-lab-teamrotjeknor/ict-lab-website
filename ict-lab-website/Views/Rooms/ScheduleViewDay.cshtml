@@ -12,16 +12,22 @@
         {
             if (hour.Value != null)
             {
-                <tr>
-                    <th>@hour.Key</th>
-                    <td><b>@hour.Value.Subject</b> - @hour.Value.Reserver</td>
-                </tr>
+        <tr>
+            <th>@hour.Key</th>
+            <td class="dayview-reservation">
+                <b>@hour.Value.Subject</b> - @hour.Value.Reserver
+                <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+            </td>
+
+        </tr>
             }
             else
             {
                 <tr>
                     <th>@hour.Key</th>
-                    <td></td>
+                    <td class="dayview-reservation">
+                        <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-plus"></span></a>
+                    </td>
                 </tr>
             }
         }
