@@ -23,4 +23,7 @@
   <ItemGroup>
     <Folder Include="Process\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\Users\UserInfo.cs" />
+  </ItemGroup>
 </Project>
