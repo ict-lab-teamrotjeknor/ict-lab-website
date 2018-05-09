@@ -63,6 +63,7 @@
         //var result = new Date(currentDateAndTime);
         //var nextDay = result.setDate(result.getDate() + 1);
 
+        //Go up in Day,Week,Month,Year (Keyboard letter "W")
         if(e.keyCode == 119){
             e.preventDefault();
 
@@ -73,6 +74,7 @@
             } else if(currentView == 2){
                 window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + currentDateAndTime;
             }
+        //Go down in Day,Week,Month,Year (Keyboard letter "S")
         } else if(e.keyCode == 115){
             e.preventDefault();
 
@@ -83,6 +85,12 @@
             } else if(currentView == 1){
                 window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + currentDateAndTime;
             }
+        //Scroll up 50 pixels (Keyboard letter "R")
+        } else if(e.keyCode == 114){
+            window.scrollBy(0,-50);
+        //Scroll down 50 pixels (Keyboard letter "F")
+        } else if(e.keyCode == 102){
+            window.scrollBy(0,50);
         }
     });
 
