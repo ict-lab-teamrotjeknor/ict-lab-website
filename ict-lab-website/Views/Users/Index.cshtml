@@ -50,27 +50,12 @@
                         <h4 class="modal-title">Edit User</h4>
                     </div>
                     <div class="modal-body">
-                        <form>
                             <h2 class="modal-title"></h2>
                             <table class="table table-bordered">
                                 <thead>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><b>First Name</b></td>
-                                        <td>Stefan</td>
-                                        <td><input type="text" id="txtFirstName" placeholder="" /> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Last Name</b></td>
-                                        <td>Kok</td>
-                                        <td><input type="text" id="txtSurname" placeholder="" /> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Email</b></td>
-                                        <td>0919023@hr.nl</td>
-                                        <td><input type="text" id="txtEmail" placeholder="" /> </td>
-                                    </tr>
+                                    <form>
                                     <tr>
                                         <td><b>Role</b></td>
                                         <td>Student</td>
@@ -85,30 +70,22 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    </form>
+                                    <form method="post" asp-controller="Users" asp-action="changeReservationLimit">
                                     <tr>
                                         <td><b>Reservation Limit</b></td>
                                         <td>5</td>
-                                        <td><input type="text" id="txtReservationLimit" placeholder="" /></td>
+                                        <td><input asp-for="_reservationLimit" type="number" id="txtReservationLimit" placeholder="Enter number" /></td>
                                     </tr>
-                                    <tr>
-                                        <td><b>Password</b></td>
-                                        <td>...</td>
-                                        <td><input type="password" id="txtPassword" placeholder="" /></td>
+                                        
+                                    <tr class="success">
+                                        <td>
+                                            <input class="btn btn-success" type="submit" value="Save"
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td><b>Confirm Password</b></td>
-                                        <td>...</td>
-                                        <td><input type="password" id="txtConfirmPassword" placeholder="" /></td>
-                                    </tr>
+                                    </form>
                                 </tbody>
                             </table>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success"
-                                data-dismiss="modal">
-                            Save
-                        </button>
                     </div>
                 </div>
             </div>

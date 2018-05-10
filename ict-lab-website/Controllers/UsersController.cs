@@ -7,6 +7,7 @@ using ict_lab_website.Process;
 using ict_lab_website.Models.ViewModels;
 using ict_lab_website.Models.Users;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Data;
 
 namespace ictlabwebsite.Controllers
@@ -26,8 +27,21 @@ namespace ictlabwebsite.Controllers
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
             DataTable dataTable = dataSet.Tables["Users"];
 
-            UsersViewModel viewModel = new UsersViewModel(dataTable);
+			UsersViewModel viewModel = new UsersViewModel(dataTable);
             return View(viewModel);
         }
+        
+		//[HttpPost]
+		//public IActionResult changeReservationLimit(UsersReservationLimit u)
+        //{
+			//var test = u;
+
+			//var stringJson = JsonConvert.SerializeObject(viewModel);
+        //    var rJson = JObject.Parse(stringJson);
+
+        //    var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
+
+        //    return RedirectToAction("Index");
+        //}
     }
 }
