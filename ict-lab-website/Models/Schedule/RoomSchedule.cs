@@ -37,8 +37,7 @@ namespace ict_lab_website.Models.Schedule
                             else
                             {
                                 Reservations[year][month][day].Add(hour, null);
-                            }
-                            
+                            }                          
                         }
                     }
                 }
@@ -128,5 +127,33 @@ namespace ict_lab_website.Models.Schedule
             return reservations.Where(x => x.Value != null).Count();
         }
 
+        public void AddReservation(Reservation reservation)
+        {
+            var date = reservation.Date;
+            var reservationsForDate = GetReservationsForDay(date);
+            Boolean isAvailable = AreHoursAvailable(reservation, reservationsForDate);
+
+            if (isAvailable)
+            {
+                for (int i = reservation.StartLessonHour; i <= reservation.EndLessonHour; i++)
+                {
+                    reservationsForDate[i] = reservation;
+                }
+            }
+        }
+
+        public Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)
+        {
+            Boolean areHoursAvailable = true;
+            for (int i = reservation.StartLessonHour; i <= reservation.EndLessonHour; i++)
+            {
+                if (reservationsForDay[i] != null)
+                {
+                    areHoursAvailable = false;
+                    break;
+                }
+            }
+            return areHoursAvailable;
+        }
     }
 }

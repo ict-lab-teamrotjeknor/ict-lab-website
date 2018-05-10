@@ -62,5 +62,16 @@ namespace ict_lab_website.Controllers
             repository.Add(room);
             return View("Index", repository.GetAll());
         }
+
+        [HttpPost]
+        public IActionResult AddReservation(Reservation reservation)
+        {
+            if (ModelState.IsValid)
+            {
+                Room room = repository.GetByName(reservation.RoomName);
+                room.RoomSchedule.AddReservation(reservation);
+            }
+            return View("Index");
+        }
     }
 }
