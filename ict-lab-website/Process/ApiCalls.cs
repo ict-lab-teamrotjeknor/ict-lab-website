@@ -10,10 +10,6 @@ namespace ict_lab_website.Process
 {
     public class ApiCalls
     {
-        public ApiCalls()
-        {
-        }
-
         public JObject PostRequest(JObject postData, string sendUrl)
         {
             var result = new JObject();
@@ -48,6 +44,7 @@ namespace ict_lab_website.Process
         public string GetRequest(string url)
         {
             var json = "";
+
             try 
             {
                 using (var client = new WebClient())
@@ -56,15 +53,10 @@ namespace ict_lab_website.Process
                 }
                 return json;
 
-            } catch (WebException e)
+            }
+            catch (Exception e)
             {
-                var test = e.Message;
-                return e.Message;
-
-            } catch (Exception ex) {
-                
-                var test = ex.Message;
-                return ex.Message;
+                throw e;
             }
         }
     }
