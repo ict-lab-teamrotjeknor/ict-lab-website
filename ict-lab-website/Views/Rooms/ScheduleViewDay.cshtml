@@ -26,7 +26,7 @@
                 <tr>
                     <th>@hour.Key</th>
                     <td class="dayview-reservation">
-                        <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-plus"></span></a>
+                        <a class="btn btn-default" asp-controller="Rooms" asp-action="AddReservation" asp-route-roomName="@Model.Room.Name" asp-route-startLessonHour="@hour.Key"><span class="glyphicon glyphicon-plus"></span></a>
                     </td>
                 </tr>
             }
