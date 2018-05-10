@@ -111,7 +111,7 @@ namespace ict_lab_website.Models.Schedule
         //This method returns the weeknumber according to the ISO-8601 standard, because the one from .Net does strange things with weeks at the end of the year.
         //This method was found on: 
         //https://stackoverflow.com/questions/11154673/get-the-correct-week-number-of-a-given-date?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-        private int GetIso8601WeekOfYear(DateTime date)
+        private static int GetIso8601WeekOfYear(DateTime date)
         {
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(date);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
@@ -121,7 +121,7 @@ namespace ict_lab_website.Models.Schedule
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public int getNumberOfFreeTimeSlots(DateTime date)
+        public int GetNumberOfFreeTimeSlots(DateTime date)
         {
             var reservations = this.GetReservationsForDay(date);
             return reservations.Where(x => x.Value != null).Count();
@@ -146,7 +146,7 @@ namespace ict_lab_website.Models.Schedule
             }
         }
 
-        public Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)
+        public static Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)
         {
             Boolean areHoursAvailable = true;
             for (int i = reservation.StartLessonHour; i <= reservation.EndLessonHour; i++)
