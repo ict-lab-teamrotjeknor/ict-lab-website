@@ -140,6 +140,10 @@ namespace ict_lab_website.Models.Schedule
                     reservationsForDate[i] = reservation;
                 }
             }
+            else
+            {
+                throw new Exception("This timeslot is not available");
+            }
         }
 
         public Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)
