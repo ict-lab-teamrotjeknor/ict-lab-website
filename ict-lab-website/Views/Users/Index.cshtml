@@ -1,6 +1,7 @@
 ﻿@using System.Data
 @model UsersViewModel
 
+
 <br>
 <br>
 
@@ -55,32 +56,29 @@
                                 <thead>
                                 </thead>
                                 <tbody>
-                                    <form method="post" asp-controller="Users" asp-action="changeRole">
                                     <tr>
-                                        <td><b>Role</b></td>
-                                        <td>Student</td>
                                         <td>
-                                            <div class="checkbox">
-                                              <label><input checked="checked" type="checkbox" value="1">Guest</label>
-                                              <label><input type="checkbox" value="2">Student</label>
-                                              <label><input type="checkbox" value="3">Teacher</label>
-                                              <label><input type="checkbox" value="4">Handyman</label>
-                                              <label><input type="checkbox" value="5">Service Desk</label>
-                                              <label><input type="checkbox" value="6">Rastermaker</label>
-                                              <label><input type="checkbox" value="7">Administrator</label>
+                                            <div class="form-horizontal">
+                                              @using (Html.BeginForm())
+                                              {
+                                                  for(int i = 0; i < Model._roleList.Roles.Count; i++)
+                                                  {
+                                                     @Html.CheckBoxFor(m => Model._roleList.Roles[i].IsChecked)
+                                                     @Model._roleList.Roles[i].Text
+                                                     @Html.HiddenFor(m => Model._roleList.Roles[i].Value)
+                                                     @Html.HiddenFor(m => Model._roleList.Roles[i].Text)<br />
+                                                  }
+                                              }
+                                            </div>
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Save" class="btn btn-default" />
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="success">
-                                            <input class="btn btn-success" type="submit" value="test" />
-                                        </td>
-                                    </tr>
-                                    </form>
                                     <form method="post" asp-controller="Users" asp-action="changeReservationLimit">
                                     <tr>
                                         <td><b>Reservation Limit</b></td>
-                                        <td>5</td>
+              x                          <td>5</td>
                                         <td><input asp-for="_reservationLimit" type="number" id="txtReservationLimit" placeholder="Enter number" /></td>
                                     </tr>
                                         

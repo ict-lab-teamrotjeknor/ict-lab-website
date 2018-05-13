@@ -23,21 +23,31 @@ namespace ictlabwebsite.Controllers
 
         public IActionResult Index()
         {
+			List<ChangeRole> obj = new List<ChangeRole>(){
+				new ChangeRole { Text="Guest", Value=1, IsChecked=true },
+				new ChangeRole { Text="Student", Value=2, IsChecked=false },
+				new ChangeRole { Text="Teacher", Value=2, IsChecked=false },
+				new ChangeRole { Text="Handyman", Value=2, IsChecked=false },
+				new ChangeRole { Text="Servicedesk", Value=2, IsChecked=false },
+				new ChangeRole { Text="Rastermaker", Value=2, IsChecked=false },
+				new ChangeRole { Text="Administrator", Value=2, IsChecked=false }
+			};
+
             var returnType = _apiCalls.GetRequest("http://145.24.222.103:8080/manage/getusers");
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
             DataTable dataTable = dataSet.Tables["Users"];
 
-			UsersViewModel viewModel = new UsersViewModel(dataTable);
+			RoleList objBind = new RoleList();
+			objBind.Roles = obj;
+
+			UsersViewModel viewModel = new UsersViewModel(dataTable, objBind);
+
             return View(viewModel);
         }
-
+        
 		[HttpPost]
-		public IActionResult changeRole(ChangeRole c)
+		public IActionResult Index(RoleList obj)
 		{
-			var test = c;
-			var test2 = "hoi";
-			var test3 = "hoi";
-			var test4 = "hoi";
 			return RedirectToAction("Index");
 		}
         
