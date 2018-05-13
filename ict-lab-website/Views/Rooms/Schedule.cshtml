@@ -68,22 +68,22 @@
             e.preventDefault();
 
             if(currentView == 0){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
             } else if(currentView == 1){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
             } else if(currentView == 2){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + currentDateAndTime;
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + currentDateAndTime;
             }
         //Go down in Day,Week,Month,Year (Keyboard letter "S")
         } else if(e.keyCode == 115){
             e.preventDefault();
 
             if(currentView == 3){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
             } else if(currentView == 2){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
             } else if(currentView == 1){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + currentDateAndTime;
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + currentDateAndTime;
             }
         //Scroll up 50 pixels (Keyboard letter "R")
         } else if(e.keyCode == 114){
