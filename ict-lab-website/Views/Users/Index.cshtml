@@ -55,19 +55,25 @@
                                 <thead>
                                 </thead>
                                 <tbody>
-                                    <form>
+                                    <form method="post" asp-controller="Users" asp-action="changeRole">
                                     <tr>
                                         <td><b>Role</b></td>
                                         <td>Student</td>
                                         <td>
                                             <div class="checkbox">
-                                              <label><input checked="checked" type="checkbox" value="">Student</label>
-                                              <label><input type="checkbox" value="">Teacher</label>
-                                              <label><input type="checkbox" value="">Handyman</label>
-                                              <label><input type="checkbox" value="">Service Desk</label>
-                                              <label><input type="checkbox" value="">Rastermaker</label>
-                                              <label><input type="checkbox" value="">Administrator</label>
+                                              <label><input checked="checked" type="checkbox" value="1">Guest</label>
+                                              <label><input type="checkbox" value="2">Student</label>
+                                              <label><input type="checkbox" value="3">Teacher</label>
+                                              <label><input type="checkbox" value="4">Handyman</label>
+                                              <label><input type="checkbox" value="5">Service Desk</label>
+                                              <label><input type="checkbox" value="6">Rastermaker</label>
+                                              <label><input type="checkbox" value="7">Administrator</label>
                                             </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="success">
+                                            <input class="btn btn-success" type="submit" value="test" />
                                         </td>
                                     </tr>
                                     </form>
@@ -80,7 +86,7 @@
                                         
                                     <tr class="success">
                                         <td>
-                                            <input class="btn btn-success" type="submit" value="Save"
+                                            <input class="btn btn-success" type="submit" value="Save" />
                                         </td>
                                     </tr>
                                     </form>

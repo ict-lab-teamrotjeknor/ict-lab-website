@@ -30,11 +30,21 @@ namespace ictlabwebsite.Controllers
 			UsersViewModel viewModel = new UsersViewModel(dataTable);
             return View(viewModel);
         }
+
+		[HttpPost]
+		public IActionResult changeRole(ChangeRole c)
+		{
+			var test = c;
+			var test2 = "hoi";
+			var test3 = "hoi";
+			var test4 = "hoi";
+			return RedirectToAction("Index");
+		}
         
 		//[HttpPost]
-		//public IActionResult changeReservationLimit(UsersReservationLimit u)
+		//public IActionResult changeReservationLimit(ChangeReservationLimit c)
         //{
-			//var test = u;
+			//var test = c;
 
 			//var stringJson = JsonConvert.SerializeObject(viewModel);
         //    var rJson = JObject.Parse(stringJson);
