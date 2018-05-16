@@ -11,12 +11,11 @@ namespace ict_lab_website.Models.Rooms
     public class RoomRepository : IRepository<Room>
     {
         private List<Room> rooms;
-        private ApiCalls apiCalls = new ApiCalls();
-        private string url = "http://145.24.222.103:8080/manage/getallrooms";
+        private RoomsApiCalls roomsApiCalls = new RoomsApiCalls();
 
         public RoomRepository()
         {
-            rooms = this.GetRoomsFromApi(url);
+            rooms = roomsApiCalls.GetAll();
         }            
 
         public void Add(Room room)
@@ -41,31 +40,7 @@ namespace ict_lab_website.Models.Rooms
 
         public Room GetByName(string name)
         {
-            return rooms.Where(room => room.Name.Equals(name)).First();
-        }
-
-        private List<Room> GetRoomsFromApi(string url)
-        {
-            List<Room> rooms = new List<Room>();
-
-            try {
-                var json = apiCalls.GetRequest(url);
-                var classRooms = JObject.Parse(json)["Classroom"];
-
-                foreach (JToken classrooms in classRooms)
-                {
-                    foreach (JToken room in classrooms.Children())
-                    {
-                        Room r = JsonConvert.DeserializeObject<Room>(room.ToString());
-                        rooms.Add(r);
-                    }
-
-                }
-                return rooms;
-                
-            } catch(Exception e) {
-                return rooms;
-            }
+           return rooms.Where(r => r.Name.Equals(name)).First()?? new Room();
         }
     }
 }

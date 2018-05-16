@@ -6,6 +6,7 @@ using ict_lab_website.Models.Rooms;
 using ict_lab_website.Models.Schedule;
 using ict_lab_website.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ict_lab_website.Controllers
 {
@@ -22,12 +23,6 @@ namespace ict_lab_website.Controllers
         {
             var rooms = repository.GetAll();
 
-            var b = true;
-
-            if (!rooms.Any()){
-                b = false;
-            }
-
             if (!String.IsNullOrEmpty(searchString))
             {
                 rooms = rooms.Where(room => room.Name.Contains(searchString));
@@ -39,7 +34,6 @@ namespace ict_lab_website.Controllers
             }
 
             ViewBag.date = date;
-            ViewBag.b = b;
             return View(rooms);            
         }
 
@@ -63,15 +57,33 @@ namespace ict_lab_website.Controllers
             return View("Index", repository.GetAll());
         }
 
+        [HttpGet]
+        public IActionResult AddReservation(string roomName, int startLessonHour)
+        {
+            ViewBag.roomName = roomName;
+            ViewBag.startLessonHour = startLessonHour;
+            return View("AddReservation");
+        }
+
         [HttpPost]
         public IActionResult AddReservation(Reservation reservation)
         {
             if (ModelState.IsValid)
             {
                 Room room = repository.GetByName(reservation.RoomName);
-                room.RoomSchedule.AddReservation(reservation);
+                try
+                {
+                    room.RoomSchedule.AddReservation(reservation);
+                    return RedirectToAction("Schedule", new { name = room.Name, DateTime = reservation.Date });
+                }
+                catch(Exception e)
+                {
+                    ViewBag.message = e.Message;
+                }               
             }
-            return View("Index");
+            ViewBag.roomName = reservation.RoomName;
+            ViewBag.startLessonHour = reservation.StartLessonHour;
+            return View("AddReservation", new Reservation());
         }
     }
 }
