@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ict_lab_website.Process;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace ict_lab_website.Models.Schedule
 {
     public class RoomSchedule
     {
+        private ScheduleApiCalls scheduleAPiCalls = new ScheduleApiCalls();
+
         // A dictionary for the schedule, which can be accessed in the form reservations[year][month][day][lessonhour].
         //For example: Reservations[2018][05][01][01] returns the reservation on the first lesson-hour on 01-05-2018.  
         public Dictionary<int, Dictionary<int, Dictionary<int, Dictionary<int, Reservation>>>> Reservations { get; set; }
@@ -32,7 +35,7 @@ namespace ict_lab_website.Models.Schedule
                             //Data for testing purposes:
                             if (hour == 1)
                             {
-                                Reservations[year][month][day].Add(hour, new Reservation { Reserver = "MINUTO", StartLessonHour = 1, EndLessonHour = 1, RoomName = "H.1.308", Subject="ICT-LAB" });
+                                Reservations[year][month][day].Add(hour, new Reservation { Teacher = "MINUTO", HourId = 1, EndHourId = 1, RoomId = "H.1.308", Course="ICT-LAB" });
                             }
                             else
                             {
@@ -60,10 +63,13 @@ namespace ict_lab_website.Models.Schedule
             return Reservations[date.Year][date.Month][date.Day];
         }
 
-        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date)
+        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date, string roomId)
         {
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
             int weeknumber = GetIso8601WeekOfYear(date);
+
+            return scheduleAPiCalls.GetReservationsForWeek(roomId);
+
             var ReservationsForYear = GetReservationsForYear(date);
 
             foreach(int monthKey in ReservationsForYear.Keys)
@@ -135,7 +141,7 @@ namespace ict_lab_website.Models.Schedule
 
             if (isAvailable)
             {
-                for (int i = reservation.StartLessonHour; i <= reservation.EndLessonHour; i++)
+                for (int i = reservation.HourId; i <= reservation.EndHourId; i++)
                 {
                     reservationsForDate[i] = reservation;
                 }
@@ -149,7 +155,7 @@ namespace ict_lab_website.Models.Schedule
         public static Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)
         {
             Boolean areHoursAvailable = true;
-            for (int i = reservation.StartLessonHour; i <= reservation.EndLessonHour; i++)
+            for (int i = reservation.HourId; i <= reservation.EndHourId; i++)
             {
                 if (reservationsForDay[i] != null)
                 {

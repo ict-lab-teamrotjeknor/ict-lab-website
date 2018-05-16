@@ -19,12 +19,12 @@
         {
         <tr>
             <th>@i</th>
-            @foreach (var day in Model.Room.RoomSchedule.GetReservationsForWeek(Model.DateAndTime))
+            @foreach (var day in Model.Room.RoomSchedule.GetReservationsForWeek(Model.DateAndTime, Model.Room.Name))
             {
                 if (day.Value[i] != null)
                 {
                     <td class="weekview-reservation">
-                        <b>@day.Value[i].Subject</b> - @day.Value[i].Reserver
+                        @Html.Raw(day.Value[i].Course) - @day.Value[i].Teacher - @day.Value[i].Class
                         <div class="reservation-overlay">
                             <a href="#" class="reservation-icon">
                                 <span class="glyphicon glyphicon-pencil"></span>
@@ -43,6 +43,8 @@
                     </td>
                 }
              }
+            <td></td>
+            <td></td>
         </tr>
         }
     </tbody>
