@@ -70,7 +70,7 @@ namespace ict_lab_website.Controllers
         {
             if (ModelState.IsValid)
             {
-                Room room = repository.GetByName(reservation.RoomName);
+                Room room = repository.GetByName(reservation.RoomId);
                 try
                 {
                     room.RoomSchedule.AddReservation(reservation);
@@ -81,8 +81,8 @@ namespace ict_lab_website.Controllers
                     ViewBag.message = e.Message;
                 }               
             }
-            ViewBag.roomName = reservation.RoomName;
-            ViewBag.startLessonHour = reservation.StartLessonHour;
+            ViewBag.roomName = reservation.RoomId;
+            ViewBag.startLessonHour = reservation.HourId;
             return View("AddReservation", new Reservation());
         }
     }
