@@ -14,9 +14,9 @@ namespace ict_lab_website.Process
         private string url = "http://145.24.222.103:8080";
 
 
-        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(string roomId)
+        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(string roomId, int year, int quarter, int week)
         {
-            string parameters = $"/schedule/getweek/{roomId}/2018/4/20";
+            string parameters = $"/schedule/getweek/{roomId}/{year}/4/20";
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
             try

@@ -66,10 +66,13 @@ namespace ict_lab_website.Models.Schedule
         public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date, string roomId)
         {
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
-            int weeknumber = GetIso8601WeekOfYear(date);
+            int year = date.Year;
+            int quarter = 4;
+            int week = GetIso8601WeekOfYear(date);
 
-            return scheduleAPiCalls.GetReservationsForWeek(roomId);
+            return scheduleAPiCalls.GetReservationsForWeek(roomId, year, quarter, week);
 
+            /*
             var ReservationsForYear = GetReservationsForYear(date);
 
             foreach(int monthKey in ReservationsForYear.Keys)
@@ -88,6 +91,7 @@ namespace ict_lab_website.Models.Schedule
                 }
             }
             return reservationsForWeek;
+            */
         }
 
         public List<DateTime> GetDatesForWeek(DateTime date)
@@ -150,6 +154,11 @@ namespace ict_lab_website.Models.Schedule
             {
                 throw new Exception("This timeslot is not available");
             }
+        }
+
+        public static int GetQuarterFromDate(DateTime date)
+        {
+            return (date.Month / 3) + 1;
         }
 
         public static Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)

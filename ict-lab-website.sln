@@ -4,6 +4,8 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ict_lab_website", "ict-lab-website\ict_lab_website.csproj", "{76E97166-FF3A-4528-B261-067C0ECE7BBB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ict_lab_website.Tests", "ict_lab_website.Tests\ict_lab_website.Tests.csproj", "{B0D89970-87BF-4BC4-B6A5-C9FD6BF68C1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -14,6 +16,10 @@ Global
 		{76E97166-FF3A-4528-B261-067C0ECE7BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76E97166-FF3A-4528-B261-067C0ECE7BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76E97166-FF3A-4528-B261-067C0ECE7BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0D89970-87BF-4BC4-B6A5-C9FD6BF68C1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0D89970-87BF-4BC4-B6A5-C9FD6BF68C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0D89970-87BF-4BC4-B6A5-C9FD6BF68C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0D89970-87BF-4BC4-B6A5-C9FD6BF68C1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
