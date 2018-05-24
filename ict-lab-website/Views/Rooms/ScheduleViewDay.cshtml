@@ -8,14 +8,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var hour in Model.Room.RoomSchedule.GetReservationsForDay(Model.DateAndTime))
+        @foreach (var hour in Model.Room.RoomSchedule.GetReservationsForDay(Model.DateAndTime, Model.Room.Name))
         {
             if (hour.Value != null)
             {
         <tr>
             <th>@hour.Key</th>
             <td class="dayview-reservation">
-                <b>@hour.Value.Course</b> - @hour.Value.Teacher
+                @Html.Raw(hour.Value.Course) - @hour.Value.Teacher - @hour.Value.Class
                 <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
             </td>
 

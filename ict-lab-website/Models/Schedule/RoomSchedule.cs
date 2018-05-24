@@ -58,9 +58,13 @@ namespace ict_lab_website.Models.Schedule
         }
 
 
-        public Dictionary<int, Reservation> GetReservationsForDay(DateTime date)
+        public Dictionary<int, Reservation> GetReservationsForDay(DateTime date, string roomId)
         {
-            return Reservations[date.Year][date.Month][date.Day];
+            var reservationsForWeek = GetReservationsForWeek(date, roomId);
+            int dayOfWeek = (int)date.DayOfWeek;
+            Dictionary<int, Reservation> reservationsForDay = reservationsForWeek[dayOfWeek];
+
+            return reservationsForDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
         }
 
         public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date, string roomId)
@@ -131,16 +135,16 @@ namespace ict_lab_website.Models.Schedule
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public int GetNumberOfFreeTimeSlots(DateTime date)
+        public int GetNumberOfFreeTimeSlots(DateTime date, string roomId)
         {
-            var reservations = this.GetReservationsForDay(date);
+            var reservations = this.GetReservationsForDay(date, roomId);
             return reservations.Where(x => x.Value != null).Count();
         }
 
         public void AddReservation(Reservation reservation)
         {
             var date = reservation.Date;
-            var reservationsForDate = GetReservationsForDay(date);
+            var reservationsForDate = GetReservationsForDay(date, reservation.RoomId);
             Boolean isAvailable = AreHoursAvailable(reservation, reservationsForDate);
 
             if (isAvailable)
