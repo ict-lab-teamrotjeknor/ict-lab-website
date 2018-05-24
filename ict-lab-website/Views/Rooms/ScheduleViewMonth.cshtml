@@ -11,7 +11,7 @@
         {
 
             <tr>
-                @for (int j = i; j <= i + 7; j++)
+                @for (int j = i; j < i + 7; j++)
                 {
                     if (j > Model.Room.RoomSchedule.GetReservationsForMonth(Model.DateAndTime).Count)
                     {
