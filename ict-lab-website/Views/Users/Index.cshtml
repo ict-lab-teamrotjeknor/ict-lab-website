@@ -59,19 +59,20 @@
                                     <tr>
                                         <td>
                                             <div class="form-horizontal">
-                                              @using (Html.BeginForm())
+                                              @(Html.BeginForm("Index", "Users"))
                                               {
-                                                  for(int i = 0; i < Model._roleList.Roles.Count; i++)
+                                                  @for(int i = 0; i < Model._roleList.Roles.Count; i++)
                                                   {
                                                      @Html.CheckBoxFor(m => Model._roleList.Roles[i].IsChecked)
                                                      @Model._roleList.Roles[i].Text
                                                      @Html.HiddenFor(m => Model._roleList.Roles[i].Value)
                                                      @Html.HiddenFor(m => Model._roleList.Roles[i].Text)<br />
                                                   }
+                                                <div class="col-md-offset-2 col-md-10">
+                                                    <input type="submit" value="Save" class="btn btn-default" />
+                                                </div>
                                               }
-                                            </div>
-                                            <div class="col-md-offset-2 col-md-10">
-                                                <input type="submit" value="Save" class="btn btn-default" />
+                                              <p>@ViewBag.selectRole</p>
                                             </div>
                                         </td>
                                     </tr>

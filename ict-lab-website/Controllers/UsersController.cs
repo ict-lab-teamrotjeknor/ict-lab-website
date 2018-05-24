@@ -9,6 +9,7 @@ using ict_lab_website.Models.Users;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
+using System.Text;
 
 namespace ictlabwebsite.Controllers
 {
@@ -20,18 +21,18 @@ namespace ictlabwebsite.Controllers
         {
             _apiCalls = new ApiCalls();
         }
-
+        
+        [HttpGet]
         public IActionResult Index()
         {
-			List<ChangeRole> obj = new List<ChangeRole>(){
-				new ChangeRole { Text="Guest", Value=1, IsChecked=true },
-				new ChangeRole { Text="Student", Value=2, IsChecked=false },
-				new ChangeRole { Text="Teacher", Value=2, IsChecked=false },
-				new ChangeRole { Text="Handyman", Value=2, IsChecked=false },
-				new ChangeRole { Text="Servicedesk", Value=2, IsChecked=false },
-				new ChangeRole { Text="Rastermaker", Value=2, IsChecked=false },
-				new ChangeRole { Text="Administrator", Value=2, IsChecked=false }
-			};
+			List<ChangeRole> obj = new List<ChangeRole>();
+			obj.Add(new ChangeRole() { Text = "Guest", Value = 1, IsChecked = false });
+			obj.Add(new ChangeRole() { Text = "Student", Value = 2, IsChecked = false });
+			obj.Add(new ChangeRole() { Text = "Teacher", Value = 3, IsChecked = false });
+			obj.Add(new ChangeRole() { Text = "Handyman", Value = 4, IsChecked = false });
+			obj.Add(new ChangeRole() { Text = "Servicedesk", Value = 5, IsChecked = false });
+			obj.Add(new ChangeRole() { Text = "Rastermaker", Value = 6, IsChecked = true });
+			obj.Add(new ChangeRole() { Text = "Administrator", Value = 7, IsChecked = false });
 
             var returnType = _apiCalls.GetRequest("http://145.24.222.103:8080/manage/getusers");
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
@@ -41,14 +42,27 @@ namespace ictlabwebsite.Controllers
 			objBind.Roles = obj;
 
 			UsersViewModel viewModel = new UsersViewModel(dataTable, objBind);
-
+            
             return View(viewModel);
         }
         
 		[HttpPost]
-		public IActionResult Index(RoleList obj)
+		public IActionResult Index(RoleList r)
 		{
-			return RedirectToAction("Index");
+			var test1 = r;
+			var test2 = "test";
+			var test3 = "test";
+
+			StringBuilder stringBuilder = new StringBuilder();
+
+			foreach(var item in r.Roles){
+				if(item.IsChecked){
+					stringBuilder.Append(item.Text + ", ");
+				}
+			}
+			ViewBag.selectRole = stringBuilder.ToString();
+
+			return View(r);
 		}
         
 		//[HttpPost]
