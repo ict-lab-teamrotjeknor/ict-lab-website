@@ -14,9 +14,9 @@ namespace ict_lab_website.Process
         private string url = "http://145.24.222.103:8080";
 
 
-        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(string roomId, int year, int quarter, int week)
+        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(string roomName, int year, int quarter, int week)
         {
-            string parameters = $"/schedule/getweek/{roomId}/{year}/4/22";
+            string parameters = $"/schedule/getweek/{roomName}/{year}/4/22";
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
             try
@@ -33,7 +33,7 @@ namespace ict_lab_website.Process
                     foreach (var hour in hours)
                     {
                         Reservation reservation = hour.ToObject<Reservation>();
-                        reservation.RoomId = roomId;
+                        reservation.RoomId = roomName;
                         reservationsForWeek[dayNumber].Add(reservation.HourId, reservation);
 
                     }
@@ -47,12 +47,27 @@ namespace ict_lab_website.Process
                     }
                     dayNumber++;
                 }
+                reservationsForWeek.Add(0, GetEmptyDay());
+                reservationsForWeek.Add(6, GetEmptyDay());
+
                 return reservationsForWeek;
             } 
             catch(Exception e)
             {
                 throw e;
             }
+        }
+
+        private Dictionary<int, Reservation> GetEmptyDay()
+        {
+            Dictionary<int, Reservation> emptyday = new Dictionary<int, Reservation>();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                emptyday.Add(i, null);
+            }
+
+            return emptyday;
         }
     }
 }
