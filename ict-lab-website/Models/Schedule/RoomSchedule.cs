@@ -58,23 +58,23 @@ namespace ict_lab_website.Models.Schedule
         }
 
 
-        public Dictionary<int, Reservation> GetReservationsForDay(DateTime date, string roomId)
+        public Dictionary<int, Reservation> GetReservationsForDay(DateTime date, string roomName)
         {
-            var reservationsForWeek = GetReservationsForWeek(date, roomId);
+            var reservationsForWeek = GetReservationsForWeek(date, roomName);
             int dayOfWeek = (int)date.DayOfWeek;
             Dictionary<int, Reservation> reservationsForDay = reservationsForWeek[dayOfWeek];
 
             return reservationsForDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date, string roomId)
+        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date, string roomName)
         {
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
             int year = date.Year;
             int quarter = 4;
             int week = GetIso8601WeekOfYear(date);
 
-            return scheduleAPiCalls.GetReservationsForWeek(roomId, year, quarter, week);
+            return scheduleAPiCalls.GetReservationsForWeek(roomName, year, quarter, week);
 
             /*
             var ReservationsForYear = GetReservationsForYear(date);
