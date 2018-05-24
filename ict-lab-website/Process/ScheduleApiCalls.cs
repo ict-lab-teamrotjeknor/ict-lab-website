@@ -16,7 +16,7 @@ namespace ict_lab_website.Process
 
         public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(string roomId, int year, int quarter, int week)
         {
-            string parameters = $"/schedule/getweek/{roomId}/{year}/4/20";
+            string parameters = $"/schedule/getweek/{roomId}/{year}/4/22";
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
             try
