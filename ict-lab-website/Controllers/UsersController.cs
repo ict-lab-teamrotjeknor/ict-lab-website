@@ -25,44 +25,41 @@ namespace ictlabwebsite.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-			List<ChangeRole> obj = new List<ChangeRole>();
-			obj.Add(new ChangeRole() { Text = "Guest", Value = 1, IsChecked = false });
-			obj.Add(new ChangeRole() { Text = "Student", Value = 2, IsChecked = false });
-			obj.Add(new ChangeRole() { Text = "Teacher", Value = 3, IsChecked = false });
-			obj.Add(new ChangeRole() { Text = "Handyman", Value = 4, IsChecked = false });
-			obj.Add(new ChangeRole() { Text = "Servicedesk", Value = 5, IsChecked = false });
-			obj.Add(new ChangeRole() { Text = "Rastermaker", Value = 6, IsChecked = true });
-			obj.Add(new ChangeRole() { Text = "Administrator", Value = 7, IsChecked = false });
+			List<Roles> ro = new List<Roles>();
+			ro.Add(new Roles() { RoleId = 1, RoleName = "Guest", IsChecked = false });
+			ro.Add(new Roles() { RoleId = 2, RoleName = "Student", IsChecked = false });
+			ro.Add(new Roles() { RoleId = 3, RoleName = "Teacher", IsChecked = false });
+			ro.Add(new Roles() { RoleId = 4, RoleName = "Handyman", IsChecked = true });
+			ro.Add(new Roles() { RoleId = 5, RoleName = "Servicedesk", IsChecked = false });
+			ro.Add(new Roles() { RoleId = 6, RoleName = "Rastermaker", IsChecked = false });
+			ro.Add(new Roles() { RoleId = 7, RoleName = "Administrator", IsChecked = false });
+            
+			RoleList roleList = new RoleList();
+			roleList.roles = ro;
 
             var returnType = _apiCalls.GetRequest("http://145.24.222.103:8080/manage/getusers");
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
             DataTable dataTable = dataSet.Tables["Users"];
 
-			RoleList objBind = new RoleList();
-			objBind.Roles = obj;
-
-			UsersViewModel viewModel = new UsersViewModel(dataTable, objBind);
+			UsersViewModel viewModel = new UsersViewModel(dataTable, roleList);
             
             return View(viewModel);
         }
         
 		[HttpPost]
-		public IActionResult Index(RoleList r)
+		public IActionResult Index(RoleList rl)
 		{
-			var test1 = r;
-			var test2 = "test";
-			var test3 = "test";
 
 			StringBuilder stringBuilder = new StringBuilder();
 
-			foreach(var item in r.Roles){
+			foreach(var item in rl.roles){
 				if(item.IsChecked){
-					stringBuilder.Append(item.Text + ", ");
+					stringBuilder.Append(item.RoleName + ", ");
 				}
 			}
 			ViewBag.selectRole = stringBuilder.ToString();
 
-			return View(r);
+			return View(rl);
 		}
         
 		//[HttpPost]
