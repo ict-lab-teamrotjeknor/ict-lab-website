@@ -17,21 +17,33 @@
     <tbody>
         @for (int i = 1; i <= 15; i++)
         {
-            <tr>
-                <th>@i</th>
-                @foreach (var day in Model.Room.RoomSchedule.GetReservationsForWeek(Model.DateAndTime))
+        <tr>
+            <th>@i</th>
+            @foreach (var day in Model.Room.RoomSchedule.GetReservationsForWeek(Model.DateAndTime, Model.Room.Name))
+            {
+                if (day.Value[i] != null)
                 {
-                    if (day.Value[i] != null)
-                    {
-                        <td><b>@day.Value[i].Subject</b> - @day.Value[i].Reserver</td>
-
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
+                    <td class="weekview-reservation">
+                        @Html.Raw(day.Value[i].Course) - @day.Value[i].Teacher - @day.Value[i].Class
+                        <div class="reservation-overlay">
+                            <a href="#" class="reservation-icon">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
+                    </td>
                 }
-            </tr>
+                else
+                {
+                    <td class="weekview-reservation">
+                        <div class="reservation-overlay">
+                            <a href="#" class="reservation-icon">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </td>
+                }
+             }
+        </tr>
         }
     </tbody>
 </table>

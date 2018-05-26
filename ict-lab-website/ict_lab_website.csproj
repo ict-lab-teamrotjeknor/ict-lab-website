@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
@@ -19,9 +20,6 @@
     <Content Remove="Views\Home\Index.cshtml" />
     <Content Remove="Views\Admin\usersOverview.cshtml" />
     <Content Remove="Views\Users\AdminUsersOverview.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Process\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Users\UserInfo.cs" />

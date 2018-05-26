@@ -30,19 +30,26 @@
                 </tr>
             </thead>
             <tbody>
-                @if (ViewBag.b){
+                @if (Model.Any())
+                {
                     foreach (Room room in Model)
                     {
                         <tr>
                             <td>@Html.DisplayFor(modelItem => room.Name)</td>
-                            <td>@(15-room.RoomSchedule.getNumberOfFreeTimeSlots(ViewBag.date))</td>
+                            <td>@(15 - room.RoomSchedule.GetNumberOfFreeTimeSlots(ViewBag.date, room.Name))</td>
                             <td><a asp-action="Schedule" asp-route-name="@room.Name" asp-route-dateTime="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day">View schedule</a></td>
                         </tr>
                     }
-                } else {
-                    <div class="alert alert-danger">
-                      <strong>Error</strong> The rooms cannot be found.
-                    </div>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3">
+                            <div class="alert alert-danger">
+                                <strong>Error</strong> No rooms were found. Please refresh the page to try again.
+                            </div>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ict_lab_website.Process;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace ict_lab_website.Models.Schedule
 {
     public class RoomSchedule
     {
+        private ScheduleApiCalls scheduleAPiCalls = new ScheduleApiCalls();
+
         // A dictionary for the schedule, which can be accessed in the form reservations[year][month][day][lessonhour].
         //For example: Reservations[2018][05][01][01] returns the reservation on the first lesson-hour on 01-05-2018.  
         public Dictionary<int, Dictionary<int, Dictionary<int, Dictionary<int, Reservation>>>> Reservations { get; set; }
@@ -32,13 +35,12 @@ namespace ict_lab_website.Models.Schedule
                             //Data for testing purposes:
                             if (hour == 1)
                             {
-                                Reservations[year][month][day].Add(hour, new Reservation { Reserver = "MINUTO", StartLessonHour = 1, EndLessonHour = 1, RoomName = "H.1.308", Subject="ICT-LAB" });
+                                Reservations[year][month][day].Add(hour, new Reservation { Teacher = "MINUTO", HourId = 1, EndHourId = 1, RoomId = "H.1.308", Course="ICT-LAB" });
                             }
                             else
                             {
                                 Reservations[year][month][day].Add(hour, null);
-                            }
-                            
+                            }                          
                         }
                     }
                 }
@@ -56,15 +58,25 @@ namespace ict_lab_website.Models.Schedule
         }
 
 
-        public Dictionary<int, Reservation> GetReservationsForDay(DateTime date)
+        public Dictionary<int, Reservation> GetReservationsForDay(DateTime date, string roomName)
         {
-            return Reservations[date.Year][date.Month][date.Day];
+            var reservationsForWeek = GetReservationsForWeek(date, roomName);
+            int dayOfWeek = (int)date.DayOfWeek;
+            Dictionary<int, Reservation> reservationsForDay = reservationsForWeek[dayOfWeek];
+
+            return reservationsForDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date)
+        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date, string roomName)
         {
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
-            int weeknumber = GetIso8601WeekOfYear(date);
+            int year = date.Year;
+            int quarter = 4;
+            int week = GetIso8601WeekOfYear(date);
+
+            return scheduleAPiCalls.GetReservationsForWeek(roomName, year, quarter, week);
+
+            /*
             var ReservationsForYear = GetReservationsForYear(date);
 
             foreach(int monthKey in ReservationsForYear.Keys)
@@ -83,6 +95,7 @@ namespace ict_lab_website.Models.Schedule
                 }
             }
             return reservationsForWeek;
+            */
         }
 
         public List<DateTime> GetDatesForWeek(DateTime date)
@@ -112,7 +125,7 @@ namespace ict_lab_website.Models.Schedule
         //This method returns the weeknumber according to the ISO-8601 standard, because the one from .Net does strange things with weeks at the end of the year.
         //This method was found on: 
         //https://stackoverflow.com/questions/11154673/get-the-correct-week-number-of-a-given-date?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-        private int GetIso8601WeekOfYear(DateTime date)
+        private static int GetIso8601WeekOfYear(DateTime date)
         {
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(date);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
@@ -122,11 +135,48 @@ namespace ict_lab_website.Models.Schedule
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public int getNumberOfFreeTimeSlots(DateTime date)
+        public int GetNumberOfFreeTimeSlots(DateTime date, string roomId)
         {
-            var reservations = this.GetReservationsForDay(date);
+            var reservations = this.GetReservationsForDay(date, roomId);
             return reservations.Where(x => x.Value != null).Count();
         }
 
+        public void AddReservation(Reservation reservation)
+        {
+            var date = reservation.Date;
+            var reservationsForDate = GetReservationsForDay(date, reservation.RoomId);
+            Boolean isAvailable = AreHoursAvailable(reservation, reservationsForDate);
+
+            if (isAvailable)
+            {
+                for (int i = reservation.HourId; i <= reservation.EndHourId; i++)
+                {
+                    reservationsForDate[i] = reservation;
+                }
+            }
+            else
+            {
+                throw new Exception("This timeslot is not available");
+            }
+        }
+
+        public static int GetQuarterFromDate(DateTime date)
+        {
+            return (date.Month / 3) + 1;
+        }
+
+        public static Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)
+        {
+            Boolean areHoursAvailable = true;
+            for (int i = reservation.HourId; i <= reservation.EndHourId; i++)
+            {
+                if (reservationsForDay[i] != null)
+                {
+                    areHoursAvailable = false;
+                    break;
+                }
+            }
+            return areHoursAvailable;
+        }
     }
 }

@@ -8,20 +8,26 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var hour in Model.Room.RoomSchedule.GetReservationsForDay(Model.DateAndTime))
+        @foreach (var hour in Model.Room.RoomSchedule.GetReservationsForDay(Model.DateAndTime, Model.Room.Name))
         {
             if (hour.Value != null)
             {
-                <tr>
-                    <th>@hour.Key</th>
-                    <td><b>@hour.Value.Subject</b> - @hour.Value.Reserver</td>
-                </tr>
+        <tr>
+            <th>@hour.Key</th>
+            <td class="dayview-reservation">
+                @Html.Raw(hour.Value.Course) - @hour.Value.Teacher - @hour.Value.Class
+                <a class="btn btn-default" href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+            </td>
+
+        </tr>
             }
             else
             {
                 <tr>
                     <th>@hour.Key</th>
-                    <td></td>
+                    <td class="dayview-reservation">
+                        <a class="btn btn-default" asp-controller="Rooms" asp-action="AddReservation" asp-route-roomName="@Model.Room.Name" asp-route-startLessonHour="@hour.Key"><span class="glyphicon glyphicon-plus"></span></a>
+                    </td>
                 </tr>
             }
         }
