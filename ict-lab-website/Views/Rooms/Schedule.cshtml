@@ -110,6 +110,92 @@
         //Scroll down 50 pixels (Keyboard letter "F")
         } else if(e.keyCode == 102){
             window.scrollBy(0,50);
+        //Go to previous Day,Week,Month,Year (Keyboard letter "A")
+        } else if(e.keyCode == 97){
+            if(currentView == 0){
+                var dateClass = new Date(currentDateAndTime);
+                var minusOneDay = dateClass.setDate(dateClass.getDate() - 1);
+                var newCurrentDateAndTime = new Date(minusOneDay);
+                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
+                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate();
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + correctDateString;
+            } else if(currentView == 1){
+                var dateClass = new Date(currentDateAndTime);
+                var minusOneWeek = dateClass.setDate(dateClass.getDate() - 7);
+                var newCurrentDateAndTime = new Date(minusOneWeek);
+                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
+                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate(); 
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + correctDateString;
+            } else if(currentView == 2){
+                var dateClass = new Date(currentDateAndTime);
+                var plusOneMonth = dateClass.getMonth() + 1;
+
+                if(plusOneMonth == 1){
+                    var yearMinusOne = dateClass.getFullYear() - 1;
+                    var correctDateString = yearMinusOne + "-" + 12 + "-" + dateClass.getDate();
+                    window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;
+                    return;
+                }
+
+                var correctDateString = dateClass.getFullYear() + "-" + dateClass.getMonth() + "-" + dateClass.getDate();
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;             
+            } else if(currentView == 3){
+                var dateClass = new Date(currentDateAndTime);
+                var plusOneMonth = dateClass.getMonth() + 1;
+                var minusOneYear = dateClass.getFullYear() - 1;
+
+                var correctDateString = minusOneYear + "-" + plusOneMonth + "-" + dateClass.getDate();
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + correctDateString;
+            }
+        //Go to next Day,Week,Month,Year (Keyboard letter "D")
+        } else if(e.keyCode == 100){
+            if(currentView == 0){
+                var dateClass = new Date(currentDateAndTime);
+                var plusOneDay = dateClass.setDate(dateClass.getDate() + 1);
+                var newCurrentDateAndTime = new Date(plusOneDay);
+                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
+
+                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate();
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + correctDateString;
+            } else if(currentView == 1){
+                var dateClass = new Date(currentDateAndTime);
+                var plusOneWeek = dateClass.setDate(dateClass.getDate() + 7);
+                var newCurrentDateAndTime = new Date(plusOneWeek);
+                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
+
+                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate();
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + correctDateString;
+            } else if(currentView == 2){
+                var dateClass = new Date(currentDateAndTime);
+                var plusTwoMonths = dateClass.getMonth() + 2;
+
+                if(plusTwoMonths == 13){
+                    var yearPlusOne = dateClass.getFullYear() + 1;
+                    var correctDateString = yearPlusOne + "-" + 1 + "-" + dateClass.getDate();
+
+                    window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;
+                    return;
+                }
+
+                var correctDateString = dateClass.getFullYear() + "-" + plusTwoMonths + "-" + dateClass.getDate();
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;
+            
+            } else if(currentView == 3){
+                var dateClass = new Date(currentDateAndTime);
+                var plusOneMonth = dateClass.getMonth() + 1;
+                var plusOneYear = dateClass.getFullYear() + 1;
+
+                var correctDateString = plusOneYear + "-" + plusOneMonth + "-" + dateClass.getDate();
+
+                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + correctDateString;
+            }
         }
     });
 
