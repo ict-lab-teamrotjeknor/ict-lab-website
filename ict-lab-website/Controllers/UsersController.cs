@@ -74,5 +74,13 @@ namespace ictlabwebsite.Controllers
 
         //    return RedirectToAction("Index");
         //}
+        
+		public IActionResult deleteUser(string Email)
+		{
+            var test1 = Email;
+            var test2 = "test";
+            var test3 = "test";
+			return RedirectToAction("Index");
+		}
     }
 }
