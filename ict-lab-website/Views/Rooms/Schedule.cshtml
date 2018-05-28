@@ -22,29 +22,29 @@
                 @switch (Model.View)
                 {
                     case ScheduleView.Day:
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-1).Year-@Model.DateAndTime.AddDays(-1).Month-@(Model.DateAndTime.AddDays(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(1).Year-@Model.DateAndTime.AddDays(1).Month-@(Model.DateAndTime.AddDays(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-1).Year-@Model.DateAndTime.AddDays(-1).Month-@(Model.DateAndTime.AddDays(-1).Day)"><span class="glyphicon glyphicon-chevron-left" id="goDown"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(1).Year-@Model.DateAndTime.AddDays(1).Month-@(Model.DateAndTime.AddDays(1).Day)"><span class="glyphicon glyphicon-chevron-right" id="goUp"></span></a></li>
                         break;
                     case ScheduleView.Week:
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-7).Year-@Model.DateAndTime.AddDays(-7).Month-@(Model.DateAndTime.AddDays(-7).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(7).Year-@Model.DateAndTime.AddDays(7).Month-@(Model.DateAndTime.AddDays(7).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-7).Year-@Model.DateAndTime.AddDays(-7).Month-@(Model.DateAndTime.AddDays(-7).Day)"><span class="glyphicon glyphicon-chevron-left" id="goDown"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(7).Year-@Model.DateAndTime.AddDays(7).Month-@(Model.DateAndTime.AddDays(7).Day)"><span class="glyphicon glyphicon-chevron-right" id="goUp"></span></a></li>
                         break;
                     case ScheduleView.Month:
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(-1).Year-@Model.DateAndTime.AddMonths(-1).Month-@(Model.DateAndTime.AddMonths(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(1).Year-@Model.DateAndTime.AddMonths(1).Month-@(Model.DateAndTime.AddMonths(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(-1).Year-@Model.DateAndTime.AddMonths(-1).Month-@(Model.DateAndTime.AddMonths(-1).Day)"><span class="glyphicon glyphicon-chevron-left" id="goDown"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(1).Year-@Model.DateAndTime.AddMonths(1).Month-@(Model.DateAndTime.AddMonths(1).Day)"><span class="glyphicon glyphicon-chevron-right" id="goUp"></span></a></li>
                         break;
                     case ScheduleView.Year:
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(-1).Year-@Model.DateAndTime.AddYears(-1).Month-@(Model.DateAndTime.AddYears(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(1).Year-@Model.DateAndTime.AddYears(1).Month-@(Model.DateAndTime.AddYears(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(-1).Year-@Model.DateAndTime.AddYears(-1).Month-@(Model.DateAndTime.AddYears(-1).Day)"><span class="glyphicon glyphicon-chevron-left" id="goDown"></span></a></li>
+                        <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(1).Year-@Model.DateAndTime.AddYears(1).Month-@(Model.DateAndTime.AddYears(1).Day)"><span class="glyphicon glyphicon-chevron-right" id="goUp"></span></a></li>
                         break;
                  }
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Day</a></li>
-                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Week</a></li>
-                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Month</a></li>
-                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day">Year</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day"><span id="day"></span>Day</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Week" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day"><span id="week"></span>Week</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day"><span id="month"></span>Month</a></li>
+                <li><a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Year" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@Model.DateAndTime.Day"><span id="year"></span>Year</a></li>
             </ul>
         </div>
     </nav>
@@ -72,38 +72,30 @@
 
     $(document).keypress(function(e){
 
-        var serializeJson = '@Html.Raw(Json.Serialize(Model))';
-        var parseModel = JSON.parse(serializeJson);
-
-        var currentRoomName = parseModel["room"]["name"];
-        var currentDateAndTime = parseModel["dateAndTime"];
-        var currentView = parseModel["view"];
-
-        //var result = new Date(currentDateAndTime);
-        //var nextDay = result.setDate(result.getDate() + 1);
-
         //Go up in Day,Week,Month,Year (Keyboard letter "W")
         if(e.keyCode == 119){
             e.preventDefault();
 
-            if(currentView == 0){
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
-            } else if(currentView == 1){
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
-            } else if(currentView == 2){
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + currentDateAndTime;
+            if(window.location.href.indexOf("Day") > -1){
+                $("#week").click();
+            } else if(window.location.href.indexOf("Week") > -1){
+                $("#month").click();
+            } else {
+                $("#year").click();
             }
+
         //Go down in Day,Week,Month,Year (Keyboard letter "S")
         } else if(e.keyCode == 115){
             e.preventDefault();
-
-            if(currentView == 3){
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
-            } else if(currentView == 2){
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
-            } else if(currentView == 1){
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + currentDateAndTime;
+    
+            if(window.location.href.indexOf("Month") > -1){
+                $("#week").click();
+            } else if(window.location.href.indexOf("Year") > -1){
+                $("#month").click();
+            } else {
+                $("#day").click();
             }
+
         //Scroll up 50 pixels (Keyboard letter "R")
         } else if(e.keyCode == 114){
             window.scrollBy(0,-50);
@@ -112,90 +104,10 @@
             window.scrollBy(0,50);
         //Go to previous Day,Week,Month,Year (Keyboard letter "A")
         } else if(e.keyCode == 97){
-            if(currentView == 0){
-                var dateClass = new Date(currentDateAndTime);
-                var minusOneDay = dateClass.setDate(dateClass.getDate() - 1);
-                var newCurrentDateAndTime = new Date(minusOneDay);
-                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
-                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate();
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + correctDateString;
-            } else if(currentView == 1){
-                var dateClass = new Date(currentDateAndTime);
-                var minusOneWeek = dateClass.setDate(dateClass.getDate() - 7);
-                var newCurrentDateAndTime = new Date(minusOneWeek);
-                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
-                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate(); 
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + correctDateString;
-            } else if(currentView == 2){
-                var dateClass = new Date(currentDateAndTime);
-                var plusOneMonth = dateClass.getMonth() + 1;
-
-                if(plusOneMonth == 1){
-                    var yearMinusOne = dateClass.getFullYear() - 1;
-                    var correctDateString = yearMinusOne + "-" + 12 + "-" + dateClass.getDate();
-                    window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;
-                    return;
-                }
-
-                var correctDateString = dateClass.getFullYear() + "-" + dateClass.getMonth() + "-" + dateClass.getDate();
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;             
-            } else if(currentView == 3){
-                var dateClass = new Date(currentDateAndTime);
-                var plusOneMonth = dateClass.getMonth() + 1;
-                var minusOneYear = dateClass.getFullYear() - 1;
-
-                var correctDateString = minusOneYear + "-" + plusOneMonth + "-" + dateClass.getDate();
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + correctDateString;
-            }
+            $("#goDown").click();
         //Go to next Day,Week,Month,Year (Keyboard letter "D")
         } else if(e.keyCode == 100){
-            if(currentView == 0){
-                var dateClass = new Date(currentDateAndTime);
-                var plusOneDay = dateClass.setDate(dateClass.getDate() + 1);
-                var newCurrentDateAndTime = new Date(plusOneDay);
-                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
-
-                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate();
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + correctDateString;
-            } else if(currentView == 1){
-                var dateClass = new Date(currentDateAndTime);
-                var plusOneWeek = dateClass.setDate(dateClass.getDate() + 7);
-                var newCurrentDateAndTime = new Date(plusOneWeek);
-                var plusOneMonth = newCurrentDateAndTime.getMonth() + 1;
-
-                var correctDateString = newCurrentDateAndTime.getFullYear() + "-" + plusOneMonth + "-" + newCurrentDateAndTime.getDate();
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + correctDateString;
-            } else if(currentView == 2){
-                var dateClass = new Date(currentDateAndTime);
-                var plusTwoMonths = dateClass.getMonth() + 2;
-
-                if(plusTwoMonths == 13){
-                    var yearPlusOne = dateClass.getFullYear() + 1;
-                    var correctDateString = yearPlusOne + "-" + 1 + "-" + dateClass.getDate();
-
-                    window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;
-                    return;
-                }
-
-                var correctDateString = dateClass.getFullYear() + "-" + plusTwoMonths + "-" + dateClass.getDate();
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + correctDateString;
-            
-            } else if(currentView == 3){
-                var dateClass = new Date(currentDateAndTime);
-                var plusOneMonth = dateClass.getMonth() + 1;
-                var plusOneYear = dateClass.getFullYear() + 1;
-
-                var correctDateString = plusOneYear + "-" + plusOneMonth + "-" + dateClass.getDate();
-
-                window.location.href="/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + correctDateString;
-            }
+            $("#goUp").click();
         }
     });
 
