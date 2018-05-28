@@ -11,10 +11,10 @@ namespace ict_lab_website.Models.ViewModels
     public class RoomScheduleViewModel
     {
         public Room Room { get;}
-        public ScheduleView View { get; }
+        public string View { get; }
         public DateTime DateAndTime { get; }
 
-        public RoomScheduleViewModel(Room room, ScheduleView view, DateTime dateTime)
+        public RoomScheduleViewModel(Room room, string view, DateTime dateTime)
         {
             this.Room = room;
             this.View = view;

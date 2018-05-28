@@ -49,13 +49,15 @@ namespace ict_lab_website.Process
                 }
                 reservationsForWeek.Add(0, GetEmptyDay());
                 reservationsForWeek.Add(6, GetEmptyDay());
-
-                return reservationsForWeek;
             } 
             catch(Exception e)
             {
-                throw e;
+                for (int i = 0; i < 7; i++)
+                {
+                    reservationsForWeek.Add(i, GetEmptyDay());
+                }
             }
+            return reservationsForWeek;
         }
 
         private Dictionary<int, Reservation> GetEmptyDay()

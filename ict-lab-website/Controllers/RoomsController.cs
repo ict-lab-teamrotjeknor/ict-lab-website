@@ -37,7 +37,7 @@ namespace ict_lab_website.Controllers
             return View(rooms);            
         }
 
-        public IActionResult Schedule(string name, DateTime dateTime, ScheduleView view = ScheduleView.Day)
+        public IActionResult Schedule(string name, DateTime dateTime, string view = "ScheduleViewDay")
         {
             Room room = repository.GetByName(name);
             RoomScheduleViewModel roomReservationsViewModel = new RoomScheduleViewModel(room, view, dateTime);
