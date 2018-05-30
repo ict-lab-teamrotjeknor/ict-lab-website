@@ -37,7 +37,7 @@
                         <tr>
                             <td>@Html.DisplayFor(modelItem => room.Name)</td>
                             <td>@(15 - room.Schedule.GetNumberOfFreeTimeslots(ViewBag.date, room.Name))</td>
-                            <td><a asp-action="Schedule" asp-route-name="@room.Name" asp-route-dateTime="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day">View schedule</a></td>
+                            <td><a asp-controller="Schedule" asp-action="Index" asp-route-roomName="@room.Name" asp-route-dateTime="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day">View schedule</a></td>
                         </tr>
                     }
                 }

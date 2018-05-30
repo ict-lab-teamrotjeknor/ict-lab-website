@@ -10,15 +10,17 @@ namespace ict_lab_website.Models.ViewModels
 {
     public class RoomScheduleViewModel
     {
-        public Room Room { get;}
+        public string RoomName { get; }
         public string View { get; }
         public DateTime DateAndTime { get; }
+        public ISchedule Schedule { get; }
 
-        public RoomScheduleViewModel(Room room, string view, DateTime dateTime)
+        public RoomScheduleViewModel(string roomName, string view, DateTime dateTime, ISchedule schedule)
         {
-            this.Room = room;
+            this.RoomName = roomName;
             this.View = view;
             this.DateAndTime = dateTime;
+            this.Schedule = schedule;
         }
     }
 }

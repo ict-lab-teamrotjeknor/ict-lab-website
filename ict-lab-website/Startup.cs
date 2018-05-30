@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ict_lab_website.Models;
 using ict_lab_website.Models.Rooms;
+using ict_lab_website.Models.Schedule;
 
 namespace ict_lab_website
 {
@@ -25,6 +26,7 @@ namespace ict_lab_website
         {
             services.AddMvc();
             services.AddTransient<IRepository<Room>, RoomRepository>();
+            services.AddTransient<ISchedule, RoomSchedule>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +48,9 @@ namespace ict_lab_website
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Rooms}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "schedule",
+                    template:"{controller=Schedule}/{action=Index}/{roomName}/{dateTime}/{view}");
             });
         }
     }

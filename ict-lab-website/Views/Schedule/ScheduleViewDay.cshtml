@@ -8,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var hour in Model.Room.Schedule.GetDay(Model.DateAndTime, Model.Room.Name))
+        @foreach (var hour in Model.Schedule.GetDay(Model.DateAndTime, Model.RoomName))
         {
             if (hour.Value != null)
             {
@@ -26,7 +26,7 @@
                 <tr>
                     <th>@hour.Key</th>
                     <td class="dayview-reservation">
-                        <a class="btn btn-default" asp-controller="Rooms" asp-action="AddReservation" asp-route-roomName="@Model.Room.Name" asp-route-startLessonHour="@hour.Key"><span class="glyphicon glyphicon-plus"></span></a>
+                        <a class="btn btn-default" asp-controller="Schedule" asp-action="AddReservation" asp-route-roomName="@Model.RoomName" asp-route-startLessonHour="@hour.Key"><span class="glyphicon glyphicon-plus"></span></a>
                     </td>
                 </tr>
             }

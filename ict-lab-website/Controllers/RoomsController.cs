@@ -37,40 +37,6 @@ namespace ict_lab_website.Controllers
             return View(rooms);            
         }
 
-        public IActionResult Schedule(string name, DateTime dateTime, string view = "ScheduleViewDay")
-        {
-            Room room = repository.GetByName(name);
-            RoomScheduleViewModel roomReservationsViewModel = new RoomScheduleViewModel(room, view, dateTime);
-            return View(roomReservationsViewModel);
-        }
 
-        [HttpGet]
-        public IActionResult AddReservation(string roomName, int startLessonHour)
-        {
-            ViewBag.roomName = roomName;
-            ViewBag.startLessonHour = startLessonHour;
-            return View("AddReservation");
-        }
-
-        [HttpPost]
-        public IActionResult AddReservation(Reservation reservation)
-        {
-            if (ModelState.IsValid)
-            {
-                Room room = repository.GetByName(reservation.RoomId);
-                try
-                {
-                    room.Schedule.AddReservation(reservation);
-                    return RedirectToAction("Schedule", new { name = room.Name, DateTime = reservation.Date });
-                }
-                catch(Exception e)
-                {
-                    ViewBag.message = e.Message;
-                }               
-            }
-            ViewBag.roomName = reservation.RoomId;
-            ViewBag.startLessonHour = reservation.HourId;
-            return View("AddReservation", new Reservation());
-        }
     }
 }
