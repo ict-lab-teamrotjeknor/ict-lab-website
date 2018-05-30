@@ -12,16 +12,17 @@ namespace ict_lab_website.Controllers
 {
     public class RoomsController : Controller
     {
-        private IRepository<Room> repository;
+        private IRepository<Room> Repository;
+        private ISchedule Schedule;
 
-        public RoomsController(IRepository<Room> roomRepository)
+        public RoomsController(IRepository<Room> roomRepository, ISchedule schedule)
         {
-            this.repository = roomRepository;
+            this.Repository = roomRepository;
         }
 
         public IActionResult Index(DateTime date, string searchString = "H.")
         {
-            var rooms = repository.GetAll();
+            var rooms = Repository.GetAll();
 
             if (!String.IsNullOrEmpty(searchString))
             {
