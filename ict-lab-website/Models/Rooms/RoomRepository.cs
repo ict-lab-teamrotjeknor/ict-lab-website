@@ -1,4 +1,5 @@
 ﻿using ict_lab_website.Process;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,11 +12,12 @@ namespace ict_lab_website.Models.Rooms
     public class RoomRepository : IRepository<Room>
     {
         private List<Room> rooms;
-        private RoomsApiCalls roomsApiCalls = new RoomsApiCalls();
+        private RoomsApiCalls roomsApiCalls;
 
-        public RoomRepository()
+        public RoomRepository(IOptions<ApiConfig> apiConfig)
         {
-            rooms = roomsApiCalls.GetAll();
+            roomsApiCalls = new RoomsApiCalls(apiConfig.Value);
+            rooms = roomsApiCalls.GetAll();          
         }            
 
         public void Add(Room room)
@@ -28,9 +30,9 @@ namespace ict_lab_website.Models.Rooms
             rooms.Remove(room);
         }
 
-        public IQueryable<Room> GetAll()
+        public List<Room> GetAll()
         {
-            return rooms.AsQueryable<Room>();
+            return rooms;
         }
 
         public Room GetById(string id)

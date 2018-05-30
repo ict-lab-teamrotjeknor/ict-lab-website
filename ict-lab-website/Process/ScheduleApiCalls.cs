@@ -1,4 +1,5 @@
 ﻿using ict_lab_website.Models.Schedule;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,18 +11,23 @@ namespace ict_lab_website.Process
 {
     public class ScheduleApiCalls
     {
-        private ApiCalls apiCalls = new ApiCalls();
-        private string url = "http://145.24.222.103:8080";
+        private ApiCalls ApiCalls = new ApiCalls();
+        private ApiConfig ApiConfig;
+        
+        public ScheduleApiCalls(ApiConfig apiConfig)
+        {
+            this.ApiConfig = apiConfig;
+        }
 
 
         public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(string roomName, int year, int quarter, int week)
         {
-            string parameters = $"/schedule/getweek/{roomName}/{year}/4/22";
+            string parameters = $"/{roomName}/{year}/4/22";
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
             try
             {
-                var json = apiCalls.GetRequest(url + parameters);
+                var json = ApiCalls.GetRequest(ApiConfig.Url + ApiConfig.GetWeek + parameters);
                 var days = JObject.Parse(json)["Days"];
                 int dayNumber = 1;
 

@@ -5,17 +5,18 @@ using ict_lab_website.Models;
 using ict_lab_website.Models.Rooms;
 using ict_lab_website.Models.Schedule;
 using ict_lab_website.Models.ViewModels;
+using ict_lab_website.Process;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Options;
 
 namespace ict_lab_website.Controllers
 {
     public class RoomsController : Controller
     {
         private IRepository<Room> Repository;
-        private ISchedule Schedule;
 
-        public RoomsController(IRepository<Room> roomRepository, ISchedule schedule)
+        public RoomsController(IRepository<Room> roomRepository)
         {
             this.Repository = roomRepository;
         }
@@ -26,7 +27,7 @@ namespace ict_lab_website.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                rooms = rooms.Where(room => room.Name.Contains(searchString));
+                rooms = rooms.Where(room => room.Name.Contains(searchString)).ToList();
             }
 
             if (date.Equals(new DateTime()))

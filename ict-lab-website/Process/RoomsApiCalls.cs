@@ -11,8 +11,12 @@ namespace ict_lab_website.Process
     public class RoomsApiCalls
     {
         private ApiCalls ApiCalls = new ApiCalls();
-        private string url = "http://145.24.222.103:8080";
-        string parametersGetAll = "/manage/getallrooms";
+        private ApiConfig ApiConfig;
+
+        public RoomsApiCalls(ApiConfig apiConfig)
+        {
+            this.ApiConfig = apiConfig;
+        }
 
         public List<Room> GetAll()
         {
@@ -20,7 +24,7 @@ namespace ict_lab_website.Process
 
             try
             {
-                var json = ApiCalls.GetRequest(url + parametersGetAll);
+                var json = ApiCalls.GetRequest(ApiConfig.Url + ApiConfig.GetAllRooms);
                 var classRooms = JObject.Parse(json)["Classroom"];
 
                 foreach (JToken classroom in classRooms)

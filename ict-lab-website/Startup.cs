@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ict_lab_website.Models;
 using ict_lab_website.Models.Rooms;
 using ict_lab_website.Models.Schedule;
+using ict_lab_website.Process;
 
 namespace ict_lab_website
 {
@@ -25,6 +26,7 @@ namespace ict_lab_website
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.Configure<ApiConfig>(Configuration.GetSection("ApiConfig"));
             services.AddTransient<IRepository<Room>, RoomRepository>();
             services.AddTransient<ISchedule, RoomSchedule>();
         }

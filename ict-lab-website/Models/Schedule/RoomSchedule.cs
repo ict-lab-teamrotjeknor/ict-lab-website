@@ -1,4 +1,5 @@
 ﻿using ict_lab_website.Process;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +10,12 @@ namespace ict_lab_website.Models.Schedule
 {
     public class RoomSchedule : ISchedule
     {
-        private ScheduleApiCalls scheduleAPiCalls = new ScheduleApiCalls();
+        private ScheduleApiCalls scheduleAPiCalls;
+
+        public RoomSchedule(IOptions<ApiConfig> apiConfig)
+        {
+            this.scheduleAPiCalls = new ScheduleApiCalls(apiConfig.Value);
+        }
 
         public Dictionary<int, Reservation> GetDay(DateTime date, string roomName)
         {
