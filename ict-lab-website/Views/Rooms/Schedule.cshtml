@@ -61,36 +61,42 @@
 
     $(document).keypress(function(e){
 
-        var serializeJson = '@Html.Raw(Json.Serialize(Model))';
-        var parseModel = JSON.parse(serializeJson);
-
-        var currentRoomName = parseModel["room"]["name"];
-        var currentDateAndTime = parseModel["dateAndTime"];
-        var currentView = parseModel["view"];
-
-        //var result = new Date(currentDateAndTime);
-        //var nextDay = result.setDate(result.getDate() + 1);
-
+        //Go up in Day,Week,Month,Year (Keyboard letter "W")
         if(e.keyCode == 119){
             e.preventDefault();
 
-            if(currentView == 0){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
-            } else if(currentView == 1){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
-            } else if(currentView == 2){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Year&dateTime=" + currentDateAndTime;
+            if(window.location.href.indexOf("Day") > -1){
+                $("#week").click();
+            } else if(window.location.href.indexOf("Week") > -1){
+                $("#month").click();
+            } else {
+                $("#year").click();
             }
+
+        //Go down in Day,Week,Month,Year (Keyboard letter "S")
         } else if(e.keyCode == 115){
             e.preventDefault();
-
-            if(currentView == 3){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Month&dateTime=" + currentDateAndTime;
-            } else if(currentView == 2){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Week&dateTime=" + currentDateAndTime;
-            } else if(currentView == 1){
-                window.location.href="http://localhost:5001/Rooms/Schedule?name=" + currentRoomName + "&view=Day&dateTime=" + currentDateAndTime;
+    
+            if(window.location.href.indexOf("Month") > -1){
+                $("#week").click();
+            } else if(window.location.href.indexOf("Year") > -1){
+                $("#month").click();
+            } else {
+                $("#day").click();
             }
+
+        //Scroll up 50 pixels (Keyboard letter "R")
+        } else if(e.keyCode == 114){
+            window.scrollBy(0,-50);
+        //Scroll down 50 pixels (Keyboard letter "F")
+        } else if(e.keyCode == 102){
+            window.scrollBy(0,50);
+        //Go to previous Day,Week,Month,Year (Keyboard letter "A")
+        } else if(e.keyCode == 97){
+            $("#goDown").click();
+        //Go to next Day,Week,Month,Year (Keyboard letter "D")
+        } else if(e.keyCode == 100){
+            $("#goUp").click();
         }
     });
 
