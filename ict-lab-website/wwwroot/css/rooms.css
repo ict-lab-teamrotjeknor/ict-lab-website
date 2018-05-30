@@ -1,0 +1,46 @@
+﻿/* Layout and spacing */
+
+.form-group input {
+    margin-right: 10px;
+}
+
+/* Buttons for adding or editing a reservation to the day-view*/
+
+.dayview-reservation a {
+    float: right;
+}
+
+.weekview-reservation {
+    position: relative;
+}
+
+.reservation-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    background-color: black;
+}
+
+.weekview-reservation:hover .reservation-overlay {
+    opacity: 0.50;
+}
+
+.reservation-icon {
+    color: white;
+    font-size: 150%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.reservation-icon:hover {
+    color: #5CB85C;
+}

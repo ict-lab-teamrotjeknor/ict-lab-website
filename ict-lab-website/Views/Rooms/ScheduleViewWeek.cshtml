@@ -1,0 +1,52 @@
+﻿@model RoomScheduleViewModel
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr class="success">
+            <th>Lesson hour</th>
+            <th colspan="7">Reservations for the week of @Model.Room.RoomSchedule.GetDatesForWeek(Model.DateAndTime).First().ToString("dd MMMM yyyy")</th>
+        </tr>
+        <tr>
+            <th></th>
+            @foreach  (var day in Model.Room.RoomSchedule.GetDatesForWeek(Model.DateAndTime))
+            {
+                <th>@day.ToString("ddd. d MMMM")</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 1; i <= 15; i++)
+        {
+        <tr>
+            <th>@i</th>
+            @foreach (var day in Model.Room.RoomSchedule.GetReservationsForWeek(Model.DateAndTime, Model.Room.Name))
+            {
+                if (day.Value[i] != null)
+                {
+                    <td class="weekview-reservation">
+                        @Html.Raw(day.Value[i].Course) - @day.Value[i].Teacher - @day.Value[i].Class
+                        <div class="reservation-overlay">
+                            <a href="#" class="reservation-icon">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td class="weekview-reservation">
+                        <div class="reservation-overlay">
+                            <a href="#" class="reservation-icon">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </td>
+                }
+             }
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
