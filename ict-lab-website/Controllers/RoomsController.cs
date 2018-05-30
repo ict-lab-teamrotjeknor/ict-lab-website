@@ -73,7 +73,7 @@ namespace ict_lab_website.Controllers
                 Room room = repository.GetByName(reservation.RoomId);
                 try
                 {
-                    room.RoomSchedule.AddReservation(reservation);
+                    room.Schedule.AddReservation(reservation);
                     return RedirectToAction("Schedule", new { name = room.Name, DateTime = reservation.Date });
                 }
                 catch(Exception e)

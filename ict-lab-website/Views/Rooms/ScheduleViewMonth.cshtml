@@ -7,18 +7,18 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 1; i <= Model.Room.RoomSchedule.GetReservationsForMonth(Model.DateAndTime).Count; i += 7)
+        @for (int i = 1; i <= DateTime.DaysInMonth(Model.DateAndTime.Year, Model.DateAndTime.Month); i += 7)
         {
 
             <tr>
                 @for (int j = i; j < i + 7; j++)
                 {
-                    if (j > Model.Room.RoomSchedule.GetReservationsForMonth(Model.DateAndTime).Count)
+                    if (j > DateTime.DaysInMonth(Model.DateAndTime.Year, Model.DateAndTime.Month))
                     {
                         break;
                     }
                     <td>
-                        <a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Day" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@j">
+                        <a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="ScheduleViewDay" asp-route-dateTime="@Model.DateAndTime.Year-@Model.DateAndTime.Month-@j">
                             <div style="width:100%; height:100%">@j</div>
                         </a>
                     </td>
