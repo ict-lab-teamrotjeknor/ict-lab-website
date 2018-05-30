@@ -11,11 +11,5 @@ namespace ict_lab_website.Models.Rooms
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public ISchedule Schedule { get; set; }
-
-        public Room()
-        {
-            Schedule = new RoomSchedule();
-        }
     }
 }
