@@ -13,7 +13,7 @@
             @for (int j = i; j <= i+2; j++)
             {
                 <td>
-                    <a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="@ScheduleView.Month" asp-route-dateTime="@Model.DateAndTime.Year-@j-1">
+                    <a asp-action="Schedule" asp-route-name="@Model.Room.Name" asp-route-view="ScheduleViewMonth" asp-route-dateTime="@Model.DateAndTime.Year-@j-1">
                         <div style="width:100%; height:100%">
                             @(new DateTime(Model.DateAndTime.Year, j, 1).ToString("MMMM"))
                         </div>
