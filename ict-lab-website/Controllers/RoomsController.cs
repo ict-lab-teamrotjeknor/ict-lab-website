@@ -45,19 +45,6 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Create(Room room)
-        {
-            repository.Add(room);
-            return View("Index", repository.GetAll());
-        }
-
-        [HttpGet]
         public IActionResult AddReservation(string roomName, int startLessonHour)
         {
             ViewBag.roomName = roomName;
