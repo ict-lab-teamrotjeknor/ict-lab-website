@@ -52,7 +52,7 @@ namespace ict_lab_website
                     template: "{controller=Rooms}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "schedule",
-                    template:"{controller=Schedule}/{action=Index}/{roomName}/{dateTime}/{view}");
+                    template:"{controller=Schedule}/{action=Index}/{roomName}/{dateTime}/{view?}");
             });
         }
     }
