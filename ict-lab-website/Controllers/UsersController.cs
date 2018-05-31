@@ -10,16 +10,19 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace ictlabwebsite.Controllers
 {
     public class UsersController : Controller
     {
         private ApiCalls _apiCalls;
+		private readonly ILogger _logger;
 
-        public UsersController()
+		public UsersController(ILogger<UsersController> logger)
         {
             _apiCalls = new ApiCalls();
+			_logger = logger;
         }
         
         [HttpGet]
