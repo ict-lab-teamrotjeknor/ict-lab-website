@@ -1,4 +1,8 @@
-﻿using ict_lab_website.Process;
+﻿using ict_lab_website.Controllers;
+using ict_lab_website.Process;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,125 +11,60 @@ using System.Threading.Tasks;
 
 namespace ict_lab_website.Models.Schedule
 {
-    public class RoomSchedule
+    public class RoomSchedule : ISchedule
     {
-        private ScheduleApiCalls scheduleAPiCalls = new ScheduleApiCalls();
+        private readonly ApiCalls apiCalls;
+        private readonly ApiConfig apiConfig;
+        private readonly ILogger logger;
 
-        // A dictionary for the schedule, which can be accessed in the form reservations[year][month][day][lessonhour].
-        //For example: Reservations[2018][05][01][01] returns the reservation on the first lesson-hour on 01-05-2018.  
-        public Dictionary<int, Dictionary<int, Dictionary<int, Dictionary<int, Reservation>>>> Reservations { get; set; }
-
-        public RoomSchedule()
+        public RoomSchedule(IOptions<ApiConfig> apiConfig, ILogger<ScheduleController> logger)
         {
-            Reservations = new Dictionary<int, Dictionary<int, Dictionary<int, Dictionary<int, Reservation>>>>();
-            for (int year = 2016; year <= 2020; year++)
-            {
-                Reservations.Add(year, new Dictionary<int, Dictionary<int, Dictionary<int, Reservation>>>());
-                for (int month = 1; month <= 12; month++)
-                {
-                    Reservations[year].Add(month, new Dictionary<int, Dictionary<int, Reservation>>());
-
-                    int numberOfDays = DateTime.DaysInMonth(year, month);
-                    for (int day = 1; day <= numberOfDays; day++)
-                    {
-                        Reservations[year][month].Add(day, new Dictionary<int, Reservation>());
-                        int numberOfLessonHours = 15;
-                        for (int hour = 1; hour <= numberOfLessonHours; hour++)
-                        {
-                            //Data for testing purposes:
-                            if (hour == 1)
-                            {
-                                Reservations[year][month][day].Add(hour, new Reservation { Teacher = "MINUTO", HourId = 1, EndHourId = 1, RoomId = "H.1.308", Course="ICT-LAB" });
-                            }
-                            else
-                            {
-                                Reservations[year][month][day].Add(hour, null);
-                            }                          
-                        }
-                    }
-                }
-            }
+            apiCalls = new ApiCalls();
+            this.apiConfig = apiConfig.Value;
+            this.logger = logger;
         }
 
-        public Dictionary<int, Dictionary<int, Dictionary<int, Reservation>>> GetReservationsForYear(DateTime date)
+        public Dictionary<int, Reservation> GetDay(DateTime date, string roomName)
         {
-            return Reservations[date.Year];
-        }
-
-        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForMonth(DateTime date)
-        {
-            return Reservations[date.Year][date.Month];
-        }
-
-
-        public Dictionary<int, Reservation> GetReservationsForDay(DateTime date, string roomName)
-        {
-            var reservationsForWeek = GetReservationsForWeek(date, roomName);
+            var reservationsForWeek = GetWeek(date, roomName);
             int dayOfWeek = (int)date.DayOfWeek;
             Dictionary<int, Reservation> reservationsForDay = reservationsForWeek[dayOfWeek];
 
             return reservationsForDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public Dictionary<int, Dictionary<int, Reservation>> GetReservationsForWeek(DateTime date, string roomName)
+        public Dictionary<int, Dictionary<int, Reservation>> GetWeek(DateTime date, string roomName)
         {
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
             int year = date.Year;
             int quarter = 4;
-            int week = GetIso8601WeekOfYear(date);
+            int week = GetWeeknumber(date);
 
-            return scheduleAPiCalls.GetReservationsForWeek(roomName, year, quarter, week);
+            return GetWeekFromApi(roomName, year, quarter, week);
 
-            /*
-            var ReservationsForYear = GetReservationsForYear(date);
-
-            foreach(int monthKey in ReservationsForYear.Keys)
-            {
-                var reservationsForMonth = ReservationsForYear[monthKey];
-                foreach(int dayKey in reservationsForMonth.Keys)
-                {
-                    var reservationsForDay = reservationsForMonth[dayKey];
-
-                    DateTime day = new DateTime(date.Year, monthKey, dayKey);
-                    int currentWeekNumber = GetIso8601WeekOfYear(day);
-                    if (currentWeekNumber == weeknumber)
-                    {
-                        reservationsForWeek.Add(dayKey, reservationsForDay);
-                    }
-                }
-            }
-            return reservationsForWeek;
-            */
         }
 
-        public List<DateTime> GetDatesForWeek(DateTime date)
+        public List<DateTime> GetDatesInSameWeek(DateTime date)
         {
-            List<DateTime> datesForWeek = new List<DateTime>();
-            int weeknumber = GetIso8601WeekOfYear(date);
-            var ReservationsForYear = GetReservationsForYear(date);
+            List<DateTime> datesInSameWeek = new List<DateTime>();
+            var day = (int) date.DayOfWeek;
+            int daysInWeek = 7;
 
-            foreach (int monthKey in ReservationsForYear.Keys)
+            var monday = date.AddDays(-(int)date.DayOfWeek + (int)DayOfWeek.Monday);
+            datesInSameWeek.Add(monday);
+
+            for (int i = (int)DayOfWeek.Monday; i < daysInWeek; i++)
             {
-                var reservationsForMonth = ReservationsForYear[monthKey];
-                foreach (int dayKey in reservationsForMonth.Keys)
-                {
-                    var reservationsForDay = reservationsForMonth[dayKey];
-
-                    DateTime day = new DateTime(date.Year, monthKey, dayKey);
-                    int currentWeekNumber = GetIso8601WeekOfYear(day);
-                    if (currentWeekNumber == weeknumber)
-                    {
-                        datesForWeek.Add(day);
-                    }
-                }
+                var dateOfDay = new DateTime(monday.AddDays(i).Year, monday.AddDays(i).Month, monday.AddDays(i).Day);
+                datesInSameWeek.Add(dateOfDay);
             }
-            return datesForWeek;
+            return datesInSameWeek;
         }
 
         //This method returns the weeknumber according to the ISO-8601 standard, because the one from .Net does strange things with weeks at the end of the year.
         //This method was found on: 
         //https://stackoverflow.com/questions/11154673/get-the-correct-week-number-of-a-given-date?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-        private static int GetIso8601WeekOfYear(DateTime date)
+        private static int GetWeeknumber(DateTime date)
         {
             DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(date);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
@@ -135,48 +74,77 @@ namespace ict_lab_website.Models.Schedule
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public int GetNumberOfFreeTimeSlots(DateTime date, string roomId)
+        public void AddReservation(Reservation reservation)
         {
-            var reservations = this.GetReservationsForDay(date, roomId);
+            throw new NotImplementedException();
+        }
+
+
+        public int GetNumberOfFreeTimeslots(DateTime date, string roomName)
+        {
+            var reservations = GetDay(date, roomName);
             return reservations.Where(x => x.Value != null).Count();
         }
 
-        public void AddReservation(Reservation reservation)
+        private Dictionary<int, Dictionary<int, Reservation>> GetWeekFromApi(string roomName, int year, int quarter, int week)
         {
-            var date = reservation.Date;
-            var reservationsForDate = GetReservationsForDay(date, reservation.RoomId);
-            Boolean isAvailable = AreHoursAvailable(reservation, reservationsForDate);
+            string parameters = $"/{roomName}/{year}/4/22";
+            Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
-            if (isAvailable)
+            try
             {
-                for (int i = reservation.HourId; i <= reservation.EndHourId; i++)
+                logger.LogInformation("Getting week {roomName}, {year}, {quarter}, {week}  from API", roomName, year, quarter, week, DateTime.Now);
+                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetWeek + parameters);
+                var days = JObject.Parse(json)["Days"];
+                int dayNumber = 1;
+
+                foreach (var day in days)
                 {
-                    reservationsForDate[i] = reservation;
+                    reservationsForWeek.Add(dayNumber, new Dictionary<int, Reservation>());
+                    var hours = JObject.Parse(day.ToString())["Hours"];
+
+                    foreach (var hour in hours)
+                    {
+                        Reservation reservation = hour.ToObject<Reservation>();
+                        reservation.RoomId = roomName;
+                        reservationsForWeek[dayNumber].Add(reservation.HourId, reservation);
+
+                    }
+
+                    for (int i = 1; i <= 15; i++)
+                    {
+                        if (!reservationsForWeek[dayNumber].ContainsKey(i))
+                        {
+                            reservationsForWeek[dayNumber].Add(i, null);
+                        }
+                    }
+                    dayNumber++;
+                }
+                reservationsForWeek.Add(0, GetEmptyDay());
+                reservationsForWeek.Add(6, GetEmptyDay());
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "GetWeek({roomName}, {year}, {quarter}, {week} NOT FOUND )", roomName, year, quarter, week, DateTime.Now);
+                for (int i = 0; i < 7; i++)
+                {
+                    reservationsForWeek.Add(i, GetEmptyDay());
                 }
             }
-            else
-            {
-                throw new Exception("This timeslot is not available");
-            }
+            return reservationsForWeek;
         }
 
-        public static int GetQuarterFromDate(DateTime date)
+        private Dictionary<int, Reservation> GetEmptyDay()
         {
-            return (date.Month / 3) + 1;
-        }
+            Dictionary<int, Reservation> emptyday = new Dictionary<int, Reservation>();
 
-        public static Boolean AreHoursAvailable(Reservation reservation, Dictionary<int, Reservation> reservationsForDay)
-        {
-            Boolean areHoursAvailable = true;
-            for (int i = reservation.HourId; i <= reservation.EndHourId; i++)
+            for (int i = 1; i <= 15; i++)
             {
-                if (reservationsForDay[i] != null)
-                {
-                    areHoursAvailable = false;
-                    break;
-                }
+                emptyday.Add(i, null);
             }
-            return areHoursAvailable;
+
+            return emptyday;
         }
     }
 }
+

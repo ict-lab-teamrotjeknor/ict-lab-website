@@ -4,11 +4,11 @@
     <thead>
         <tr class="success">
             <th>Lesson hour</th>
-            <th colspan="7">Reservations for the week of @Model.Room.RoomSchedule.GetDatesForWeek(Model.DateAndTime).First().ToString("dd MMMM yyyy")</th>
+            <th colspan="7">Reservations for the week of @Model.Schedule.GetDatesInSameWeek(Model.DateAndTime).First().ToString("dd MMMM yyyy")</th>
         </tr>
         <tr>
             <th></th>
-            @foreach  (var day in Model.Room.RoomSchedule.GetDatesForWeek(Model.DateAndTime))
+            @foreach  (var day in Model.Schedule.GetDatesInSameWeek(Model.DateAndTime))
             {
                 <th>@day.ToString("ddd. d MMMM")</th>
             }
@@ -19,7 +19,7 @@
         {
         <tr>
             <th>@i</th>
-            @foreach (var day in Model.Room.RoomSchedule.GetReservationsForWeek(Model.DateAndTime, Model.Room.Name))
+            @foreach (var day in Model.Schedule.GetWeek(Model.DateAndTime, Model.RoomName))
             {
                 if (day.Value[i] != null)
                 {

@@ -7,10 +7,8 @@ namespace ict_lab_website.Models
 {
     public interface IRepository<T>
     {
-        IQueryable<T> GetAll();
+        List<T> GetAll();
         T GetById(string id);
         T GetByName(string name);
-        void Add(T entity);
-        void Delete(T entity);
     }
 }

@@ -1,9 +1,13 @@
-﻿using ict_lab_website.Process;
+﻿using ict_lab_website.Controllers;
+using ict_lab_website.Process;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ict_lab_website.Models.Rooms
@@ -11,31 +15,47 @@ namespace ict_lab_website.Models.Rooms
     public class RoomRepository : IRepository<Room>
     {
         private List<Room> rooms;
-        private RoomsApiCalls roomsApiCalls = new RoomsApiCalls();
+        private readonly ApiConfig apiConfig;
+        private readonly ILogger logger;
+        private readonly ApiCalls apiCalls;
 
-        public RoomRepository()
+        public RoomRepository(IOptions<ApiConfig> apiConfig, ILogger<RoomsController> logger)
         {
-            rooms = roomsApiCalls.GetAll();
+            apiCalls = new ApiCalls();
+            this.apiConfig = apiConfig.Value;
+            this.logger = logger;
+            rooms = GetAll();
         }            
 
-        public void Add(Room room)
+        public List<Room> GetAll()
         {
-            rooms.Add(room);
-        }
+            List<Room> rooms = new List<Room>();
 
-        public void Delete(Room room)
-        {
-            rooms.Remove(room);
-        }
+            try
+            {
+                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetAllRooms);
+                var classRooms = JObject.Parse(json)["Classroom"];
 
-        public IQueryable<Room> GetAll()
-        {
-            return rooms.AsQueryable<Room>();
+                foreach (JToken classroom in classRooms)
+                {
+                    foreach (JToken room in classroom.Children())
+                    {
+                        Room r = JsonConvert.DeserializeObject<Room>(room.ToString());
+                        rooms.Add(r);
+                    }
+                }
+            }
+            catch (WebException e)
+            {
+                logger.LogError("Cannot get rooms from API", e, DateTime.Now);
+            }
+
+            return rooms;
         }
 
         public Room GetById(string id)
         {
-            return rooms.Where(room => room.Id.Equals(id)).First();
+            return rooms.Where(room => room.Id.Equals(id)).First()?? new Room();
         }
 
         public Room GetByName(string name)
