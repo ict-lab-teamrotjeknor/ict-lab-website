@@ -54,7 +54,7 @@ namespace ict_lab_website.Process
                 return json;
 
             }
-            catch (Exception e)
+            catch (WebException e)
             {
                 throw e;
             }

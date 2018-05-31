@@ -1,5 +1,8 @@
-﻿using ict_lab_website.Process;
+﻿using ict_lab_website.Controllers;
+using ict_lab_website.Process;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,11 +13,15 @@ namespace ict_lab_website.Models.Schedule
 {
     public class RoomSchedule : ISchedule
     {
-        private ScheduleApiCalls scheduleAPiCalls;
+        private readonly ApiCalls apiCalls;
+        private readonly ApiConfig apiConfig;
+        private readonly ILogger logger;
 
-        public RoomSchedule(IOptions<ApiConfig> apiConfig)
+        public RoomSchedule(IOptions<ApiConfig> apiConfig, ILogger<ScheduleController> logger)
         {
-            this.scheduleAPiCalls = new ScheduleApiCalls(apiConfig.Value);
+            apiCalls = new ApiCalls();
+            this.apiConfig = apiConfig.Value;
+            this.logger = logger;
         }
 
         public Dictionary<int, Reservation> GetDay(DateTime date, string roomName)
@@ -33,7 +40,7 @@ namespace ict_lab_website.Models.Schedule
             int quarter = 4;
             int week = GetWeeknumber(date);
 
-            return scheduleAPiCalls.GetReservationsForWeek(roomName, year, quarter, week);
+            return GetWeekFromApi(roomName, year, quarter, week);
 
         }
 
@@ -78,5 +85,66 @@ namespace ict_lab_website.Models.Schedule
             var reservations = GetDay(date, roomName);
             return reservations.Where(x => x.Value != null).Count();
         }
+
+        private Dictionary<int, Dictionary<int, Reservation>> GetWeekFromApi(string roomName, int year, int quarter, int week)
+        {
+            string parameters = $"/{roomName}/{year}/4/22";
+            Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
+
+            try
+            {
+                logger.LogInformation("Getting week {roomName}, {year}, {quarter}, {week}  from API", roomName, year, quarter, week, DateTime.Now);
+                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetWeek + parameters);
+                var days = JObject.Parse(json)["Days"];
+                int dayNumber = 1;
+
+                foreach (var day in days)
+                {
+                    reservationsForWeek.Add(dayNumber, new Dictionary<int, Reservation>());
+                    var hours = JObject.Parse(day.ToString())["Hours"];
+
+                    foreach (var hour in hours)
+                    {
+                        Reservation reservation = hour.ToObject<Reservation>();
+                        reservation.RoomId = roomName;
+                        reservationsForWeek[dayNumber].Add(reservation.HourId, reservation);
+
+                    }
+
+                    for (int i = 1; i <= 15; i++)
+                    {
+                        if (!reservationsForWeek[dayNumber].ContainsKey(i))
+                        {
+                            reservationsForWeek[dayNumber].Add(i, null);
+                        }
+                    }
+                    dayNumber++;
+                }
+                reservationsForWeek.Add(0, GetEmptyDay());
+                reservationsForWeek.Add(6, GetEmptyDay());
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "GetWeek({roomName}, {year}, {quarter}, {week} NOT FOUND )", roomName, year, quarter, week, DateTime.Now);
+                for (int i = 0; i < 7; i++)
+                {
+                    reservationsForWeek.Add(i, GetEmptyDay());
+                }
+            }
+            return reservationsForWeek;
+        }
+
+        private Dictionary<int, Reservation> GetEmptyDay()
+        {
+            Dictionary<int, Reservation> emptyday = new Dictionary<int, Reservation>();
+
+            for (int i = 1; i <= 15; i++)
+            {
+                emptyday.Add(i, null);
+            }
+
+            return emptyday;
+        }
     }
 }
+
