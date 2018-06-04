@@ -17,7 +17,7 @@ namespace ict_lab_website.Models.Rooms
         private List<Room> rooms;
         private readonly ApiConfig apiConfig;
         private readonly ILogger logger;
-        private readonly ApiCalls apiCalls;
+        private readonly IApiCalls apiCalls;
 
         public RoomRepository(IOptions<ApiConfig> apiConfig, ILogger<RoomsController> logger)
         {

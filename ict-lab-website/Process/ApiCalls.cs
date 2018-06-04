@@ -8,15 +8,15 @@ using Newtonsoft.Json.Linq;
 
 namespace ict_lab_website.Process
 {
-    public class ApiCalls
+    public class ApiCalls : IApiCalls
     {
-        public JObject PostRequest(JObject postData, string sendUrl)
+        public JObject PostRequest(JObject postData, string url)
         {
             var result = new JObject();
 
             try
             {
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(sendUrl);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "Post";
 
