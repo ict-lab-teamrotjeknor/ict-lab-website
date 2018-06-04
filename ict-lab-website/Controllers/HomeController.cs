@@ -10,15 +10,19 @@ using ict_lab_website.Process;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Routing;
 using ict_lab_website.Models.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace ict_lab_website.Controllers
 {
     public class HomeController : Controller
     {
-        private ApiCalls _apiCalls;  
+        private ApiCalls _apiCalls;
+		private readonly ILogger _logger;
 
-        public HomeController(){
+		public HomeController(ILogger<HomeController> logger){
             _apiCalls = new ApiCalls();
+			_logger = logger;
+
         }
 
         public IActionResult Index()
