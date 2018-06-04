@@ -50,19 +50,22 @@ namespace ictlabwebsite.Controllers
         }
         
 		[HttpPost]
-		public IActionResult Index(RoleList _roleList)
+		public IActionResult ChangeRole(RoleList _roleList)
 		{
-
-			StringBuilder stringBuilder = new StringBuilder();
-
 			foreach(var item in _roleList.roles){
 				if(item.IsChecked){
-					stringBuilder.Append(item.RoleName + ", ");
+					var tester = item.RoleName;
 				}
 			}
-			ViewBag.selectRole = stringBuilder.ToString();
 
-			return View(_roleList);
+			ChangeUserRole test = new ChangeUserRole("admin@admin.nl", "Handyman");
+            
+			var stringJson = JsonConvert.SerializeObject(test);
+            var rJson = JObject.Parse(stringJson);
+
+			var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/changerole");
+
+			return RedirectToAction("Index");
 		}
         
 		//[HttpPost]
