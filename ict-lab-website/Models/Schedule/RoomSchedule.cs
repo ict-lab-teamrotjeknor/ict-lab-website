@@ -13,7 +13,7 @@ namespace ict_lab_website.Models.Schedule
 {
     public class RoomSchedule : ISchedule
     {
-        private readonly ApiCalls apiCalls;
+        private readonly IApiCalls apiCalls;
         private readonly ApiConfig apiConfig;
         private readonly ILogger logger;
 
