@@ -50,24 +50,24 @@ namespace ictlabwebsite.Controllers
         }
         
 		[HttpPost]
-		public IActionResult Index(RoleList rl)
+		public IActionResult Index(RoleList _roleList)
 		{
 
 			StringBuilder stringBuilder = new StringBuilder();
 
-			foreach(var item in rl.roles){
+			foreach(var item in _roleList.roles){
 				if(item.IsChecked){
 					stringBuilder.Append(item.RoleName + ", ");
 				}
 			}
 			ViewBag.selectRole = stringBuilder.ToString();
 
-			return View(rl);
+			return View(_roleList);
 		}
         
 		//[HttpPost]
 		//public IActionResult changeReservationLimit(ChangeReservationLimit c)
-        //{
+   //     {
 			//var test = c;
 
 			//var stringJson = JsonConvert.SerializeObject(viewModel);
