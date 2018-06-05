@@ -5,7 +5,7 @@ namespace ict_lab_website.Models.Home
 {
     public interface IHomeCredentials
     {
-		JObject LoginCredentials(JObject jObject);
-		JObject RegisterCredentials(JObject jObject);
+		JObject LoginCredentials(JObject loginObject);
+		JObject RegisterCredentials(JObject registerObject);
     }
 }

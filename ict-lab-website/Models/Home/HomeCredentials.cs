@@ -19,15 +19,15 @@ namespace ict_lab_website.Models.Home
 			this.apiConfig = apiConfig.Value;
 			_logger = logger;
         }
-
-		public JObject LoginCredentials(JObject Json)
+        
+		public JObject LoginCredentials(JObject loginObject)
 		{
-			return apiCalls.PostRequest(Json, apiConfig.Url + apiConfig.SignIn);
+			return apiCalls.PostRequest(loginObject, apiConfig.Url + apiConfig.SignIn);
 		}
-
-		public JObject RegisterCredentials(JObject Json)
+        
+		public JObject RegisterCredentials(JObject registerObject)
 		{
-			return apiCalls.PostRequest(Json, apiConfig.Url + apiConfig.SignUp);
+			return apiCalls.PostRequest(registerObject, apiConfig.Url + apiConfig.SignUp);
 		}
 	}
 }
