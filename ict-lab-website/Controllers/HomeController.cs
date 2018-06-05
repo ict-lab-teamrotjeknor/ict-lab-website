@@ -11,16 +11,17 @@ using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Routing;
 using ict_lab_website.Models.ViewModels;
 using Microsoft.Extensions.Logging;
+using ict_lab_website.Models.Home;
 
 namespace ict_lab_website.Controllers
 {
     public class HomeController : Controller
     {
-        private ApiCalls _apiCalls;
+		private readonly IHomeCredentials _homecredentials;
 		private readonly ILogger _logger;
 
-		public HomeController(ILogger<HomeController> logger){
-            _apiCalls = new ApiCalls();
+		public HomeController(IHomeCredentials homecredentials, ILogger<HomeController> logger){
+			_homecredentials = homecredentials;
 			_logger = logger;
 
         }
@@ -41,8 +42,7 @@ namespace ict_lab_website.Controllers
         {
             var stringJson = JsonConvert.SerializeObject(l);
             var rJson = JObject.Parse(stringJson);
-
-            var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signin");
+			var returntype = _homecredentials.LoginCredentials(rJson);
 
             return RedirectToAction("Index", "Rooms");   
         }
@@ -58,8 +58,8 @@ namespace ict_lab_website.Controllers
         {
             var stringJson = JsonConvert.SerializeObject(r);
             var rJson = JObject.Parse(stringJson);
+			var returntype = _homecredentials.RegisterCredentials(rJson);
 
-            var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
             return RedirectToAction("Index", "Rooms");
         }
 
