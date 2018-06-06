@@ -13,5 +13,6 @@ namespace ict_lab_website.Process
         public string GetUsers { get; set; }
         public string SignIn { get; set; }
         public string SignUp { get; set; }
+        public string UploadHour { get; set; }
     }
 }
