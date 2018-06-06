@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ict_lab_website.Models.Schedule;
+using ict_lab_website.Models.Schedule.Views;
 using ict_lab_website.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,7 +21,7 @@ namespace ict_lab_website.Controllers
             this.logger = logger;
         }
 
-        public IActionResult Index(string roomName, DateTime dateTime, string view = "ScheduleViewDay")
+        public IActionResult Index(string roomName, DateTime dateTime, string view)
         {
             RoomScheduleViewModel roomReservationsViewModel = new RoomScheduleViewModel(roomName, view, dateTime, Schedule);
             return View(roomReservationsViewModel);
