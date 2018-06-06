@@ -10,6 +10,7 @@ using ict_lab_website.Models;
 using ict_lab_website.Models.Rooms;
 using ict_lab_website.Models.Schedule;
 using ict_lab_website.Process;
+using ict_lab_website.Models.Home;
 
 namespace ict_lab_website
 {
@@ -29,6 +30,7 @@ namespace ict_lab_website
             services.Configure<ApiConfig>(Configuration.GetSection("ApiConfig"));
             services.AddTransient<IRepository<Room>, RoomRepository>();
             services.AddTransient<ISchedule, RoomSchedule>();
+			services.AddTransient<IHomeCredentials, HomeCredentials>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
