@@ -29,17 +29,17 @@ namespace ictlabwebsite.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-			List<Roles> ro = new List<Roles>();
-			ro.Add(new Roles() { RoleId = 1, RoleName = "Guest", IsChecked = false });
-			ro.Add(new Roles() { RoleId = 2, RoleName = "Student", IsChecked = false });
-			ro.Add(new Roles() { RoleId = 3, RoleName = "Teacher", IsChecked = false });
-			ro.Add(new Roles() { RoleId = 4, RoleName = "Handyman", IsChecked = true });
-			ro.Add(new Roles() { RoleId = 5, RoleName = "Servicedesk", IsChecked = false });
-			ro.Add(new Roles() { RoleId = 6, RoleName = "Rastermaker", IsChecked = false });
-			ro.Add(new Roles() { RoleId = 7, RoleName = "Administrator", IsChecked = false });
+			List<Roles> rList = new List<Roles>();
+			rList.Add(new Roles() { RoleId = 1, RoleName = "Guest", IsChecked = false });
+			rList.Add(new Roles() { RoleId = 2, RoleName = "Student", IsChecked = false });
+			rList.Add(new Roles() { RoleId = 3, RoleName = "Teacher", IsChecked = false });
+			rList.Add(new Roles() { RoleId = 4, RoleName = "Handyman", IsChecked = true });
+			rList.Add(new Roles() { RoleId = 5, RoleName = "Servicedesk", IsChecked = false });
+			rList.Add(new Roles() { RoleId = 6, RoleName = "Rastermaker", IsChecked = false });
+			rList.Add(new Roles() { RoleId = 7, RoleName = "Administrator", IsChecked = false });
             
 			RoleList roleList = new RoleList();
-			roleList.roles = ro;
+			roleList.roles = rList;
 
 			var returnType = _users.GetAllUsers();
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
@@ -78,14 +78,35 @@ namespace ictlabwebsite.Controllers
 
 			var stringJson = JsonConvert.SerializeObject(changeReservationLimit);
             var jsonObject = JObject.Parse(stringJson);
-
+            
 			var returnType = _users.ChangeReservationLimitOfUser(jsonObject);
 
             return RedirectToAction("Index");
         }
         
-		public IActionResult deleteUser(string Email)
+		[HttpPost]
+		public IActionResult DeleteUser(string email)
 		{
+			DeleteUser user = new DeleteUser(email);
+
+			var stringJson = JsonConvert.SerializeObject(user);
+            var jsonObject = JObject.Parse(stringJson);
+            
+			var returnType = _users.DeleteAnUser(jsonObject);
+
+			return RedirectToAction("Index");
+		}
+
+		[HttpPost]
+		public IActionResult AddRole(string role)
+		{
+			AddNewRole newRole = new AddNewRole(role);
+            
+			var stringJson = JsonConvert.SerializeObject(newRole);
+            var jsonObject = JObject.Parse(stringJson);
+
+			var returnType = _users.AddRole(jsonObject);
+
 			return RedirectToAction("Index");
 		}
     }

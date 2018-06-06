@@ -13,6 +13,8 @@ namespace ict_lab_website.Models.ViewModels
              
 		public int _reservationLimit { get; set; }
 
+		public string role { get; set; }
+
 		public RoleList _roleList { get; set; }
 
 		public UsersViewModel(DataTable dataTable, RoleList roleList)

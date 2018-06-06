@@ -74,7 +74,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="submit" value="Save" class="btn btn-default" />
+                                            <input class="btn btn-success" type="submit" value="Save" />
                                         </td>
                                         }
                                     </tr>
@@ -82,6 +82,15 @@
                                     <tr>
                                         <td><b>Reservation Limit</b></td>
                                         <td><input asp-for="_reservationLimit" type="number" id="txtReservationLimit" placeholder="Enter number" /></td>
+                                        <td>
+                                            <input class="btn btn-success" type="submit" value="Save" />
+                                        </td>
+                                    </tr>
+                                    </form>
+                                    <form method="post" asp-controller="Users" asp-action="AddRole">
+                                    <tr>
+                                        <td><b>Add New Role</b></td>
+                                        <td><input asp-for="role" type="text" placeholder="Enter New Role" /></td>
                                         <td>
                                             <input class="btn btn-success" type="submit" value="Save" />
                                         </td>
