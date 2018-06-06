@@ -87,7 +87,7 @@ namespace ictlabwebsite.Controllers
 		[HttpPost]
 		public IActionResult DeleteUser(string email)
 		{
-			User user = new User(email);
+			DeleteUser user = new DeleteUser(email);
 
 			var stringJson = JsonConvert.SerializeObject(user);
             var jsonObject = JObject.Parse(stringJson);
@@ -101,7 +101,7 @@ namespace ictlabwebsite.Controllers
 		public IActionResult AddRole(string role)
 		{
 			AddNewRole newRole = new AddNewRole(role);
-
+            
 			var stringJson = JsonConvert.SerializeObject(newRole);
             var jsonObject = JObject.Parse(stringJson);
 

@@ -10,7 +10,7 @@ namespace ict_lab_website.Models.Users
 		JObject ChangeReservationLimitOfUser(JObject jsonObject);
 		JObject AddRole(JObject jsonObject);
 		JObject DeleteAnUser(JObject jsonObject);
-		JObject CheckRole(JObject jsonObject);
-		JObject CheckReservationLimit(JObject jsonObject);
+		//JObject CheckRole(JObject jsonObject);
+		//JObject CheckReservationLimit(JObject jsonObject);
     }
 }
