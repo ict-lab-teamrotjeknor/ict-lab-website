@@ -59,32 +59,29 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        @using (Html.BeginForm("ChangeRole", "Users", FormMethod.Post))
+                                        {
+                                        <td><b>User Role</b></td>
                                         <td>
                                             <div class="form-horizontal">
-                                              @using (Html.BeginForm("ChangeRole", "Users", FormMethod.Post))
-                                              {
-                                                  for(int i = 0; i < Model._roleList.roles.Count; i++)
+                                                  @for(int i = 0; i < Model._roleList.roles.Count; i++)
                                                   {
                                                      @Html.CheckBoxFor(m => Model._roleList.roles[i].IsChecked)
                                                      @Model._roleList.roles[i].RoleName
                                                      @Html.HiddenFor(m => Model._roleList.roles[i].RoleId)
                                                      @Html.HiddenFor(m => Model._roleList.roles[i].RoleName)<br />
                                                   }
-                                                <div class="col-md-offset-2 col-md-10">
-                                                    <input type="submit" value="Save" class="btn btn-default" />
-                                                </div>
-                                              }
                                             </div>
                                         </td>
+                                        <td>
+                                            <input type="submit" value="Save" class="btn btn-default" />
+                                        </td>
+                                        }
                                     </tr>
-                                    <form method="post" asp-controller="Users" asp-action="changeReservationLimit">
+                                    <form method="post" asp-controller="Users" asp-action="ChangeReservationLimit">
                                     <tr>
                                         <td><b>Reservation Limit</b></td>
-                                        <td>5</td>
                                         <td><input asp-for="_reservationLimit" type="number" id="txtReservationLimit" placeholder="Enter number" /></td>
-                                    </tr>
-                                        
-                                    <tr class="success">
                                         <td>
                                             <input class="btn btn-success" type="submit" value="Save" />
                                         </td>
