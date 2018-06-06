@@ -11,17 +11,18 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using ict_lab_website.Models.Home;
 
 namespace ictlabwebsite.Controllers
 {
     public class UsersController : Controller
     {
-        private ApiCalls _apiCalls;
-		private readonly ILogger _logger;
+		private readonly IUsers _users;
+        private readonly ILogger _logger;
 
-		public UsersController(ILogger<UsersController> logger)
+		public UsersController(IUsers users ,ILogger<UsersController> logger)
         {
-            _apiCalls = new ApiCalls();
+			_users = users;
 			_logger = logger;
         }
         
@@ -40,7 +41,7 @@ namespace ictlabwebsite.Controllers
 			RoleList roleList = new RoleList();
 			roleList.roles = ro;
 
-            var returnType = _apiCalls.GetRequest("http://145.24.222.103:8080/manage/getusers");
+			var returnType = _users.GetAllUsers();
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
             DataTable dataTable = dataSet.Tables["Users"];
 
@@ -52,34 +53,36 @@ namespace ictlabwebsite.Controllers
 		[HttpPost]
 		public IActionResult ChangeRole(RoleList _roleList)
 		{
+			List<string> roleStr = new List<string>();
 			foreach(var item in _roleList.roles){
 				if(item.IsChecked){
 					var tester = item.RoleName;
+					roleStr.Add(tester);
 				}
 			}
 
-			ChangeUserRole test = new ChangeUserRole("admin@admin.nl", "Handyman");
+			ChangeUserRole test = new ChangeUserRole("titatest@test.nl", roleStr[0]);
             
 			var stringJson = JsonConvert.SerializeObject(test);
-            var rJson = JObject.Parse(stringJson);
+			var jsonObject = JObject.Parse(stringJson);
 
-			var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/changerole");
+			var returnType = _users.ChangeRoleOfUser(jsonObject);
 
 			return RedirectToAction("Index");
 		}
         
-		//[HttpPost]
-		//public IActionResult changeReservationLimit(ChangeReservationLimit c)
-   //     {
-			//var test = c;
+		[HttpPost]
+		public IActionResult changeReservationLimit(ChangeReservationLimit c)
+        {
+			var test = c;
 
 			//var stringJson = JsonConvert.SerializeObject(viewModel);
-        //    var rJson = JObject.Parse(stringJson);
+            //var rJson = JObject.Parse(stringJson);
 
-        //    var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
+            //var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
         
 		public IActionResult deleteUser(string Email)
 		{
