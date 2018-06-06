@@ -7,7 +7,7 @@ namespace ict_lab_website.Models.Schedule.Views
 {
     public class YearView : IView
     {
-        public string Name => "ScheduleViewMonth";
+        public string Name => "ScheduleViewYear";
 
         public DateTime DecreaseDate(DateTime dateTime)
         {
