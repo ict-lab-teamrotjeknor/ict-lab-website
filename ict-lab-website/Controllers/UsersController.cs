@@ -60,10 +60,10 @@ namespace ictlabwebsite.Controllers
 					roleStr.Add(tester);
 				}
 			}
-
-			ChangeUserRole test = new ChangeUserRole("titatest@test.nl", roleStr[0]);
             
-			var stringJson = JsonConvert.SerializeObject(test);
+			ChangeUserRole changeuserrole = new ChangeUserRole("titatest@test.nl", roleStr[0]);
+            
+			var stringJson = JsonConvert.SerializeObject(changeuserrole);
 			var jsonObject = JObject.Parse(stringJson);
 
 			var returnType = _users.ChangeRoleOfUser(jsonObject);
@@ -72,14 +72,14 @@ namespace ictlabwebsite.Controllers
 		}
         
 		[HttpPost]
-		public IActionResult changeReservationLimit(ChangeReservationLimit c)
+		public IActionResult ChangeReservationLimit(UserReservationLimit u)
         {
-			var test = c;
+			ChangeReservationLimit changeReservationLimit = new ChangeReservationLimit("titatest@test.nl", u._reservationLimit);
 
-			//var stringJson = JsonConvert.SerializeObject(viewModel);
-            //var rJson = JObject.Parse(stringJson);
+			var stringJson = JsonConvert.SerializeObject(changeReservationLimit);
+            var jsonObject = JObject.Parse(stringJson);
 
-            //var returnType = _apiCalls.PostRequest(rJson, "http://145.24.222.103:8080/authentication/signup");
+			var returnType = _users.ChangeReservationLimitOfUser(jsonObject);
 
             return RedirectToAction("Index");
         }

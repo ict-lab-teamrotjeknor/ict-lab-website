@@ -25,9 +25,9 @@ namespace ict_lab_website.Models.Users
 			throw new NotImplementedException();
 		}
 
-		public JObject ChangeReservationLimitOfUser(JObject reservationlimitObject)
+		public JObject ChangeReservationLimitOfUser(JObject jsonObject)
 		{
-			throw new NotImplementedException();
+			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeReservationLimit);
 		}
 
 		public JObject ChangeRoleOfUser(JObject jsonObject)
