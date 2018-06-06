@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ict_lab_website.Process;
 using ictlabwebsite.Controllers;
 using Microsoft.Extensions.Logging;
@@ -39,15 +41,15 @@ namespace ict_lab_website.Models.Users
 		{
 			throw new NotImplementedException();
 		}
-
+        
 		public JObject CheckRole(JObject checkroleObject)
 		{
 			throw new NotImplementedException();
 		}
 
-		public JObject DeleteUser(JObject deleteuserObject)
+		public JObject DeleteAnUser(JObject jsonObject)
 		{
-			throw new NotImplementedException();
+			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.DeleteUser);
 		}
 
 		public string GetAllUsers()

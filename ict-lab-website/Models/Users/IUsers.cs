@@ -7,10 +7,10 @@ namespace ict_lab_website.Models.Users
     {
 		string GetAllUsers();
 		JObject ChangeRoleOfUser(JObject jsonObject);
-		JObject ChangeReservationLimitOfUser(JObject reservationlimitObject);
-		JObject AddRole(JObject addroleObject);
-		JObject DeleteUser(JObject deleteuserObject);
-		JObject CheckRole(JObject checkroleObject);
-		JObject CheckReservationLimit(JObject checkreservationlimitObject);
+		JObject ChangeReservationLimitOfUser(JObject jsonObject);
+		JObject AddRole(JObject jsonObject);
+		JObject DeleteAnUser(JObject jsonObject);
+		JObject CheckRole(JObject jsonObject);
+		JObject CheckReservationLimit(JObject jsonObject);
     }
 }
