@@ -22,9 +22,9 @@ namespace ict_lab_website.Models.Users
 			_logger = logger;
         }
 
-		public JObject AddRole(JObject addroleObject)
+		public JObject AddRole(JObject jsonObject)
 		{
-			throw new NotImplementedException();
+			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole);
 		}
 
 		public JObject ChangeReservationLimitOfUser(JObject jsonObject)
@@ -37,12 +37,12 @@ namespace ict_lab_website.Models.Users
 			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeRole);
 		}
 
-		public JObject CheckReservationLimit(JObject checkreservationlimitObject)
+		public JObject CheckReservationLimit(JObject jsonObject)
 		{
 			throw new NotImplementedException();
 		}
         
-		public JObject CheckRole(JObject checkroleObject)
+		public JObject CheckRole(JObject jsonObject)
 		{
 			throw new NotImplementedException();
 		}

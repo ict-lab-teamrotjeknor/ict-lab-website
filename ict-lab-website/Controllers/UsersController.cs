@@ -96,5 +96,18 @@ namespace ictlabwebsite.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+		[HttpPost]
+		public IActionResult AddRole(string role)
+		{
+			AddNewRole newRole = new AddNewRole(role);
+
+			var stringJson = JsonConvert.SerializeObject(newRole);
+            var jsonObject = JObject.Parse(stringJson);
+
+			var returnType = _users.AddRole(jsonObject);
+
+			return RedirectToAction("Index");
+		}
     }
 }
