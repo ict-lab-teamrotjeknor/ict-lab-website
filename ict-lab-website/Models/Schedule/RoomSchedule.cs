@@ -74,9 +74,18 @@ namespace ict_lab_website.Models.Schedule
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public void AddReservation(Reservation reservation)
+        public void AddReservation(UploadableReservation reservation)
         {
-            throw new NotImplementedException();
+            var reservationJsonObject = (JObject)JToken.FromObject(reservation);
+
+            try
+            {
+                apiCalls.PostRequest(reservationJsonObject, apiConfig.Url + apiConfig.UploadHour);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Uploading reservation failed", DateTime.Now);
+            }
         }
 
 
@@ -88,12 +97,14 @@ namespace ict_lab_website.Models.Schedule
 
         private Dictionary<int, Dictionary<int, Reservation>> GetWeekFromApi(string roomName, int year, int quarter, int week)
         {
-            string parameters = $"/{roomName}/{year}/4/22";
+            //The hardcoded 4 should be removed, but it is currently impossible to know what quarter is required by the API. 
+            string parameters = $"/{roomName}/{year}/4/{week}";
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
             try
             {
                 logger.LogInformation("Getting week {roomName}, {year}, {quarter}, {week}  from API", roomName, year, quarter, week, DateTime.Now);
+
                 var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetWeek + parameters);
                 var days = JObject.Parse(json)["Days"];
                 int dayNumber = 1;
@@ -125,7 +136,9 @@ namespace ict_lab_website.Models.Schedule
             }
             catch (Exception e)
             {
-                logger.LogError(e, "GetWeek({roomName}, {year}, {quarter}, {week} NOT FOUND )", roomName, year, quarter, week, DateTime.Now);
+                logger.LogError(e, "GetWeek({roomName}, {year}, {quarter}, {week} NOT FOUND)", roomName, year, quarter, week, DateTime.Now);
+                logger.LogInformation("Returning empty week", DateTime.Now);
+
                 for (int i = 0; i < 7; i++)
                 {
                     reservationsForWeek.Add(i, GetEmptyDay());

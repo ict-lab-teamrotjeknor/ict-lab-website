@@ -36,9 +36,14 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddReservation(Reservation reservation)
+        public IActionResult AddReservation(UploadableReservation reservation)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                Schedule.AddReservation(reservation);
+                return RedirectToAction("Index", "Rooms", new { area = "" });
+            }
+            return View(reservation);
         }
     }
 }
