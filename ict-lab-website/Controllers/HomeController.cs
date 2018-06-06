@@ -36,11 +36,11 @@ namespace ict_lab_website.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
-        public IActionResult Login(LoginViewModel l)
+		public IActionResult Login(CredentialsViewModel c)
         {
-            var stringJson = JsonConvert.SerializeObject(l);
+            var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.LoginCredentials(rJson);
 
@@ -54,9 +54,9 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel r)
+		public IActionResult Register(CredentialsViewModel c)
         {
-            var stringJson = JsonConvert.SerializeObject(r);
+            var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.RegisterCredentials(rJson);
 

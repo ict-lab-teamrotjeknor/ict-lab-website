@@ -26,5 +26,6 @@
     <Compile Remove="Models\ViewModels\ChangeUsersViewModel.cs" />
     <Compile Remove="Models\Users\UsersReservationLimit.cs" />
     <Compile Remove="Models\Users\ChangeRole.cs" />
+    <Compile Remove="Models\Home\Credentials.cs" />
   </ItemGroup>
 </Project>
