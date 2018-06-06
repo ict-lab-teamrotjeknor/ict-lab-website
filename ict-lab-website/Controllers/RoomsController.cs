@@ -27,7 +27,7 @@ namespace ict_lab_website.Controllers
 
         public IActionResult Index(DateTime date, string searchString = "H.")
         {
-            List<Room> rooms = repository.GetAll();
+            List<Room> rooms = repository.GetAll();            
 
             if (!String.IsNullOrEmpty(searchString))
             {

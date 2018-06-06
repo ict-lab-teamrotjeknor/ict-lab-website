@@ -18,14 +18,13 @@ namespace ict_lab_website.Models.Schedule
         [Required]
         public int HourId { get; set; }
 
-        [Display(Name = "Until lesson hour")]
+        [Display(Name = "Length (in hours)")]
         [Range(1, 15)]
         [Required]
-        public int EndHourId { get; set; }
+        public int Length { get; set; }
 
         [Required]
         public string Class { get; set; }
-
 
         [Required]
         public string Teacher { get; set; }

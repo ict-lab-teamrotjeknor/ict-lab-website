@@ -19,27 +19,8 @@
             </form>
 
             <ul class="nav navbar-nav navbar-center">
-
-                <!-- This switch must be removed -->
-                @switch (Model.View)
-                {
-                    case "ScheduleViewDay":
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-1).Year-@Model.DateAndTime.AddDays(-1).Month-@(Model.DateAndTime.AddDays(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(1).Year-@Model.DateAndTime.AddDays(1).Month-@(Model.DateAndTime.AddDays(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                        break;
-                    case "ScheduleViewWeek":
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(-7).Year-@Model.DateAndTime.AddDays(-7).Month-@(Model.DateAndTime.AddDays(-7).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddDays(7).Year-@Model.DateAndTime.AddDays(7).Month-@(Model.DateAndTime.AddDays(7).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                        break;
-                    case "ScheduleViewMonth":
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(-1).Year-@Model.DateAndTime.AddMonths(-1).Month-@(Model.DateAndTime.AddMonths(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddMonths(1).Year-@Model.DateAndTime.AddMonths(1).Month-@(Model.DateAndTime.AddMonths(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                        break;
-                    case "ScheduleViewYear":
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(-1).Year-@Model.DateAndTime.AddYears(-1).Month-@(Model.DateAndTime.AddYears(-1).Day)"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-                        <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.DateAndTime.AddYears(1).Year-@Model.DateAndTime.AddYears(1).Month-@(Model.DateAndTime.AddYears(1).Day)"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-                        break;
-                 }
+                <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.Views[Model.View].DecreaseDate(Model.DateAndTime).ToString("yyyy-MM-dd")"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+                <li><a asp-action="Index" asp-route-roomName="@Model.RoomName" asp-route-view="@Model.View" asp-route-dateTime="@Model.Views[Model.View].IncreaseDate(Model.DateAndTime).ToString("yyyy-MM-dd")"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
