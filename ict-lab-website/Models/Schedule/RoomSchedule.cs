@@ -17,9 +17,9 @@ namespace ict_lab_website.Models.Schedule
         private readonly ApiConfig apiConfig;
         private readonly ILogger logger;
 
-        public RoomSchedule(IOptions<ApiConfig> apiConfig, ILogger<ScheduleController> logger)
+        public RoomSchedule(IOptions<ApiConfig> apiConfig, ILogger<ScheduleController> logger, IApiCalls apiCalls)
         {
-            apiCalls = new ApiCalls();
+            this.apiCalls = apiCalls;
             this.apiConfig = apiConfig.Value;
             this.logger = logger;
         }
@@ -41,7 +41,6 @@ namespace ict_lab_website.Models.Schedule
             int week = GetWeeknumber(date);
 
             return GetWeekFromApi(roomName, year, quarter, week);
-
         }
 
         public List<DateTime> GetDatesInSameWeek(DateTime date)

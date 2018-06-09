@@ -28,6 +28,7 @@ namespace ict_lab_website
         {
             services.AddMvc();
             services.Configure<ApiConfig>(Configuration.GetSection("ApiConfig"));
+            services.AddTransient<IApiCalls, ApiCalls>();
             services.AddTransient<IRepository<Room>, RoomRepository>();
             services.AddTransient<ISchedule, RoomSchedule>();
 			services.AddTransient<IHomeCredentials, HomeCredentials>();
