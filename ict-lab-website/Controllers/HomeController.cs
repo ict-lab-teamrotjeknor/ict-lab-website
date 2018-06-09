@@ -23,7 +23,6 @@ namespace ict_lab_website.Controllers
 		public HomeController(IHomeCredentials homecredentials, ILogger<HomeController> logger){
 			_homecredentials = homecredentials;
 			_logger = logger;
-
         }
 
         public IActionResult Index()
