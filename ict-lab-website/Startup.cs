@@ -14,9 +14,6 @@ using ict_lab_website.Models.Home;
 using ict_lab_website.Models.Users;
 
 namespace ict_lab_website
-using ict_lab_website.Models.Home;
-
-namespace ict_lab_website
 {
     public class Startup
     {
