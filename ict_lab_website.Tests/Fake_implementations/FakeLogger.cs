@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ict_lab_website.Tests.Schedule
+namespace ict_lab_website.Tests.Fake_implementations
 {
     public class FakeLogger<T> : ILogger<T>
     {
