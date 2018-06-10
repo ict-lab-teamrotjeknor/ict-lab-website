@@ -45,7 +45,7 @@ namespace ict_lab_website.Models.Rooms
                     }
                 }
             }
-            catch (WebException e)
+            catch (Exception e)
             {
                 logger.LogError("Cannot get rooms from API", e, DateTime.Now);
             }
