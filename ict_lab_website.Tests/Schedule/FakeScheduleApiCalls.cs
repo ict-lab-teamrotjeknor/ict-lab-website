@@ -10,7 +10,14 @@ namespace ict_lab_website.Tests.Schedule
     {
         public string GetRequest(string url)
         {
-            return System.IO.File.ReadAllText(@"\TestData\getweek.json");
+            try
+            {
+                return System.IO.File.ReadAllText(@"\TestData\getweek.json");
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
 
         public JObject PostRequest(JObject postData, string url)

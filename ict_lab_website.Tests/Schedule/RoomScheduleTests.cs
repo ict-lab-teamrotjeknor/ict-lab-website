@@ -1,6 +1,7 @@
 ﻿using ict_lab_website.Controllers;
 using ict_lab_website.Models.Schedule;
 using ict_lab_website.Process;
+using ict_lab_website.Tests.Fake_implementations;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -15,6 +16,7 @@ namespace ict_lab_website.Tests.Schedule
         private readonly ILogger<ScheduleController> logger;
         private readonly IOptions<ApiConfig> apiConfig;
         private readonly IApiCalls apiCalls;
+        private readonly IApiCalls failingApiCalls;
         private readonly ISchedule roomSchedule;
 
         public RoomScheduleTests()
@@ -22,6 +24,7 @@ namespace ict_lab_website.Tests.Schedule
             this.logger = new FakeLogger<ScheduleController>();
             this.apiConfig = new FakeIOptions();
             this.apiCalls = new FakeScheduleApiCalls();
+            this.failingApiCalls = new FakeFailingApiCalls();
         }
 
         [Theory]
@@ -44,8 +47,20 @@ namespace ict_lab_website.Tests.Schedule
             string roomName = "H.1.308";
 
             var reservations = roomSchedule.GetWeek(dateTime, roomName);
-
             Assert.True(reservations.Count == 7);
+            Assert.All(reservations.Values, day => Assert.True(day.Values.Count == 15));
+        }
+
+        [Theory]
+        [ClassData(typeof(ScheduleTestDataGenerator))]
+        public void GetWeek_ShouldReturnEmptyDaysWithNotWorkingApiCalls(DateTime dateTime)
+        {
+            ISchedule roomSchedule = new RoomSchedule(apiConfig, logger, failingApiCalls);
+            string roomName = "H.1.308";
+
+            var reservations = roomSchedule.GetWeek(dateTime, roomName);
+
+            Assert.All(reservations.Values, day => Assert.All(day.Values, reservation => Assert.Null(reservation)));
         }
 
         [Theory]
@@ -59,8 +74,9 @@ namespace ict_lab_website.Tests.Schedule
             var reservationsForDay = roomSchedule.GetDay(dateTime, roomName);
 
             Assert.Contains(reservationsForDay, reservationsForWeek.Values);
-
         }
+
+
 
     }
 }
