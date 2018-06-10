@@ -20,14 +20,14 @@ namespace ict_lab_website.Models.Home
 			_logger = logger;
         }
         
-		public JObject LoginCredentials(JObject loginObject)
+		public JObject LoginCredentials(JObject jsonObject)
 		{
-			return apiCalls.PostRequest(loginObject, apiConfig.Url + apiConfig.SignIn);
+			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignIn);
 		}
         
-		public JObject RegisterCredentials(JObject registerObject)
+		public JObject RegisterCredentials(JObject jsonObject)
 		{
-			return apiCalls.PostRequest(registerObject, apiConfig.Url + apiConfig.SignUp);
+			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignUp);
 		}
 	}
 }
