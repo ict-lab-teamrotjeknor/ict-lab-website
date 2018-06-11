@@ -13,6 +13,5 @@ namespace ict_lab_website.Models.Users
     public class RoleList
 	{
 		public List<Roles> roles { get; set; }
-		public string Email { get; set; }
 	}
 }
