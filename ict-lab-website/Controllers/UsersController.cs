@@ -31,9 +31,9 @@ namespace ictlabwebsite.Controllers
         {
 			List<Roles> rList = new List<Roles>();
 			rList.Add(new Roles() { RoleId = 1, RoleName = "Guest", IsChecked = false });
-			rList.Add(new Roles() { RoleId = 2, RoleName = "Student", IsChecked = false });
+			rList.Add(new Roles() { RoleId = 2, RoleName = "Student", IsChecked = true });
 			rList.Add(new Roles() { RoleId = 3, RoleName = "Teacher", IsChecked = false });
-			rList.Add(new Roles() { RoleId = 4, RoleName = "Handyman", IsChecked = true });
+			rList.Add(new Roles() { RoleId = 4, RoleName = "Handyman", IsChecked = false });
 			rList.Add(new Roles() { RoleId = 5, RoleName = "Servicedesk", IsChecked = false });
 			rList.Add(new Roles() { RoleId = 6, RoleName = "Rastermaker", IsChecked = false });
 			rList.Add(new Roles() { RoleId = 7, RoleName = "Administrator", IsChecked = false });
@@ -53,6 +53,7 @@ namespace ictlabwebsite.Controllers
 		[HttpPost]
 		public IActionResult ChangeRole(RoleList _roleList)
 		{
+			var test = ViewBag.Email;
 			List<string> roleStr = new List<string>();
 			foreach(var item in _roleList.roles){
 				if(item.IsChecked){
@@ -74,7 +75,7 @@ namespace ictlabwebsite.Controllers
 		[HttpPost]
 		public IActionResult ChangeReservationLimit(UserReservationLimit u)
         {
-			ChangeReservationLimit changeReservationLimit = new ChangeReservationLimit("titatest@test.nl", u._reservationLimit);
+			ChangeReservationLimit changeReservationLimit = new ChangeReservationLimit(u._email, u._reservationLimit);
 
 			var stringJson = JsonConvert.SerializeObject(changeReservationLimit);
             var jsonObject = JObject.Parse(stringJson);
