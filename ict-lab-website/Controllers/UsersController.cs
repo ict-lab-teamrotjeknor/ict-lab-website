@@ -51,9 +51,9 @@ namespace ictlabwebsite.Controllers
         }
         
 		[HttpPost]
-		public IActionResult ChangeRole(RoleList _roleList)
+		public IActionResult ChangeRole(RoleList _roleList, User u)
 		{
-			var test = ViewBag.Email;
+			var emailOfUser = u._email;
 			List<string> roleStr = new List<string>();
 			foreach(var item in _roleList.roles){
 				if(item.IsChecked){
@@ -62,7 +62,7 @@ namespace ictlabwebsite.Controllers
 				}
 			}
             
-			ChangeUserRole changeuserrole = new ChangeUserRole("titatest@test.nl", roleStr[0]);
+			ChangeUserRole changeuserrole = new ChangeUserRole(emailOfUser, roleStr[0]);
             
 			var stringJson = JsonConvert.SerializeObject(changeuserrole);
 			var jsonObject = JObject.Parse(stringJson);
