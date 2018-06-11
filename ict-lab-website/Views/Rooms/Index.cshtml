@@ -37,7 +37,7 @@
                         <tr>
                             <td>@Html.DisplayFor(modelItem => room.Name)</td>
                             <td>?</td>
-                            <td><a asp-controller="Schedule" asp-action="Index" asp-route-roomName="@room.Name" asp-route-view="ScheduleViewDay" asp-route-dateTime="@DateTime.Now.Year-@DateTime.Now.Month-@DateTime.Now.Day">View schedule</a></td>
+                            <td><a asp-controller="Schedule" asp-action="Index" asp-route-roomName="@room.Name" asp-route-view="ScheduleViewDay" asp-route-dateTime="@ViewBag.date.Year-@ViewBag.date.Month-@ViewBag.date.Day">View schedule</a></td>
                         </tr>
                     }
                 }
