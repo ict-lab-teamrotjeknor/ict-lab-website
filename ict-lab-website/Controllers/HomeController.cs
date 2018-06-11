@@ -43,13 +43,7 @@ namespace ict_lab_website.Controllers
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.LoginCredentials(rJson);
 
-			var tester = returntype["Succeed"].HasValues;
-         
-
-
-			if(returntype["Succeed"].HasValues == false){
-				return View("Login");
-			}
+			//var tester = returntype["Succeed"].HasValues;
            
 			return RedirectToAction("Index", "Rooms");
         }
