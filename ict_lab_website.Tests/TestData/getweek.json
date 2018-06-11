@@ -1,0 +1,243 @@
+{
+  "ClassroomName": "H.1.308",
+  "ClassroomType": null,
+  "StartDate": "5/14/18 12:00:00 AM",
+  "EndDate": "5/20/18 12:00:00 AM",
+  "SchoolType": null,
+  "Days": [
+    {
+      "Name": "Maandag",
+      "Hours": [
+        {
+          "HourId": 3,
+          "Class": "COV1B.",
+          "Teacher": "FAAIJ",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 4,
+          "Class": "COV1B.",
+          "Teacher": "FAAIJ",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 8,
+          "Class": "COV3A.",
+          "Teacher": "LOSBA",
+          "Course": "<b>CCOCAP11R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 9,
+          "Class": "COV3A.",
+          "Teacher": "LOSBA",
+          "Course": "<b>CCOCAP11R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        }
+      ]
+    },
+    {
+      "Name": "Dinsdag",
+      "Hours": [
+        {
+          "HourId": 4,
+          "Class": "",
+          "Teacher": "testtesttest",
+          "Course": "Student",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 5,
+          "Class": "",
+          "Teacher": "testtesttest",
+          "Course": "Student",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 9,
+          "Class": "COV4E",
+          "Teacher": "DULKB",
+          "Course": "<b>CCOLBC14R4</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 10,
+          "Class": "COV4E",
+          "Teacher": "DULKB",
+          "Course": "<b>CCOLBC14R4</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        }
+      ]
+    },
+    {
+      "Name": "Woensdag",
+      "Hours": [
+        {
+          "HourId": 1,
+          "Class": "COV3B",
+          "Teacher": "WITHU",
+          "Course": "<b>CCOLAB20R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 2,
+          "Class": "COV3B",
+          "Teacher": "WITHU",
+          "Course": "<b>CCOLAB20R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 3,
+          "Class": "COV3B",
+          "Teacher": "WITHU",
+          "Course": "<b>CCOLAB20R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 4,
+          "Class": "COV3B",
+          "Teacher": "WITHU",
+          "Course": "<b>CCOLAB20R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 5,
+          "Class": "COV1B.",
+          "Teacher": "FAAIJ",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 6,
+          "Class": "COV1B.",
+          "Teacher": "FAAIJ",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 7,
+          "Class": "COV2B",
+          "Teacher": "BOETR",
+          "Course": "<b>CCODKN10R2</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 8,
+          "Class": "COV2B",
+          "Teacher": "BOETR",
+          "Course": "<b>CCODKN10R2</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        }
+      ]
+    },
+    {
+      "Name": "Donderdag",
+      "Hours": [
+        {
+          "HourId": 2,
+          "Class": "COV2D.",
+          "Teacher": "VERBM",
+          "Course": "<b>CCOPPE12R2</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 3,
+          "Class": "COV2D.",
+          "Teacher": "VERBM",
+          "Course": "<b>CCOPPE12R2</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 4,
+          "Class": "COV2D.",
+          "Teacher": "VERBM",
+          "Course": "<b>CCOPPE12R2</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 5,
+          "Class": "COV2D.",
+          "Teacher": "VERBM",
+          "Course": "<b>CCOPPE12R2</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 6,
+          "Class": "COV3D.",
+          "Teacher": "OUDRS",
+          "Course": "<b>CCOCAP11R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 7,
+          "Class": "COV3D.",
+          "Teacher": "OUDRS",
+          "Course": "<b>CCOCAP11R3</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        }
+      ]
+    },
+    {
+      "Name": "Vrijdag",
+      "Hours": [
+        {
+          "HourId": 3,
+          "Class": "COV1G.",
+          "Teacher": "HAMEE",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 4,
+          "Class": "COV1G.",
+          "Teacher": "HAMEE",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 7,
+          "Class": "COV1D",
+          "Teacher": "AMEML",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        },
+        {
+          "HourId": 8,
+          "Class": "COV1D",
+          "Teacher": "AMEML",
+          "Course": "<b>CCOSCR10R1</b>",
+          "SpecialReason": null,
+          "Reserved": true
+        }
+      ]
+    }
+  ]
+}
+

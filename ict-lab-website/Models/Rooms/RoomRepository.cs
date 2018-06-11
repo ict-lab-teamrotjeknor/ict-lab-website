@@ -19,9 +19,9 @@ namespace ict_lab_website.Models.Rooms
         private readonly ILogger logger;
         private readonly IApiCalls apiCalls;
 
-        public RoomRepository(IOptions<ApiConfig> apiConfig, ILogger<RoomsController> logger)
+        public RoomRepository(IOptions<ApiConfig> apiConfig, ILogger<RoomsController> logger, IApiCalls apiCalls)
         {
-            apiCalls = new ApiCalls();
+            this.apiCalls = apiCalls;
             this.apiConfig = apiConfig.Value;
             this.logger = logger;
             rooms = GetAll();
@@ -45,7 +45,7 @@ namespace ict_lab_website.Models.Rooms
                     }
                 }
             }
-            catch (WebException e)
+            catch (Exception e)
             {
                 logger.LogError("Cannot get rooms from API", e, DateTime.Now);
             }
