@@ -17,28 +17,55 @@ namespace ict_lab_website.Models.Users
 		private readonly IApiCalls apiCalls;
         private readonly ApiConfig apiConfig;
         private readonly ILogger _logger;
+		private JObject apiCall;
+		private string apiCallString;
         
 		public Users(IOptions<ApiConfig> apiConfig, ILogger<UsersController> logger)
         {
 			apiCalls = new ApiCalls();
 			this.apiConfig = apiConfig.Value;
 			_logger = logger;
+			apiCall = new JObject();
 			//users = GetUsers();
         }
 
 		public JObject AddRole(JObject jsonObject)
-		{
-			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole);
+		{         
+            try
+            {
+				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Cannot make postrequest to API", e);
+            }
+            return apiCall;
 		}
 
 		public JObject ChangeReservationLimitOfUser(JObject jsonObject)
 		{
-			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeReservationLimit);
+			try
+            {
+				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeReservationLimit);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Cannot make postrequest to API", e);
+            }
+            return apiCall;
 		}
 
 		public JObject ChangeRoleOfUser(JObject jsonObject)
 		{
-			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeRole);
+            try
+            {
+				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeRole);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Cannot make postrequest to API", e);
+            }
+            return apiCall;
 		}
 
 		//public JObject CheckReservationLimit(JObject jsonObject)
@@ -53,12 +80,28 @@ namespace ict_lab_website.Models.Users
 
 		public JObject DeleteAnUser(JObject jsonObject)
 		{
-			return apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.DeleteUser);
+			try
+            {
+				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.DeleteUser);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Cannot make postrequest to API", e);
+            }
+            return apiCall;
 		}
         
 		public string GetAllUsers()
 		{
-			return apiCalls.GetRequest(apiConfig.Url + apiConfig.GetUsers);
+			try
+            {
+				apiCallString = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetUsers);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Cannot make getrequest to API", e);
+            }
+			return apiCallString;
 		}
         
         //      public List<User> GetUsers()
