@@ -93,7 +93,7 @@ namespace ict_lab_website.Models.Schedule
         public int GetNumberOfFreeTimeslots(DateTime dateTime, string roomName)
         {
             var reservations = GetDay(dateTime, roomName);
-            return reservations.Where(x => x.Value != null).Count();
+            return reservations.Where(x => x.Value == null).Count();
         }
 
         private Dictionary<int, Dictionary<int, Reservation>> GetWeekFromApi(string roomName, int year, int quarter, int week)
