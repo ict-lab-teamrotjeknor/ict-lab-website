@@ -40,11 +40,11 @@
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input asp-for="Password"></td>
+                    <td><input asp-for="Password" id="passwordCheck"></td>
                 </tr>
                 <tr class="success">
                     <td colspan="2">
-                        <input class="btn btn-success" type="submit" value="Login" />
+                        <input id="loginButton" class="btn btn-success" type="submit" value="Login" />
                     </td>
                 </tr>
                 </form>
@@ -57,3 +57,19 @@
         </div>
     </div>
 </div>
+
+@section Scripts{ 
+    <script type="text/javascript" src="/scripts/main.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('#loginButton').attr('disabled', true);
+            $('#passwordCheck').keyup(function(){
+                if($(this).val().length != 0)
+                    $('#loginButton').attr('disabled', false);
+                else
+                    $('#loginButton').attr('disabled', true);
+            });
+        });
+    </script>
+}
