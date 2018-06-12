@@ -92,7 +92,7 @@
                                                          <input type="hidden" asp-for="@Model._roleList.roles[i].RoleName" />
                                                      <br />
                                                      </li>
-}
+                                                  }
                                             </ul>
                                         </td>
                                         <td>
@@ -167,7 +167,6 @@
   <script type="text/javascript">
       $(document).on('click', '#editUser', function(){
           var email = this.value;
-          alert(email);
           document.getElementById("email").value = email;
           $('#editModal').modal('show');
       });
