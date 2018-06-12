@@ -39,6 +39,13 @@ namespace ict_lab_website.Controllers
         [HttpPost]
 		public IActionResult Login(CredentialsViewModel c)
         {
+			var checkInternetConnection = CheckInternetConnection.CheckConnection();
+
+			if(checkInternetConnection == false){
+				ViewBag.internet = checkInternetConnection;
+				return View();
+			}
+
             var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.LoginCredentials(rJson);

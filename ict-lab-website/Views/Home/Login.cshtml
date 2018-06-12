@@ -18,6 +18,14 @@
                         </div>
                     </td>
                 }
+                else if(@ViewBag.internet == false)
+                {
+                    <td colspan="3">
+                        <div class="alert alert-danger">
+                            <strong>Error</strong> Make sure you have connection with the internet.
+                        </div>
+                    </td>
+                }
                 <tr class="success">
                     <th colspan="2">
                         User Login
