@@ -24,32 +24,32 @@ namespace ict_lab_website.Models.Schedule
             this.logger = logger;
         }
 
-        public Dictionary<int, Reservation> GetDay(DateTime date, string roomName)
+        public Dictionary<int, Reservation> GetDay(DateTime dateTime, string roomName)
         {
-            var reservationsForWeek = GetWeek(date, roomName);
-            int dayOfWeek = (int)date.DayOfWeek;
+            var reservationsForWeek = GetWeek(dateTime, roomName);
+            int dayOfWeek = (int)dateTime.DayOfWeek;
             Dictionary<int, Reservation> reservationsForDay = reservationsForWeek[dayOfWeek];
 
             return reservationsForDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
         }
 
-        public Dictionary<int, Dictionary<int, Reservation>> GetWeek(DateTime date, string roomName)
+        public Dictionary<int, Dictionary<int, Reservation>> GetWeek(DateTime dateTime, string roomName)
         {
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
-            int year = date.Year;
+            int year = dateTime.Year;
             int quarter = 4;
-            int week = GetWeeknumber(date);
+            int week = GetWeekNumber(dateTime);
 
             return GetWeekFromApi(roomName, year, quarter, week);
         }
 
-        public List<DateTime> GetDatesInSameWeek(DateTime date)
+        public List<DateTime> GetDatesInSameWeek(DateTime dateTime)
         {
             List<DateTime> datesInSameWeek = new List<DateTime>();
-            var day = (int) date.DayOfWeek;
+            var day = (int) dateTime.DayOfWeek;
             int daysInWeek = 7;
 
-            var monday = date.AddDays(-(int)date.DayOfWeek + (int)DayOfWeek.Monday);
+            var monday = dateTime.AddDays(-(int)dateTime.DayOfWeek + (int)DayOfWeek.Monday);
             datesInSameWeek.Add(monday);
 
             for (int i = (int)DayOfWeek.Monday; i < daysInWeek; i++)
@@ -62,35 +62,37 @@ namespace ict_lab_website.Models.Schedule
 
         //This method returns the weeknumber according to the ISO-8601 standard, because the one from .Net does strange things with weeks at the end of the year.
         //This method was found on: 
-        //https://stackoverflow.com/questions/11154673/get-the-correct-week-number-of-a-given-date?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-        private static int GetWeeknumber(DateTime date)
+        //https://stackoverflow.com/questions/11154673/get-the-correct-week-number-of-a-given-dateTime?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+        public int GetWeekNumber(DateTime dateTime)
         {
-            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(date);
+            DayOfWeek day = CultureInfo.InvariantCulture.Calendar.GetDayOfWeek(dateTime);
             if (day >= DayOfWeek.Monday && day <= DayOfWeek.Wednesday)
             {
-                date = date.AddDays(3);
+                dateTime = dateTime.AddDays(3);
             }
-            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(dateTime, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public void AddReservation(UploadableReservation reservation)
+        public Boolean AddReservation(UploadableReservation reservation)
         {
             var reservationJsonObject = (JObject)JToken.FromObject(reservation);
 
-            try
-            {
-                apiCalls.PostRequest(reservationJsonObject, apiConfig.Url + apiConfig.UploadHour);
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e, "Uploading reservation failed", DateTime.Now);
-            }
+                logger.LogInformation("Uploading reservation to API..", DateTime.Now);
+                var result = apiCalls.PostRequest(reservationJsonObject, apiConfig.Url + apiConfig.UploadHour);
+
+                if (!result.HasValues)
+                {
+                    logger.LogError("Uploading reservation failed", DateTime.Now);
+                    return false;
+                }
+
+            return true;   
         }
 
 
-        public int GetNumberOfFreeTimeslots(DateTime date, string roomName)
+        public int GetNumberOfFreeTimeslots(DateTime dateTime, string roomName)
         {
-            var reservations = GetDay(date, roomName);
+            var reservations = GetDay(dateTime, roomName);
             return reservations.Where(x => x.Value != null).Count();
         }
 
