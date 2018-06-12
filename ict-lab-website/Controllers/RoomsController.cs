@@ -18,11 +18,13 @@ namespace ict_lab_website.Controllers
     {
         private readonly IRepository<Room> repository;
         private readonly ILogger logger;
+        private readonly ISchedule schedule;
 
-        public RoomsController(IRepository<Room> roomRepository, ILogger<RoomsController> logger)
+        public RoomsController(IRepository<Room> roomRepository, ILogger<RoomsController> logger, ISchedule schedule)
         {
             this.repository = roomRepository;
             this.logger = logger;
+            this.schedule = schedule;
         }
 
         public IActionResult Index(DateTime date, string searchString = "H.")
@@ -39,8 +41,15 @@ namespace ict_lab_website.Controllers
                 date = DateTime.Now;
             }
 
+            Dictionary<Room, int> roomsAndTimeSlots = new Dictionary<Room, int>(); 
+            foreach(Room room in rooms)
+            {
+                int numberOfFreeTimeslots = schedule.GetNumberOfFreeTimeslots(date, room.Name);
+                roomsAndTimeSlots.Add(room, numberOfFreeTimeslots);
+            }
+
             ViewBag.date = date;
-            return View(rooms);
+            return View(roomsAndTimeSlots);
         }
     }
 }

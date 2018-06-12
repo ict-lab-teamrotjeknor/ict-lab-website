@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Room>
+﻿@model Dictionary<Room, int>
 
 <div class="row">
     <div class="col-md-12">
@@ -32,11 +32,11 @@
             <tbody>
                 @if (Model.Any())
                 {
-                    foreach (Room room in Model)
+                    foreach (Room room in Model.Keys)
                     {
                         <tr>
                             <td>@Html.DisplayFor(modelItem => room.Name)</td>
-                            <td>?</td>
+                            <td>@Model[room]</td>
                             <td><a asp-controller="Schedule" asp-action="Index" asp-route-roomName="@room.Name" asp-route-view="ScheduleViewDay" asp-route-dateTime="@ViewBag.date.Year-@ViewBag.date.Month-@ViewBag.date.Day">View schedule</a></td>
                         </tr>
                     }
