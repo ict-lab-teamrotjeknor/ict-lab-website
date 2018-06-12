@@ -25,7 +25,16 @@
                 </tr>
             </thead>
             <tbody>
-                
+                @if (@ViewBag.returnType == "error")
+                {
+                    <td colspan="3">
+                        <div class="alert alert-danger">
+                            <strong>Error: </strong>The users could not be found, make sure you have connection with the internet.
+                        </div>
+                    </td>
+                }
+                else
+                {
                 @foreach (DataRow row in Model._dataTable.Rows)
                 {
                     <tr>
@@ -39,7 +48,8 @@
                         </td>
                     </tr>
                 }
-                
+                }
+
             </tbody>
         </table>
 
@@ -58,6 +68,13 @@
                             <table class="table table-bordered">
                                 <thead>
                                 </thead>
+                                @if (ViewBag.returnType == "error")
+                                {
+                                    <tr colspan="3">
+                                    </tr>
+                                }
+                                else
+                                {
                                 <tbody>
                                     <tr>
                                         <form method="post" asp-controller="Users" asp-action="ChangeRole">
@@ -66,7 +83,7 @@
                                         <td>
                                             <input asp-for="_email" type="hidden" id="email" value="placeholder" />
                                             <ul>
-                                                  @for(int i = 0; i < Model._roleList.roles.Count; i++)
+                                                  @for (int i = 0; i < Model._roleList.roles.Count; i++)
                                                   {
                                                      <li>
                                                          <input type="checkbox" asp-for="@Model._roleList.roles[i].IsChecked" />
@@ -75,7 +92,7 @@
                                                          <input type="hidden" asp-for="@Model._roleList.roles[i].RoleName" />
                                                      <br />
                                                      </li>
-                                                  }
+}
                                             </ul>
                                         </td>
                                         <td>
@@ -103,6 +120,7 @@
                                     </tr>
                                     </form>
                                 </tbody>
+                                }
                             </table>
                     </div>
                 </div>

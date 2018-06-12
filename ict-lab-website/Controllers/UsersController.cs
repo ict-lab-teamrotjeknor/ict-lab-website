@@ -42,6 +42,10 @@ namespace ictlabwebsite.Controllers
 			roleList.roles = rList;
 
 			var returnType = _users.GetAllUsers();
+			if (returnType == null){
+				ViewBag.returnType = "error";
+				return View();
+			}
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
             DataTable dataTable = dataSet.Tables["Users"];
 
