@@ -28,21 +28,39 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddReservation(string roomName, int startLessonHour)
+        public IActionResult AddReservation(string roomName, int startLessonHour, DateTime dateTime)
         {
-            ViewBag.roomName = roomName;
-            ViewBag.startLessonHour = startLessonHour;
-            return View("AddReservation");
+            ViewBag.Year = dateTime.Year;
+            ViewBag.Week = Schedule.GetWeekNumber(dateTime);
+            ViewBag.RoomName = roomName;
+            ViewBag.StartLessonHour = startLessonHour;
+            ViewBag.IsReservationAdded = true; 
+            var culture = new System.Globalization.CultureInfo("nl-NL");
+            ViewBag.Day = culture.DateTimeFormat.GetDayName(DateTime.Today.DayOfWeek);
+
+            return View();
         }
 
         [HttpPost]
         public IActionResult AddReservation(UploadableReservation reservation)
         {
+            
             if (ModelState.IsValid)
             {
-                Schedule.AddReservation(reservation);
-                return RedirectToAction("Index", "Rooms", new { area = "" });
+                Boolean isReservationAdded = Schedule.AddReservation(reservation);
+
+                if (isReservationAdded)
+                {
+                    return RedirectToAction("Index", "Rooms", new { area = "" });
+                }
             }
+
+            ViewBag.Week = reservation.Week;
+            ViewBag.Day = reservation.Day;
+            ViewBag.Year = reservation.Year;
+            ViewBag.RoomName = reservation.Classroom;
+            ViewBag.StartLessonHour = reservation.StartHour;
+            ViewBag.IsReservationAdded = false;
             return View(reservation);
         }
     }

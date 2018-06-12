@@ -6,6 +6,11 @@
 
 <h2>New reservation</h2>
 
+@if (!ViewBag.IsReservationAdded)
+{
+    <div class="alert alert-danger"><strong>Error</strong> Something went wrong when trying to upload your reservation, please try again.</div>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -13,42 +18,42 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" value="0879062" readonly/>
+                <input asp-for="Username" class="form-control" value="0879062" readonly />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" value="Student" readonly/>
+                <input asp-for="Type" class="form-control" value="Student" readonly />
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Classroom" class="control-label"></label>
-                <input asp-for="Classroom" class="form-control" value="@ViewBag.roomName"/>
+                <input asp-for="Classroom" class="form-control" value="@ViewBag.RoomName" readonly />
                 <span asp-validation-for="Classroom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
+                <input asp-for="Year" class="form-control" value="@ViewBag.Year" readonly />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Quator" class="control-label"></label>
-                <input asp-for="Quator" class="form-control"/>
+                <input asp-for="Quator" class="form-control" value="4" readonly />
                 <span asp-validation-for="Quator" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Week" class="control-label"></label>
-                <input asp-for="Week" class="form-control" />
+                <input asp-for="Week" class="form-control" value="@ViewBag.Week" readonly />
                 <span asp-validation-for="Week" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Day" class="control-label"></label>
-                <input asp-for="Day" class="form-control" />
+                <input asp-for="Day" class="form-control" value="@ViewBag.Day" />
                 <span asp-validation-for="Day" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="StartHour" class="control-label"></label>
-                <input asp-for="StartHour" class="form-control" value="@ViewBag.startLessonHour"/>
+                <input asp-for="StartHour" class="form-control" value="@ViewBag.startLessonHour" />
                 <span asp-validation-for="StartHour" class="text-danger"></span>
             </div>
             <div class="form-group">
