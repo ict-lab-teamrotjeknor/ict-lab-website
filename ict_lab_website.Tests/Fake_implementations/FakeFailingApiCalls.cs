@@ -15,7 +15,7 @@ namespace ict_lab_website.Tests.Fake_implementations
 
         public JObject PostRequest(JObject postData, string url)
         {
-            throw new NotImplementedException();
+            return new JObject();
         }
     }
 }
