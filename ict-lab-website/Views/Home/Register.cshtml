@@ -23,15 +23,15 @@
                 <form method="post" asp-controller="Home" asp-action="Register">
                 <tr>
                     <td>Email</td>
-                    <td><input asp-for="Email"></td>
+                    <td><input asp-for="Email" id="emailCheck"></td>
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input asp-for="Password"></td>
+                    <td><input asp-for="Password" id="passwordCheck"></td>
                 </tr>
                 <tr class="success">
                     <td colspan="2">
-                        <input class="btn btn-success" type="submit" value="Register" />
+                        <input id="registerButton" class="btn btn-success" type="submit" value="Register" />
                     </td>
                 </tr>
                 </form>
@@ -66,11 +66,23 @@
 </div>
 
 @section Scripts {
-  <script type="text/javascript" src="/scripts/main.js"></script>
+  <script>
+      $(document).ready(function(){
+        $('#registerButton').attr('disabled', true);
 
-  <script type="text/javascript">
-      $('#linkClose').click(function () {
-          $('#divError').hide('fade');
+        $('#passwordCheck').keyup(function(){
+            if($('#passwordCheck').val().length != 0 && $('#emailCheck').val().length != 0)
+                $('#registerButton').attr('disabled', false);
+            else
+                $('#registerButton').attr('disabled', true);
+        });
+
+        $('#emailCheck').keyup(function(){
+            if($('#emailCheck').val().length != 0 && $('#passwordCheck').val().length != 0)
+                $('#registerButton').attr('disabled', false);
+            else
+                $('#registerButton').attr('disabled', true);
+        });
       });
   </script>
 }
