@@ -35,8 +35,11 @@ namespace ict_lab_website.Controllers
             ViewBag.RoomName = roomName;
             ViewBag.StartLessonHour = startLessonHour;
             ViewBag.IsReservationAdded = true; 
+
+
             var culture = new System.Globalization.CultureInfo("nl-NL");
-            ViewBag.Day = culture.DateTimeFormat.GetDayName(DateTime.Today.DayOfWeek);
+            var day = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
+            ViewBag.Day = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(day.ToLower());
 
             return View();
         }
