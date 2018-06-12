@@ -36,7 +36,7 @@
                 <form method="post" asp-controller="Home" asp-action="Login">
                 <tr>
                     <td>Email</td>
-                    <td><input asp-for="Email"></td>
+                    <td><input asp-for="Email" id="emailCheck"></td>
                 </tr>
                 <tr>
                     <td>Password</td>
@@ -50,11 +50,6 @@
                 </form>
             </tbody>
         </table>
-        
-        <div id="divError" class="alert alert-danger collapse">
-            <a id="linkClose" href="#" class="close">&times;</a>
-            <div id="divErrorText"></div>
-        </div>
     </div>
 </div>
 
@@ -64,8 +59,16 @@
     <script>
         $(document).ready(function(){
             $('#loginButton').attr('disabled', true);
+        
             $('#passwordCheck').keyup(function(){
-                if($(this).val().length != 0)
+                if($('#passwordCheck').val().length != 0 && $('#emailCheck').val().length != 0)
+                    $('#loginButton').attr('disabled', false);
+                else
+                    $('#loginButton').attr('disabled', true);
+            });
+
+            $('#emailCheck').keyup(function(){
+                if($('#emailCheck').val().length != 0 && $('#passwordCheck').val().length != 0)
                     $('#loginButton').attr('disabled', false);
                 else
                     $('#loginButton').attr('disabled', true);
