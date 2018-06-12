@@ -10,6 +10,14 @@
     <div class="well">
         <table class="table table-bordered">
             <thead>
+                @if (@ViewBag.succeed == false)
+                {
+                    <td colspan="3">
+                        <div class="alert alert-danger">
+                            <strong>Error</strong> The login credentials you entered were not right, please try again.
+                        </div>
+                    </td>
+                }
                 <tr class="success">
                     <th colspan="2">
                         User Login

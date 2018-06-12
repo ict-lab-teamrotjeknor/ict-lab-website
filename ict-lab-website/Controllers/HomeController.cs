@@ -42,8 +42,13 @@ namespace ict_lab_website.Controllers
             var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.LoginCredentials(rJson);
+            
+			var succeed = returntype["Succeed"].Value<Boolean>();
 
-			//var tester = returntype["Succeed"].HasValues;
+			if(succeed == false){
+				ViewBag.succeed = succeed;
+				return View();
+			}
            
 			return RedirectToAction("Index", "Rooms");
         }
@@ -60,6 +65,13 @@ namespace ict_lab_website.Controllers
             var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.RegisterCredentials(rJson);
+
+			//var succeed = returntype["Succeed"].Value<Boolean>();
+
+			//if (succeed == false)
+            //{
+            //    return RedirectToAction("Register");
+            //}
 
             return RedirectToAction("Index", "Rooms");
         }
