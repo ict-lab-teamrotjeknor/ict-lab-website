@@ -22,7 +22,11 @@ namespace ict_lab_website.Tests.Schedule
 
         public JObject PostRequest(JObject postData, string url)
         {
-            throw new NotImplementedException();
+            JObject jObject = new JObject();
+            JToken jProperty = new JProperty("Result", "Succeeded");
+            jObject.Add(jProperty);
+
+            return jObject;
         }
     }
 }
