@@ -69,11 +69,11 @@
                                             <td><b>User Role</b></td>
                                             <td>
                                                 <input asp-for="_email" type="hidden" id="email" value="placeholder" />
-                                                <ul>
+                                                <ul style="list-style-type: none; padding: 0; margin: 0;">
                                                       @for (int i = 0; i < Model._roleList.roles.Count; i++)
                                                       {
                                                          <li>
-                                                             <input type="checkbox" asp-for="@Model._roleList.roles[i].IsChecked" />
+                                                             <input id="checkboxCheck" type="checkbox" asp-for="@Model._roleList.roles[i].IsChecked" />
                                                              @Model._roleList.roles[i].RoleName
                                                              <input type="hidden" asp-for="@Model._roleList.roles[i].RoleId" />
                                                              <input type="hidden" asp-for="@Model._roleList.roles[i].RoleName" />
@@ -117,13 +117,15 @@
 </div>
 
 @section Scripts {
-  <script type="text/javascript" src="/scripts/main.js"></script>
-
-  <script type="text/javascript">
+  <script>
       $(document).on('click', '#editUser', function(){
           var email = this.value;
           document.getElementById("email").value = email;
           $('#editModal').modal('show');
       });
+      $('input[type="checkbox"]').on('change', function(){
+        $('input[type="checkbox"]').not(this).prop("checked", false);
+      });
+
   </script>
 }
