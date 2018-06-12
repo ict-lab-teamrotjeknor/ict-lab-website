@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xunit;
 
@@ -17,7 +18,6 @@ namespace ict_lab_website.Tests.Schedule
         private readonly IOptions<ApiConfig> apiConfig;
         private readonly IApiCalls apiCalls;
         private readonly IApiCalls failingApiCalls;
-        private readonly ISchedule roomSchedule;
 
         public RoomScheduleTests()
         {
@@ -25,18 +25,6 @@ namespace ict_lab_website.Tests.Schedule
             this.apiConfig = new FakeIOptions();
             this.apiCalls = new FakeScheduleApiCalls();
             this.failingApiCalls = new FakeFailingApiCalls();
-        }
-
-        [Theory]
-        [ClassData(typeof(ScheduleTestDataGenerator))]
-        public void GetDatesInSameWeek_ShouldWorkWithValidDate(DateTime dateTime)
-        {
-            ISchedule roomSchedule = new RoomSchedule(apiConfig, logger, apiCalls);
-
-            List<DateTime> datesInSameWeek = roomSchedule.GetDatesInSameWeek(dateTime);
-
-            Assert.True(datesInSameWeek.Count == 7);
-            Assert.Contains<DateTime>(dateTime, datesInSameWeek);
         }
 
         [Theory]
@@ -76,7 +64,54 @@ namespace ict_lab_website.Tests.Schedule
             Assert.Contains(reservationsForDay, reservationsForWeek.Values);
         }
 
+        [Fact]
+        public void AddReservation_ShouldWorkWithValidReservation()
+        {
+            ISchedule roomSchedule = new RoomSchedule(apiConfig, logger, apiCalls);
+            UploadableReservation reservation = new UploadableReservation();
+            Boolean expected = true;
 
+            Boolean actual = roomSchedule.AddReservation(reservation);
 
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void AddReservation_ShouldFailWithNotWorkingApiCalls()
+        {
+            ISchedule roomSchedule = new RoomSchedule(apiConfig, logger, failingApiCalls);
+            UploadableReservation reservation = new UploadableReservation();
+            Boolean expected = false;
+
+            Boolean actual = roomSchedule.AddReservation(reservation);
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [ClassData(typeof(ScheduleTestDataGenerator))]
+        public void GetDatesInSameWeek_ShouldWorkWithValidDate(DateTime dateTime)
+        {
+            ISchedule roomSchedule = new RoomSchedule(apiConfig, logger, apiCalls);
+
+            List<DateTime> datesInSameWeek = roomSchedule.GetDatesInSameWeek(dateTime);
+
+            Assert.True(datesInSameWeek.Count == 7);
+            Assert.Contains<DateTime>(dateTime, datesInSameWeek);
+        }
+        
+        [Theory]
+        [ClassData(typeof(ScheduleTestDataGenerator))]
+        public void GetNumberOfFreeTimeslots_ShouldWork(DateTime dateTime)
+        {
+            ISchedule roomSchedule = new RoomSchedule(apiConfig, logger, apiCalls);
+            string roomName = "H.1.308";
+            var reservations = roomSchedule.GetDay(dateTime, roomName);
+            int expected = reservations.Where(r => r.Value == null).Count();
+
+            int actual = roomSchedule.GetNumberOfFreeTimeslots(dateTime, roomName);
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
