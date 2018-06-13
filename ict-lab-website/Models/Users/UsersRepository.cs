@@ -11,18 +11,18 @@ using Newtonsoft.Json.Linq;
 
 namespace ict_lab_website.Models.Users
 {
-	public class Users : IUsers
+	public class UsersRepository : IUsers
     {
 		//private List<User> users;
-		private readonly IApiCalls apiCalls;
+		private readonly IApiCalls _apiCalls;
         private readonly ApiConfig apiConfig;
         private readonly ILogger _logger;
 		private JObject apiCall;
 		private string apiCallString;
         
-		public Users(IOptions<ApiConfig> apiConfig, ILogger<UsersController> logger)
+		public UsersRepository(IOptions<ApiConfig> apiConfig, ILogger<UsersController> logger, IApiCalls apiCalls)
         {
-			apiCalls = new ApiCalls();
+			_apiCalls = apiCalls;
 			this.apiConfig = apiConfig.Value;
 			_logger = logger;
 			apiCall = new JObject();
@@ -33,7 +33,7 @@ namespace ict_lab_website.Models.Users
 		{         
             try
             {
-				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole);
             }
             catch (Exception e)
             {
@@ -46,7 +46,7 @@ namespace ict_lab_website.Models.Users
 		{
 			try
             {
-				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeReservationLimit);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeReservationLimit);
             }
             catch (Exception e)
             {
@@ -59,7 +59,7 @@ namespace ict_lab_website.Models.Users
 		{
             try
             {
-				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeRole);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeRole);
             }
             catch (Exception e)
             {
@@ -82,7 +82,7 @@ namespace ict_lab_website.Models.Users
 		{
 			try
             {
-				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.DeleteUser);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.DeleteUser);
             }
             catch (Exception e)
             {
@@ -95,7 +95,7 @@ namespace ict_lab_website.Models.Users
 		{
 			try
             {
-				apiCallString = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetUsers);
+				apiCallString = _apiCalls.GetRequest(apiConfig.Url + apiConfig.GetUsers);
             }
             catch (Exception e)
             {
