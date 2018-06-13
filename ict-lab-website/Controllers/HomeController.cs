@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ict_lab_website.Models;
 using Newtonsoft.Json;
 using ict_lab_website.Process;
 using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Routing;
 using ict_lab_website.Models.ViewModels;
 using Microsoft.Extensions.Logging;
 using ict_lab_website.Models.Home;
@@ -39,11 +34,25 @@ namespace ict_lab_website.Controllers
         [HttpPost]
 		public IActionResult Login(CredentialsViewModel c)
         {
+			var checkInternetConnection = CheckInternetConnection.CheckConnection();
+
+			if(checkInternetConnection == false){
+				ViewBag.internet = checkInternetConnection;
+				return View();
+			}
+
             var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.LoginCredentials(rJson);
+            
+			var succeed = returntype["Succeed"].Value<Boolean>();
 
-            return RedirectToAction("Index", "Rooms");   
+			if(succeed == false){
+				ViewBag.succeed = succeed;
+				return View();
+			}
+           
+			return RedirectToAction("Index", "Rooms");
         }
 
         [HttpGet]
@@ -58,6 +67,13 @@ namespace ict_lab_website.Controllers
             var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.RegisterCredentials(rJson);
+
+			//var succeed = returntype["Succeed"].Value<Boolean>();
+
+			//if (succeed == false)
+            //{
+            //    return RedirectToAction("Register");
+            //}
 
             return RedirectToAction("Index", "Rooms");
         }

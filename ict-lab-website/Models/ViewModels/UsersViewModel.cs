@@ -24,5 +24,11 @@ namespace ict_lab_website.Models.ViewModels
             this._dataTable = dataTable;
 			this._roleList = roleList;
         }
+
+		public bool Empty{
+			get {
+				return (_roleList == null);
+			}
+		}
     }
 }

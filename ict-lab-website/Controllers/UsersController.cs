@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using ict_lab_website.Process;
 using ict_lab_website.Models.ViewModels;
 using ict_lab_website.Models.Users;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
-using System.Text;
 using Microsoft.Extensions.Logging;
-using ict_lab_website.Models.Home;
 
 namespace ictlabwebsite.Controllers
 {
@@ -42,6 +36,10 @@ namespace ictlabwebsite.Controllers
 			roleList.roles = rList;
 
 			var returnType = _users.GetAllUsers();
+			if (returnType == null){
+				ViewBag.returnType = "error";
+				return View();
+			}
             DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(returnType);
             DataTable dataTable = dataSet.Tables["Users"];
 
