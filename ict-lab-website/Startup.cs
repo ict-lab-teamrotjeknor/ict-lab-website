@@ -12,6 +12,7 @@ using ict_lab_website.Models.Schedule;
 using ict_lab_website.Process;
 using ict_lab_website.Models.Home;
 using ict_lab_website.Models.Users;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace ict_lab_website
 {
@@ -47,6 +48,11 @@ namespace ict_lab_website
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseStaticFiles();
 
