@@ -1,0 +1,24 @@
+﻿@Model List<Notification>
+    <br />
+    <br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="success">
+                    <th width="20%">ID</th>
+                    <th width="80%">Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (Notification notification in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => notification.ID)</td>
+                            <td>@Html.DisplayFor(modelItem => notification.Message)</td>                                      
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>

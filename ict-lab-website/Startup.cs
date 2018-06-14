@@ -13,6 +13,7 @@ using ict_lab_website.Process;
 using ict_lab_website.Models.Home;
 using ict_lab_website.Models.Users;
 using Microsoft.AspNetCore.HttpOverrides;
+using ict_lab_website.Models.Notifications;
 
 namespace ict_lab_website
 {
@@ -35,6 +36,7 @@ namespace ict_lab_website
             services.AddTransient<ISchedule, RoomSchedule>();
 			services.AddTransient<IHomeCredentials, HomeCredentials>();
 			services.AddTransient<IUsers, UsersRepository>();
+            services.AddTransient<INotificationRepository, NotificationRepository>();
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

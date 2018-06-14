@@ -1,4 +1,5 @@
-﻿using ict_lab_website.Process;
+﻿using ict_lab_website.Controllers;
+using ict_lab_website.Process;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -10,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace ict_lab_website.Models.Notifications
 {
-    public class NotificationRepository
+    public class NotificationRepository : INotificationRepository
     {
         private readonly IApiCalls apiCalls;
         private readonly ApiConfig apiConfig;
         private readonly ILogger logger;
 
-        public NotificationRepository(IApiCalls apiCalls, IOptions<ApiConfig> apiConfig, ILogger logger)
+        public NotificationRepository(IApiCalls apiCalls, IOptions<ApiConfig> apiConfig, ILogger<NotificationsController> logger)
         {
             this.apiCalls = apiCalls;
             this.apiConfig = apiConfig.Value;
@@ -46,14 +47,36 @@ namespace ict_lab_website.Models.Notifications
             return notifications;
         }
 
-        public void SendNotification(string message, string receiverUsername)
+        public Boolean SendNotification(UploadableNotification notification)
         {
+            var notificationJsonObject = (JObject)JToken.FromObject(notification);
 
+            logger.LogInformation("Uploading notification to API..", DateTime.Now);
+            var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.UploadHour);
+
+            if (!result.HasValues)
+            {
+                logger.LogError("Uploading notification failed", DateTime.Now);
+                return false;
+            }
+
+            return true;
         }
 
-        public void SendNotificationToGroup(string message, string role)
+        public Boolean SendNotificationToGroup(UploadableGroupNotification notification)
         {
+            var notificationJsonObject = (JObject)JToken.FromObject(notification);
 
+            logger.LogInformation("Uploading notification to API..", DateTime.Now);
+            var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.UploadHour);
+
+            if (!result.HasValues)
+            {
+                logger.LogError("Uploading notification failed", DateTime.Now);
+                return false;
+            }
+
+            return true;
         }
     }
 }
