@@ -34,7 +34,7 @@ namespace ict_lab_website
             services.AddTransient<IRepository<Room>, RoomRepository>();
             services.AddTransient<ISchedule, RoomSchedule>();
 			services.AddTransient<IHomeCredentials, HomeCredentials>();
-			services.AddTransient<IUsers, Users>();
+			services.AddTransient<IUsers, UsersRepository>();
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

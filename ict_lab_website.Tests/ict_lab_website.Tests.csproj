@@ -24,6 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Users\FakeUsersApiCalls.css" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="TestData\getallrooms.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -35,4 +38,11 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Users\FakeUsersApiCalls.cs" />
+    <Compile Remove="Users\UsersTests.cs" />
+  </ItemGroup>
 </Project>
