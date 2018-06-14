@@ -1,4 +1,4 @@
-﻿@Model List<Notification>
+﻿@model List<Notification>
     <br />
     <br />
 <div class="row">
@@ -18,6 +18,47 @@
                             <td>@Html.DisplayFor(modelItem => notification.Message)</td>                                      
                         </tr>
                     }
+            </tbody>
+        </table>
+        <br />
+        <br />
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="success">
+                    <th width="33%">Send Message To</th>
+                    <th width="33%">Form to fill in</th>
+                    <th width="34%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <form method="post" asp-controller="Notifications" asp-action="SendNotification"> 
+                    <td>
+                        User
+                    </td>
+                    <td>
+                        <input asp-for="Username" type="text" placeholder="Enter username of user"/>
+                        <input asp-for="Message" type="text" placeholder="Enter the message"/>
+                    </td>
+                    <td>
+                        <input class="btn btn-success" type="submit" value="Send"/>
+                    </td>
+                    </form>
+                </tr>
+                <tr>
+                    <form method="post" asp-controller="Notifications" asp-action="SendNotificationToGroup">
+                        <td>
+                            All Users with given role
+                        </td>
+                        <td>
+                            <input asp-for="Role" type="text" placeholder="Enter role" />
+                            <input asp-for="Message" type="text" placeholder="Enter the message" />
+                        </td>
+                        <td>
+                            <input class="btn btn-success" type="submit" value="Send"/>
+                        </td>
+                    </form>
+                </tr>
             </tbody>
         </table>
     </div>
