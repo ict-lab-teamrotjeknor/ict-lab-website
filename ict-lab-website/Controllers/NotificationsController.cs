@@ -34,6 +34,7 @@ namespace ict_lab_website.Controllers
 
                 if (isNotificationSend)
                 {
+					ViewBag.IsNotificationAdded = true;
                     return RedirectToAction("Index", "Notifications", new { area = "" });
                 }
             }
