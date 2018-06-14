@@ -20,8 +20,6 @@
                     }
             </tbody>
         </table>
-        <br />
-        <br />
         <table class="table table-bordered table-striped">
             <thead>
                 <tr class="success">
@@ -31,34 +29,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <form method="post" asp-controller="Notifications" asp-action="SendNotification"> 
-                    <td>
-                        User
-                    </td>
-                    <td>
-                        <input asp-for="Username" type="text" placeholder="Enter username of user"/>
-                        <input asp-for="Message" type="text" placeholder="Enter the message"/>
-                    </td>
-                    <td>
-                        <input class="btn btn-success" type="submit" value="Send"/>
-                    </td>
-                    </form>
-                </tr>
-                <tr>
-                    <form method="post" asp-controller="Notifications" asp-action="SendNotificationToGroup">
-                        <td>
-                            All Users with given role
-                        </td>
-                        <td>
-                            <input asp-for="Role" type="text" placeholder="Enter role" />
-                            <input asp-for="Message" type="text" placeholder="Enter the message" />
-                        </td>
-                        <td>
-                            <input class="btn btn-success" type="submit" value="Send"/>
-                        </td>
-                    </form>
-                </tr>
+                @Html.Partial("SendNotification", new UploadableNotification())
+                @Html.Partial("SendNotificationToGroup", new UploadableGroupNotification())
             </tbody>
         </table>
     </div>

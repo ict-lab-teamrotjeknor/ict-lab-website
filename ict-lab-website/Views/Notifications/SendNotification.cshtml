@@ -1,0 +1,16 @@
+﻿@model UploadableNotification
+
+<tr>
+    <form method="post" asp-controller="Notifications" asp-action="SendNotification">
+        <td>
+            User
+        </td>
+        <td>
+            <input asp-for="Username" type="text" placeholder="Enter username of user" />
+            <input asp-for="Message" type="text" placeholder="Enter the message" />
+        </td>
+        <td>
+            <input class="btn btn-success" type="submit" value="Send" />
+        </td>
+    </form>
+</tr>

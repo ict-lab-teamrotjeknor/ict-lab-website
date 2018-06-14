@@ -1,0 +1,16 @@
+﻿@model UploadableGroupNotification
+
+<tr>
+    <form method="post" asp-controller="Notifications" asp-action="SendNotificationToGroup">
+        <td>
+            All Users with given role
+        </td>
+        <td>
+            <input asp-for="Role" type="text" placeholder="Enter role" />
+            <input asp-for="Message" type="text" placeholder="Enter the message" />
+        </td>
+        <td>
+            <input class="btn btn-success" type="submit" value="Send" />
+        </td>
+    </form>
+</tr>

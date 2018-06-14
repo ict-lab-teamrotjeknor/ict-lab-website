@@ -11,7 +11,7 @@ namespace ict_lab_website.Controllers
     public class NotificationsController : Controller
     {
         private readonly INotificationRepository repository;
-        private readonly ILogger logger; 
+        private readonly ILogger logger;
 
         public NotificationsController(INotificationRepository repository, ILogger<NotificationsController> logger)
         {
@@ -29,7 +29,7 @@ namespace ict_lab_website.Controllers
         public IActionResult SendNotification()
         {
             ViewBag.IsNotificationAdded = true;
-            return View();
+            return View("Index");
         }
 
         [HttpPost]
@@ -46,14 +46,14 @@ namespace ict_lab_website.Controllers
             }
 
             ViewBag.IsNotificationAdded = false;
-            return View(notification);
+            return RedirectToAction("Index", "Notifications", new { area = "" });
         }
 
         [HttpGet]
         public IActionResult SendNotificationToGroup()
         {
             ViewBag.IsNotificationAdded = true;
-            return View();
+            return View("Index", repository.GetAll());
         }
 
         [HttpPost]
@@ -70,7 +70,7 @@ namespace ict_lab_website.Controllers
             }
 
             ViewBag.IsNotificationAdded = false;
-            return View(notification);
+            return RedirectToAction("Index", "Notifications", new { area = "" });
         }
     }
 }
