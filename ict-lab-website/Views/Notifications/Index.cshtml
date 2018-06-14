@@ -30,6 +30,23 @@
             </thead>
             <tbody>
                 @Html.Partial("SendNotification", new UploadableNotification())
+                @if(ViewBag.IsNotificationAdded == false)
+                {
+                    <td colspan="3">
+                        <div class="alert alert-danger">
+                            <strong>Error: </strong>The Message was not send, make sure you enter the right credentials.
+                        </div>
+                    </td>
+
+                } else
+                {
+                    <td>
+                        <div class="success">
+                            <strong>Success: </strong>The message is successfully send.
+                        </div>
+                    </td>
+
+                }
                 @Html.Partial("SendNotificationToGroup", new UploadableGroupNotification())
             </tbody>
         </table>

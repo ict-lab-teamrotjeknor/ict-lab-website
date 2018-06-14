@@ -54,7 +54,9 @@ namespace ict_lab_website.Models.Notifications
             logger.LogInformation("Uploading notification to API..", DateTime.Now);
 			var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotification);
 
-            if (!result.HasValues)
+			var succeed = result["Succeed"].Value<Boolean>();
+
+			if (succeed == false)
             {
                 logger.LogError("Uploading notification failed", DateTime.Now);
                 return false;
