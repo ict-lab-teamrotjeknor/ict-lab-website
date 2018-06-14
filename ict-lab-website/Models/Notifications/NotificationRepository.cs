@@ -52,7 +52,7 @@ namespace ict_lab_website.Models.Notifications
             var notificationJsonObject = (JObject)JToken.FromObject(notification);
 
             logger.LogInformation("Uploading notification to API..", DateTime.Now);
-            var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.UploadHour);
+            var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotification);
 
             if (!result.HasValues)
             {
@@ -68,7 +68,7 @@ namespace ict_lab_website.Models.Notifications
             var notificationJsonObject = (JObject)JToken.FromObject(notification);
 
             logger.LogInformation("Uploading notification to API..", DateTime.Now);
-            var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.UploadHour);
+            var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotifiationToGroup);
 
             if (!result.HasValues)
             {
