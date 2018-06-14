@@ -25,13 +25,6 @@ namespace ict_lab_website.Controllers
             return View(notifications);
         }
 
-        [HttpGet]
-        public IActionResult SendNotification()
-        {
-            ViewBag.IsNotificationAdded = true;
-            return View("Index");
-        }
-
         [HttpPost]
         public IActionResult SendNotification(UploadableNotification notification)
         {
@@ -47,13 +40,6 @@ namespace ict_lab_website.Controllers
 
             ViewBag.IsNotificationAdded = false;
             return RedirectToAction("Index", "Notifications", new { area = "" });
-        }
-
-        [HttpGet]
-        public IActionResult SendNotificationToGroup()
-        {
-            ViewBag.IsNotificationAdded = true;
-            return View("Index", repository.GetAll());
         }
 
         [HttpPost]
