@@ -39,6 +39,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Users\" />
+    <Folder Include="User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Users\FakeUsersApiCalls.cs" />
+    <Compile Remove="Users\UsersTests.cs" />
   </ItemGroup>
 </Project>
