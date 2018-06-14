@@ -18,6 +18,32 @@ namespace ict_lab_website.Models.Notifications
             this.apiConfig = apiConfig.Value;
         }
 
+        public List<Notification> GetAll()
+        {
+            List<Notification> notifications = new List<Notification>();
 
+            try
+            {
+                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetAllNotifications);
+
+                
+            }
+            catch(Exception e)
+            {
+                throw e; 
+            }
+
+            return notifications;
+        }
+
+        public void SendNotification(string message, string receiverUsername)
+        {
+
+        }
+
+        public void SendNotificationToGroup(string message, string role)
+        {
+
+        }
     }
 }
