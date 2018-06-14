@@ -1,0 +1,60 @@
+﻿{
+  "Users": [
+    {
+      "Id": "f13fc67b-a606-47e3-8d9a-d4b9fabbfd4c",
+      "Email": "admin@admin.nl"
+    },
+    {
+      "Id": "bcfb94a6-d3d8-4383-825d-f6b266ba87a6",
+      "Email": "test@test.nl"
+    },
+    {
+      "Id": "cbba30f1-de86-420c-bc96-7f8be8a3716f",
+      "Email": "0879062@hr.nl"
+    },
+    {
+      "Id": "1d643d96-b8ef-4655-a79d-351319bda13f",
+      "Email": "0889872@hr.nl"
+    },
+    {
+      "Id": "c698552a-e1e2-47e6-98be-e01eae9629f6",
+      "Email": "testing@testing.nl"
+    },
+    {
+      "Id": "87dff6bf-86be-477a-8c67-3d2ac3d29875",
+      "Email": "tester@tester.nl"
+    },
+    {
+      "Id": "384466a2-e47a-45df-9b12-29eb6d782061",
+      "Email": "testing1@testing.nl"
+    },
+    {
+      "Id": "9534542e-9580-46df-9451-85d3f1e8027d",
+      "Email": "testing@tesing.nl"
+    },
+    {
+      "Id": "86ba045c-adf7-4c7c-b8df-1e798e575d1c",
+      "Email": "irejggr@test.nl"
+    },
+    {
+      "Id": "4f6a46bf-5d99-4953-a108-92471e1170ca",
+      "Email": "titatest@test.nl"
+    },
+    {
+      "Id": "8e3ccc24-85bb-4a02-8bf7-54285a7f1fc9",
+      "Email": "hihaho@test.nl"
+    },
+    {
+      "Id": "8eea09d3-8801-429c-aea8-97e98d8639ca",
+      "Email": "thetest@test.nl"
+    },
+    {
+      "Id": "fd23251d-dacb-4f09-a8bf-d43af24861b2",
+      "Email": "titato@test.nl"
+    },
+    {
+      "Id": "550c1037-dabf-4448-86b1-0bbf3b42006e",
+      "Email": "erwfer@test.nl"
+    }
+  ]
+}
