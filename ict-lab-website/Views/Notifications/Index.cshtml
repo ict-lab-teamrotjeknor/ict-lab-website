@@ -1,0 +1,60 @@
+﻿@model List<Notification>
+    <br />
+    <br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="success">
+                    <th width="20%">ID</th>
+                    <th width="80%">Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (Notification notification in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => notification.ID)</td>
+                            <td>@Html.DisplayFor(modelItem => notification.Message)</td>                                      
+                        </tr>
+                    }
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="success">
+                    <th width="33%">Send Message To</th>
+                    <th width="33%">Form to fill in</th>
+                    <th width="34%"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Partial("SendNotification", new UploadableNotification())
+                @Html.Partial("SendNotificationToGroup", new UploadableGroupNotification())
+            </tbody>
+        </table>
+
+        @if(ViewBag.IsNotificationAdded == null)
+        {
+            <div>
+                <td colspan="3">
+                    <div class="alert alert-danger">
+                        <strong>Error: </strong>The message was not send, make sure you enter the right credentials.
+                    </div>
+                </td>
+            </div>
+        } else if(ViewBag.IsNotificationAdded == null)
+        {
+
+        } else 
+        {
+            <div>
+                <td>
+                    <div class="success">
+                        <strong>Successs: </strong>The message is successfully send.
+                    </div>
+                </td>
+            </div>
+        }
+    </div>
+</div>

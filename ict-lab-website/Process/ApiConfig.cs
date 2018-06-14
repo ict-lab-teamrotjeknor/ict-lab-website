@@ -22,6 +22,6 @@ namespace ict_lab_website.Process
 		public string CheckReservationLimit { get; set; }
         public string GetAllNotifications { get; set; }
         public string SendNotification { get; set; }
-        public string SendNotifiationToGroup { get; set; }
+        public string SendNotificationToGroup { get; set; }
     }
 }
