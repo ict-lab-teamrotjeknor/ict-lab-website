@@ -68,7 +68,7 @@ namespace ict_lab_website.Models.Notifications
             var notificationJsonObject = (JObject)JToken.FromObject(notification);
 
             logger.LogInformation("Uploading notification to API..", DateTime.Now);
-			var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotifiationToGroup);
+			var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotificationToGroup);
 
             if (!result.HasValues)
             {
