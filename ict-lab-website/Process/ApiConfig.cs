@@ -20,5 +20,8 @@ namespace ict_lab_website.Process
 		public string DeleteUser { get; set; }
 		public string CheckRole { get; set; }
 		public string CheckReservationLimit { get; set; }
+        public string GetAllNotifications { get; set; }
+        public string SendNotification { get; set; }
+        public string SendNotifiationToGroup { get; set; }
     }
 }
