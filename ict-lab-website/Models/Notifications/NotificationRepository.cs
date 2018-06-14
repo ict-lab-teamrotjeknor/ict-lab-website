@@ -1,6 +1,8 @@
 ﻿using ict_lab_website.Process;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,14 @@ namespace ict_lab_website.Models.Notifications
 
             try
             {
-                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetAllNotifications);                
+                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetAllNotifications);
+                var messages = JObject.Parse(json)["Messages"];
+                foreach (var message in messages)
+                {
+                    Notification notification = JsonConvert.DeserializeObject<Notification>(message.ToString());
+                    notifications.Add(notification);
+                }
+
             }
             catch(Exception e)
             {
