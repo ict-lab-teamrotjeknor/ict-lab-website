@@ -24,5 +24,53 @@ namespace ict_lab_website.Controllers
             var notifications = repository.GetAll();
             return View(notifications);
         }
+
+        [HttpGet]
+        public IActionResult SendNotification()
+        {
+            ViewBag.IsNotificationAdded = true;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendNotification(UploadableNotification notification)
+        {
+            if (ModelState.IsValid)
+            {
+                Boolean isNotificationSend = repository.SendNotification(notification);
+
+                if (isNotificationSend)
+                {
+                    return RedirectToAction("Index", "Notifications", new { area = "" });
+                }
+            }
+
+            ViewBag.IsNotificationAdded = false;
+            return View(notification);
+        }
+
+        [HttpGet]
+        public IActionResult SendNotificationToGroup()
+        {
+            ViewBag.IsNotificationAdded = true;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SendNotificationToGroup(UploadableGroupNotification notification)
+        {
+            if (ModelState.IsValid)
+            {
+                Boolean isNotificationSend = repository.SendNotificationToGroup(notification);
+
+                if (isNotificationSend)
+                {
+                    return RedirectToAction("Index", "Notifications", new { area = "" });
+                }
+            }
+
+            ViewBag.IsNotificationAdded = false;
+            return View(notification);
+        }
     }
 }
