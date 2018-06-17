@@ -97,7 +97,6 @@ namespace ict_lab_website.Models.Schedule
 
         private Dictionary<int, Dictionary<int, Reservation>> GetWeekFromApi(string roomName, int year, int week)
         {
-            //The hardcoded 4 should be removed, but it is currently impossible to know what quarter is required by the API. 
             string parameters = $"/{roomName}/{year}/{week}";
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
