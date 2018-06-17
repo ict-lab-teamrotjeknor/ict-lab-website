@@ -21,11 +21,6 @@ namespace ict_lab_website.Models.Schedule
         [Required]
         public int Year { get; set; }
 
-        [Display(Name = "School period")]
-        [Range(1, 4)]
-        [Required]
-        public int Quator { get; set; }
-
         [Display(Name = "Week (1 - 52)")]
         [Range(1, 52)]
         [Required]

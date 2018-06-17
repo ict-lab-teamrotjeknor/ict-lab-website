@@ -37,10 +37,9 @@ namespace ict_lab_website.Models.Schedule
         {
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
             int year = dateTime.Year;
-            int quarter = 4;
             int week = GetWeekNumber(dateTime);
 
-            return GetWeekFromApi(roomName, year, quarter, week);
+            return GetWeekFromApi(roomName, year, week);
         }
 
         public List<DateTime> GetDatesInSameWeek(DateTime dateTime)
@@ -96,15 +95,14 @@ namespace ict_lab_website.Models.Schedule
             return reservations.Where(x => x.Value == null).Count();
         }
 
-        private Dictionary<int, Dictionary<int, Reservation>> GetWeekFromApi(string roomName, int year, int quarter, int week)
+        private Dictionary<int, Dictionary<int, Reservation>> GetWeekFromApi(string roomName, int year, int week)
         {
-            //The hardcoded 4 should be removed, but it is currently impossible to know what quarter is required by the API. 
-            string parameters = $"/{roomName}/{year}/4/{week}";
+            string parameters = $"/{roomName}/{year}/{week}";
             Dictionary<int, Dictionary<int, Reservation>> reservationsForWeek = new Dictionary<int, Dictionary<int, Reservation>>();
 
             try
             {
-                logger.LogInformation("Getting week {roomName}, {year}, {quarter}, {week}  from API", roomName, year, quarter, week, DateTime.Now);
+                logger.LogInformation("Getting week {roomName}, {year}, {quarter}, {week}  from API", roomName, year, week, DateTime.Now);
 
                 var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetWeek + parameters);
                 var days = JObject.Parse(json)["Days"];
@@ -137,7 +135,7 @@ namespace ict_lab_website.Models.Schedule
             }
             catch (Exception e)
             {
-                logger.LogError(e, "GetWeek({roomName}, {year}, {quarter}, {week} NOT FOUND)", roomName, year, quarter, week, DateTime.Now);
+                logger.LogError(e, "GetWeek({roomName}, {year}, {quarter}, {week} NOT FOUND)", roomName, year, week, DateTime.Now);
                 logger.LogInformation("Returning empty week", DateTime.Now);
 
                 for (int i = 0; i < 7; i++)
