@@ -49,9 +49,8 @@ namespace ictlabwebsite.Controllers
         }
         
 		[HttpPost]
-		public IActionResult ChangeRole(RoleList _roleList, User u)
+		public IActionResult ChangeRole(RoleList _roleList, string _email)
 		{
-			var emailOfUser = u.UserEmail;
 			List<string> roleStr = new List<string>();
 			foreach(var item in _roleList.roles){
 				if(item.IsChecked){
@@ -60,7 +59,7 @@ namespace ictlabwebsite.Controllers
 				}
 			}
             
-			ChangeUserRole changeuserrole = new ChangeUserRole(emailOfUser, roleStr[0]);
+			ChangeUserRole changeuserrole = new ChangeUserRole(_email, roleStr[0]);
             
 			var stringJson = JsonConvert.SerializeObject(changeuserrole);
 			var jsonObject = JObject.Parse(stringJson);
@@ -71,9 +70,9 @@ namespace ictlabwebsite.Controllers
 		}
         
 		[HttpPost]
-		public IActionResult ChangeReservationLimit(UserReservationLimit u)
+		public IActionResult ChangeReservationLimit(UserReservationLimit u, string _email)
         {
-			ChangeReservationLimit changeReservationLimit = new ChangeReservationLimit(u._email, u._reservationLimit);
+			ChangeReservationLimit changeReservationLimit = new ChangeReservationLimit(_email, u._reservationLimit);
 
 			var stringJson = JsonConvert.SerializeObject(changeReservationLimit);
             var jsonObject = JObject.Parse(stringJson);
