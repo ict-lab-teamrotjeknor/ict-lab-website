@@ -51,7 +51,7 @@ namespace ictlabwebsite.Controllers
 		[HttpPost]
 		public IActionResult ChangeRole(RoleList _roleList, User u)
 		{
-			var emailOfUser = u._email;
+			var emailOfUser = u.UserEmail;
 			List<string> roleStr = new List<string>();
 			foreach(var item in _roleList.roles){
 				if(item.IsChecked){

@@ -3,11 +3,11 @@ namespace ict_lab_website.Models.Users
 {
     public class DeleteUser
     {
-		public string email { get; set; }
+		public string UserEmail { get; set; }
 
 		public DeleteUser(string _email)
         {
-            email = _email;
+			UserEmail = _email;
         }
     }
 }
