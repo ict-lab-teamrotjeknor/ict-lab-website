@@ -97,9 +97,9 @@ namespace ictlabwebsite.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddRole(string role)
+		public IActionResult AddRole(string RoleName)
 		{
-			AddNewRole newRole = new AddNewRole(role);
+			AddNewRole newRole = new AddNewRole(RoleName);
             
 			var stringJson = JsonConvert.SerializeObject(newRole);
             var jsonObject = JObject.Parse(stringJson);

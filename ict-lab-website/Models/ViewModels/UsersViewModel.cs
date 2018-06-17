@@ -15,7 +15,7 @@ namespace ict_lab_website.Models.ViewModels
         
 		public string _email { get; set; }
 
-		public string role { get; set; }
+		public string RoleName { get; set; }
 
 		public RoleList _roleList { get; set; }
 
