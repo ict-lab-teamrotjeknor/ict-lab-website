@@ -56,7 +56,7 @@ namespace ict_lab_website.Controllers
                     return RedirectToAction("Index", "Notifications", new { area = "" });
                 }
             }
-
+            var test = "test";
             ViewBag.IsNotificationAdded = false;
             return RedirectToAction("Index", "Notifications", new { area = "" });
         }
