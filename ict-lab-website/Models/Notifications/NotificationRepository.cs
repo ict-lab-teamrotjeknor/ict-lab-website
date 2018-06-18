@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -41,7 +42,12 @@ namespace ict_lab_website.Models.Notifications
             }
             catch(Exception e)
             {
-                logger.LogError("Cannot get notifications from API.", e, DateTime.Now);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                logger.LogError($"{DateTime.Now} - [{file} : {line}] Cannot get notifications from API");
             }
 
             return notifications;
@@ -51,12 +57,12 @@ namespace ict_lab_website.Models.Notifications
         {
             var notificationJsonObject = (JObject)JToken.FromObject(notification);
 
-            logger.LogInformation("Uploading notification to API..", DateTime.Now);
+            logger.LogInformation($"{DateTime.Now} - Uploading notification to API.");
 			var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotification);
 
             if (!result.HasValues)
             {
-                logger.LogError("Uploading notification failed", DateTime.Now);
+                logger.LogWarning($"{DateTime.Now} - Uploading notification failed");
                 return false;
             }
 
@@ -67,12 +73,12 @@ namespace ict_lab_website.Models.Notifications
         {
             var notificationJsonObject = (JObject)JToken.FromObject(notification);
 
-            logger.LogInformation("Uploading notification to API..", DateTime.Now);
+            logger.LogInformation($"{DateTime.Now} - Uploading notification to API..");
 			var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotificationToGroup);
 
             if (!result.HasValues)
             {
-                logger.LogError("Uploading notification failed", DateTime.Now);
+                logger.LogWarning($"{DateTime.Now} - Uploading notification failed");
                 return false;
             }
 
