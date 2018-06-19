@@ -35,12 +35,12 @@ namespace ict_lab_website.Controllers
                 if (isNotificationSend)
                 {
 					ViewBag.IsNotificationAdded = true;
-                    return RedirectToAction("Index", "Notifications", new { area = "" });
+                    return View("Index", repository.GetAll());
                 }
             }
 
             ViewBag.IsNotificationAdded = false;
-            return RedirectToAction("Index", "Notifications", new { area = "" });
+            return View("Index",repository.GetAll());
         }
 
         [HttpPost]
@@ -53,12 +53,12 @@ namespace ict_lab_website.Controllers
                 if (isNotificationSend)
                 {
 					ViewBag.IsNotificationAdded = true;
-                    return RedirectToAction("Index", "Notifications", new { area = "" });
+                    return View("Index", repository.GetAll());
                 }
             }
 
             ViewBag.IsNotificationAdded = false;
-            return RedirectToAction("Index", "Notifications", new { area = "" });
+            return View("Index", repository.GetAll());
         }
     }
 }
