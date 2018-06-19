@@ -19,7 +19,7 @@ namespace ict_lab_website.Models.Users
         private readonly ApiConfig apiConfig;
         private readonly ILogger _logger;
 		private JObject apiCall;
-		private string apiCallString = "";
+        private string apiCallString;
         
 		public UsersRepository(IOptions<ApiConfig> apiConfig, ILogger<UsersController> logger, IApiCalls apiCalls)
         {
@@ -27,7 +27,6 @@ namespace ict_lab_website.Models.Users
 			this.apiConfig = apiConfig.Value;
 			_logger = logger;
 			apiCall = new JObject();
-			//users = GetUsers();
         }
 
 		public JObject AddRole(JObject jsonObject)
@@ -124,7 +123,6 @@ namespace ict_lab_website.Models.Users
                 var frame = stackTrace.GetFrame(0);
                 var line = frame.GetFileLineNumber();
                 var file = frame.GetFileName();
-
                 _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot get users from API");
             }
 			return apiCallString;
