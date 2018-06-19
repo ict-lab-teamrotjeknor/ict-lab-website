@@ -19,7 +19,7 @@ namespace ict_lab_website.Models.Users
         private readonly ApiConfig apiConfig;
         private readonly ILogger _logger;
 		private JObject apiCall;
-		private string apiCallString;
+		private string apiCallString = "";
         
 		public UsersRepository(IOptions<ApiConfig> apiConfig, ILogger<UsersController> logger, IApiCalls apiCalls)
         {
