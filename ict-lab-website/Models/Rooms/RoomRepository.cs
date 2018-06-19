@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -47,7 +48,12 @@ namespace ict_lab_website.Models.Rooms
             }
             catch (Exception e)
             {
-                logger.LogError("Cannot get rooms from API", e, DateTime.Now);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                logger.LogError($"{DateTime.Now} - [{file} : {line}] Cannot get rooms from API");
             }
 
             return rooms;

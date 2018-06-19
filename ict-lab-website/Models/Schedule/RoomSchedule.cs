@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -76,12 +77,12 @@ namespace ict_lab_website.Models.Schedule
         {
             var reservationJsonObject = (JObject)JToken.FromObject(reservation);
 
-                logger.LogInformation("Uploading reservation to API..", DateTime.Now);
+                logger.LogInformation($"{DateTime.Now} - Uploading reservation to API.");
                 var result = apiCalls.PostRequest(reservationJsonObject, apiConfig.Url + apiConfig.UploadHour);
 
                 if (!result.HasValues)
                 {
-                    logger.LogError("Uploading reservation failed", DateTime.Now);
+                    logger.LogError($"{DateTime.Now} - Uploading reservation failed");
                     return false;
                 }
 
@@ -102,7 +103,7 @@ namespace ict_lab_website.Models.Schedule
 
             try
             {
-                logger.LogInformation("Getting week {roomName}, {year}, {quarter}, {week}  from API", roomName, year, week, DateTime.Now);
+                logger.LogInformation($"{DateTime.Now} - Getting week {roomName}, {year}, {week} from API");
 
                 var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetWeek + parameters);
                 var days = JObject.Parse(json)["Days"];
@@ -135,8 +136,13 @@ namespace ict_lab_website.Models.Schedule
             }
             catch (Exception e)
             {
-                logger.LogError(e, "GetWeek({roomName}, {year}, {quarter}, {week} NOT FOUND)", roomName, year, week, DateTime.Now);
-                logger.LogInformation("Returning empty week", DateTime.Now);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                logger.LogError($"{DateTime.Now} - [{file} : {line}] GetWeek({roomName}, {year}, {week}) NOT FOUND");
+                logger.LogInformation($"{DateTime.Now} - Returning empty week");
 
                 for (int i = 0; i < 7; i++)
                 {

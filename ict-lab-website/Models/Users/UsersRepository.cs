@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using ict_lab_website.Process;
@@ -37,7 +38,12 @@ namespace ict_lab_website.Models.Users
             }
             catch (Exception e)
             {
-                _logger.LogError("Cannot make postrequest to API", e);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot make postrequest to API", e);
             }
             return apiCall;
 		}
@@ -50,7 +56,12 @@ namespace ict_lab_website.Models.Users
             }
             catch (Exception e)
             {
-                _logger.LogError("Cannot make postrequest to API", e);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot make postrequest to API", e);
             }
             return apiCall;
 		}
@@ -63,7 +74,12 @@ namespace ict_lab_website.Models.Users
             }
             catch (Exception e)
             {
-                _logger.LogError("Cannot make postrequest to API", e);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot make postrequest to API", e);
             }
             return apiCall;
 		}
@@ -86,7 +102,12 @@ namespace ict_lab_website.Models.Users
             }
             catch (Exception e)
             {
-                _logger.LogError("Cannot make postrequest to API", e);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot make postrequest to API", e);
             }
             return apiCall;
 		}
@@ -99,7 +120,12 @@ namespace ict_lab_website.Models.Users
             }
             catch (Exception e)
             {
-                _logger.LogError("Cannot make getrequest to API", e);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot get users from API");
             }
 			return apiCallString;
 		}

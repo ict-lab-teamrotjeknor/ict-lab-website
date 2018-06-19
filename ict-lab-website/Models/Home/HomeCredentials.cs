@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using ict_lab_website.Controllers;
 using ict_lab_website.Process;
 using Microsoft.Extensions.Logging;
@@ -27,7 +28,12 @@ namespace ict_lab_website.Models.Home
 			try {
 				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignIn);
 			} catch(Exception e) {
-				_logger.LogError("Cannot make postrequest to API", e);
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - [{file} : {line}] Cannot make post-request to API");
 			}
 			return apiCall;
 		}
@@ -37,8 +43,13 @@ namespace ict_lab_website.Models.Home
 			try {
 				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignUp);
 			} catch(Exception e){
-				_logger.LogError("Cannot make postrequest to API", e);
-			}
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - [{file} : {line}] Cannot make post-request to API");
+            }
 			return apiCall;
 		}
 	}
