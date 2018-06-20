@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Web;
 using ict_lab_website.Models;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -10,6 +12,7 @@ namespace ict_lab_website.Process
 {
     public class ApiCalls : IApiCalls
     {
+        //public HttpResponse httpResponse;
         public JObject PostRequest(JObject postData, string url)
         {
             var result = new JObject();
@@ -30,6 +33,12 @@ namespace ict_lab_website.Process
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
+                    var test = httpResponse.Headers.Get(6);
+
+                    //Cookie cookie = new Cookie();
+                    //cookie.Name = "hoi";
+                    //httpResponse.Cookies.Add(cookie);
+                    //tester = httpContextAccessor.HttpContext.Request.Cookies[test];
                     result = JObject.Parse(streamReader.ReadToEnd());
                 }
             }
