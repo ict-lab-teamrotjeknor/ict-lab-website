@@ -14,6 +14,7 @@ using ict_lab_website.Models.Home;
 using ict_lab_website.Models.Users;
 using Microsoft.AspNetCore.HttpOverrides;
 using ict_lab_website.Models.Notifications;
+using Microsoft.AspNetCore.Session;
 
 namespace ict_lab_website
 {
@@ -37,6 +38,8 @@ namespace ict_lab_website
 			services.AddTransient<IHomeCredentials, HomeCredentials>();
 			services.AddTransient<IUsers, UsersRepository>();
             services.AddTransient<INotificationRepository, NotificationRepository>();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
         
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,12 +60,12 @@ namespace ict_lab_website
             });
 
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Rooms}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Login}");
                 routes.MapRoute(
                     name: "schedule",
                     template:"{controller=Schedule}/{action=Index}/{roomName}/{dateTime}/{view?}");

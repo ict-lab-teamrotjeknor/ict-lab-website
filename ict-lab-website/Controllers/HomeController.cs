@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 using ict_lab_website.Models.ViewModels;
 using Microsoft.Extensions.Logging;
 using ict_lab_website.Models.Home;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Session;
 
 namespace ict_lab_website.Controllers
 {
@@ -22,12 +24,20 @@ namespace ict_lab_website.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.role = HttpContext.Session.GetString("Role");
             return View();
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("Role");
+            return RedirectToAction("Login");
         }
 
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.role = HttpContext.Session.GetString("Role");
             return View();
         }
         
@@ -51,6 +61,15 @@ namespace ict_lab_website.Controllers
 				ViewBag.succeed = succeed;
 				return View();
 			}
+
+            if(c.email == "admin@admin.nl")
+            {
+                HttpContext.Session.SetString("Role", "Admin");
+            }
+            else
+            {
+                HttpContext.Session.SetString("Role", "Student");
+            }
            
 			return RedirectToAction("Index", "Rooms");
         }
@@ -58,6 +77,7 @@ namespace ict_lab_website.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.role = HttpContext.Session.GetString("Role");
             return View();
         }
 
@@ -68,12 +88,21 @@ namespace ict_lab_website.Controllers
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.RegisterCredentials(rJson);
 
-			//var succeed = returntype["Succeed"].Value<Boolean>();
+            //var succeed = returntype["Succeed"].Value<Boolean>();
 
-			//if (succeed == false)
+            //if (succeed == false)
             //{
             //    return RedirectToAction("Register");
             //}
+
+            if (c.email == "admin@admin.nl")
+            {
+                HttpContext.Session.SetString("Role", "Admin");
+            }
+            else
+            {
+                HttpContext.Session.SetString("Role", "Student");
+            }
 
             return RedirectToAction("Index", "Rooms");
         }
@@ -81,6 +110,12 @@ namespace ict_lab_website.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult NotAuthorized()
+        {
+            ViewBag.role = HttpContext.Session.GetString("Role");
+            return View();
         }
     }
 }

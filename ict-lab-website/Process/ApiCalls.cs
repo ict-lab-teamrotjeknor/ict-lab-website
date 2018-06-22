@@ -33,12 +33,6 @@ namespace ict_lab_website.Process
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
-                    var test = httpResponse.Headers.Get(6);
-
-                    //Cookie cookie = new Cookie();
-                    //cookie.Name = "hoi";
-                    //httpResponse.Cookies.Add(cookie);
-                    //tester = httpContextAccessor.HttpContext.Request.Cookies[test];
                     result = JObject.Parse(streamReader.ReadToEnd());
                 }
             }

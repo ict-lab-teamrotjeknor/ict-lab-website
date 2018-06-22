@@ -7,6 +7,7 @@ using ict_lab_website.Models.Rooms;
 using ict_lab_website.Models.Schedule;
 using ict_lab_website.Models.ViewModels;
 using ict_lab_website.Process;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -47,7 +48,7 @@ namespace ict_lab_website.Controllers
                 int numberOfFreeTimeslots = schedule.GetNumberOfFreeTimeslots(date, room.Name);
                 roomsAndTimeSlots.Add(room, numberOfFreeTimeslots);
             }
-
+            ViewBag.role = HttpContext.Session.GetString("Role");
             ViewBag.date = date;
             return View(roomsAndTimeSlots);
         }

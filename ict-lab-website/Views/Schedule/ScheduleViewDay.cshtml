@@ -24,9 +24,11 @@
             {
                 <tr>
                     <th>@hour.Key</th>
-                    <td class="dayview-reservation">
-                        <a class="btn btn-default" asp-controller="Schedule" asp-action="AddReservation" asp-route-roomName="@Model.RoomName" asp-route-startLessonHour="@hour.Key" asp-route-dateTime="@Model.DateAndTime.ToString("yyyy-MM-dd")"><span class="glyphicon glyphicon-plus"></span></a>
-                    </td>
+                        @if (ViewBag.role != null){
+                            <td class="dayview-reservation">
+                                <a class="btn btn-default" asp-controller="Schedule" asp-action="AddReservation" asp-route-roomName="@Model.RoomName" asp-route-startLessonHour="@hour.Key" asp-route-dateTime="@Model.DateAndTime.ToString("yyyy-MM-dd")"><span class="glyphicon glyphicon-plus"></span></a>
+                            </td>
+                        }
                 </tr>
             }
         }

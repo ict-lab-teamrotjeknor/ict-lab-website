@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ict_lab_website.Models.Schedule;
 using ict_lab_website.Models.Schedule.Views;
 using ict_lab_website.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -24,24 +25,30 @@ namespace ict_lab_website.Controllers
         public IActionResult Index(string roomName, DateTime dateTime, string view)
         {
             RoomScheduleViewModel roomReservationsViewModel = new RoomScheduleViewModel(roomName, view, dateTime, Schedule);
+            ViewBag.role = HttpContext.Session.GetString("Role");
             return View(roomReservationsViewModel);
         }
 
         [HttpGet]
         public IActionResult AddReservation(string roomName, int startLessonHour, DateTime dateTime)
         {
-            ViewBag.Year = dateTime.Year;
-            ViewBag.Week = Schedule.GetWeekNumber(dateTime);
-            ViewBag.RoomName = roomName;
-            ViewBag.StartLessonHour = startLessonHour;
-            ViewBag.IsReservationAdded = true; 
+            if (HttpContext.Session.GetString("Role") != null)
+            {
+                ViewBag.Year = dateTime.Year;
+                ViewBag.Week = Schedule.GetWeekNumber(dateTime);
+                ViewBag.RoomName = roomName;
+                ViewBag.StartLessonHour = startLessonHour;
+                ViewBag.IsReservationAdded = true;
 
 
-            var culture = new System.Globalization.CultureInfo("nl-NL");
-            var day = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
-            ViewBag.Day = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(day.ToLower());
-
-            return View();
+                var culture = new System.Globalization.CultureInfo("nl-NL");
+                var day = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
+                ViewBag.Day = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(day.ToLower());
+                ViewBag.role = HttpContext.Session.GetString("Role");
+                return View();
+            } else {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         [HttpPost]
@@ -64,6 +71,7 @@ namespace ict_lab_website.Controllers
             ViewBag.RoomName = reservation.Classroom;
             ViewBag.StartLessonHour = reservation.StartHour;
             ViewBag.IsReservationAdded = false;
+            ViewBag.role = HttpContext.Session.GetString("Role");
             return View(reservation);
         }
     }

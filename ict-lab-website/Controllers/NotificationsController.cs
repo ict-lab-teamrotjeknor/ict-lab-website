@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ict_lab_website.Models.Notifications;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -21,8 +22,14 @@ namespace ict_lab_website.Controllers
 
         public IActionResult Index()
         {
-            var notifications = repository.GetAll();
-            return View(notifications);
+            if (HttpContext.Session.GetString("Role") == "Admin")
+            {
+                ViewBag.role = HttpContext.Session.GetString("Role");
+                var notifications = repository.GetAll();
+                return View(notifications);
+            } else{
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         [HttpPost]

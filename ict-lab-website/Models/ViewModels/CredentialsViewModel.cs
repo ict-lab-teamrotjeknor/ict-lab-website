@@ -8,10 +8,10 @@ namespace ict_lab_website.Models.ViewModels
 		[Required]
         [EmailAddress]
         [Display(Name = "Email Address")]
-        public string Email { get; set; }
+        public string email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string password { get; set; }
     }
 }
