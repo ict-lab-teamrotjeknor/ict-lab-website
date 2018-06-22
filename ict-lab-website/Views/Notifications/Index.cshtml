@@ -34,7 +34,7 @@
             </tbody>
         </table>
 
-        @if(ViewBag.IsNotificationAdded == null)
+        @if(ViewBag.IsNotificationAdded == "failed")
         {
             <div>
                 <td colspan="3">
@@ -50,8 +50,8 @@
         {
             <div>
                 <td>
-                    <div class="success">
-                        <strong>Successs: </strong>The message is successfully send.
+                    <div class="alert alert-success ">
+                        <strong>Success: </strong>The message is successfully send.
                     </div>
                 </td>
             </div>

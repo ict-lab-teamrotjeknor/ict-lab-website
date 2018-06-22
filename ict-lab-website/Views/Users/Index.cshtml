@@ -66,28 +66,28 @@
                                         <tr>
                                             <form method="post" asp-controller="Users" asp-action="ChangeRole">
 
-                                            <td><b>User Role</b></td>
-                                            <td>
-                                                <input asp-for="_email" type="hidden" id="email" value="placeholder" />
-                                                <ul style="list-style-type: none; padding: 0; margin: 0;">
-                                                      @for (int i = 0; i < Model._roleList.roles.Count; i++)
-                                                      {
-                                                         <li>
-                                                             <input id="checkboxCheck" type="checkbox" asp-for="@Model._roleList.roles[i].IsChecked" />
-                                                             @Model._roleList.roles[i].RoleName
-                                                             <input type="hidden" asp-for="@Model._roleList.roles[i].RoleId" />
-                                                             <input type="hidden" asp-for="@Model._roleList.roles[i].RoleName" />
-                                                         <br />
-                                                         </li>
-                                                      }
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <input class="btn btn-success" type="submit" value="Save" />
-                                            </td>
+                                                <td><b>User Role</b></td>
+                                                <td>
+                                                    <input asp-for="_email" type="hidden" id="email" value="placeholder" />
+                                                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                                        @for (int i = 0; i < Model._roleList.roles.Count; i++)
+                                                        {
+                                                            <li>
+                                                                <input id="checkboxCheck" type="checkbox" asp-for="@Model._roleList.roles[i].IsChecked" />
+                                                                @Model._roleList.roles[i].RoleName
+                                                                <input type="hidden" asp-for="@Model._roleList.roles[i].RoleId" />
+                                                                <input type="hidden" asp-for="@Model._roleList.roles[i].RoleName" />
+                                                                <br />
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <input class="btn btn-success" type="submit" value="Save" />
+                                                </td>
                                             </form>
                                         </tr>
-                                        <form method="post" asp-controller="Users" asp-action="ChangeReservationLimit">
+                                        @*<form method="post" asp-controller="Users" asp-action="ChangeReservationLimit">
                                         <tr>
                                             <td><b>Reservation Limit</b></td>
                                             <td><input asp-for="_reservationLimit" type="number" id="txtReservationLimit" placeholder="Enter number" /></td>
@@ -97,14 +97,15 @@
                                             </td>
                                         </tr>
                                         </form>
+                                        *@
                                         <form method="post" asp-controller="Users" asp-action="AddRole">
-                                        <tr>
-                                            <td><b>Add New Role</b></td>
-                                            <td><input asp-for="RoleName" type="text" placeholder="Enter New Role" /></td>
-                                            <td>
-                                                <input class="btn btn-success" type="submit" value="Save" />
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td><b>Add New Role</b></td>
+                                                <td><input asp-for="RoleName" type="text" placeholder="Enter New Role" /></td>
+                                                <td>
+                                                    <input class="btn btn-success" type="submit" value="Save" />
+                                                </td>
+                                            </tr>
                                         </form>
                                     </tbody>
                                 }

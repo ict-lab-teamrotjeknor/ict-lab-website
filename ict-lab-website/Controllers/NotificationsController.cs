@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ict_lab_website.Models.Notifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 
 namespace ict_lab_website.Controllers
@@ -20,10 +21,11 @@ namespace ict_lab_website.Controllers
             this.logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string IsNotificationAdded)
         {
             if (HttpContext.Session.GetString("Role") == "Admin")
             {
+                ViewBag.IsNotificationAdded = IsNotificationAdded;
                 ViewBag.role = HttpContext.Session.GetString("Role");
                 var notifications = repository.GetAll();
                 return View(notifications);
@@ -59,12 +61,10 @@ namespace ict_lab_website.Controllers
 
                 if (isNotificationSend)
                 {
-					ViewBag.IsNotificationAdded = true;
-                    return RedirectToAction("Index", "Notifications", new { area = "" });
+                    return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Notifications", action = "Index", IsNotificationAdded = "success" }));
                 }
             }
-            ViewBag.IsNotificationAdded = false;
-            return RedirectToAction("Index", "Notifications", new { area = "" });
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Notifications", action = "Index", IsNotificationAdded = "failed" }));
         }
     }
 }
