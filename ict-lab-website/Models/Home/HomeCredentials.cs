@@ -10,14 +10,14 @@ namespace ict_lab_website.Models.Home
 {
 	public class HomeCredentials : IHomeCredentials
     {
-		private readonly IApiCalls apiCalls;
+		private readonly IApiCalls _apiCalls;
         private readonly ApiConfig apiConfig;
 		private readonly ILogger _logger;
 		private JObject apiCall;
 
-		public HomeCredentials(IOptions<ApiConfig> apiConfig, ILogger<HomeController> logger)
+		public HomeCredentials(IOptions<ApiConfig> apiConfig, ILogger<HomeController> logger, IApiCalls apiCalls)
         {
-			apiCalls = new ApiCalls();
+            _apiCalls = apiCalls;
 			this.apiConfig = apiConfig.Value;
 			_logger = logger;
 			apiCall = new JObject();
@@ -26,7 +26,7 @@ namespace ict_lab_website.Models.Home
 		public JObject LoginCredentials(JObject jsonObject)
 		{
 			try {
-				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignIn);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignIn);
 			} catch(Exception e) {
                 var stackTrace = new StackTrace(e, true);
                 var frame = stackTrace.GetFrame(0);
@@ -41,7 +41,7 @@ namespace ict_lab_website.Models.Home
 		public JObject RegisterCredentials(JObject jsonObject)
 		{
 			try {
-				apiCall = apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignUp);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.SignUp);
 			} catch(Exception e){
                 var stackTrace = new StackTrace(e, true);
                 var frame = stackTrace.GetFrame(0);

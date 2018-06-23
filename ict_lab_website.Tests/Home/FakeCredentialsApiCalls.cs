@@ -1,23 +1,24 @@
-﻿using System;
-using ict_lab_website.Process;
+﻿using ict_lab_website.Process;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace ict_lab_website.Tests.User
+namespace ict_lab_website.Tests.Home
 {
-	public class FakeUsersApiCalls : IApiCalls
+    class FakeCredentialsApiCalls : IApiCalls
     {
         public string GetRequest(string url)
         {
             try
             {
-                return System.IO.File.ReadAllText(@"\TestData\getallusers.json");
+                return System.IO.File.ReadAllText(@"TestData\notifications.json");
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-
         public JObject PostRequest(JObject postData, string url)
         {
             JObject jObject = new JObject();
@@ -26,6 +27,5 @@ namespace ict_lab_website.Tests.User
 
             return jObject;
         }
-    }
     }
 }
