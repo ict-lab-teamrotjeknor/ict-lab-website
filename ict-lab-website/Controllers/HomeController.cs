@@ -65,7 +65,7 @@ namespace ict_lab_website.Controllers
 				return View();
 			}
 
-            var checkRoleOfUser = _users.CheckRole(c.email);
+            //var checkRoleOfUser = _users.CheckRole(c.email);
 
             if(c.email == "admin@admin.nl")
             {

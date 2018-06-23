@@ -10,8 +10,6 @@ namespace ict_lab_website.Models.ViewModels
 	{
 
 		public DataTable _dataTable { get; }
-             
-		public int _reservationLimit { get; set; }
         
 		public string _email { get; set; }
 

@@ -14,7 +14,6 @@ namespace ict_lab_website.Models.Users
 {
 	public class UsersRepository : IUsers
     {
-		//private List<User> users;
 		private readonly IApiCalls _apiCalls;
         private readonly ApiConfig apiConfig;
         private readonly ILogger _logger;
@@ -27,7 +26,6 @@ namespace ict_lab_website.Models.Users
 			this.apiConfig = apiConfig.Value;
 			_logger = logger;
 			apiCall = new JObject();
-			//users = GetUsers();
         }
 
 		public JObject AddRole(JObject jsonObject)
@@ -35,24 +33,6 @@ namespace ict_lab_website.Models.Users
             try
             {
 				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole);
-            }
-            catch (Exception e)
-            {
-                var stackTrace = new StackTrace(e, true);
-                var frame = stackTrace.GetFrame(0);
-                var line = frame.GetFileLineNumber();
-                var file = frame.GetFileName();
-
-                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot make postrequest to API", e);
-            }
-            return apiCall;
-		}
-
-		public JObject ChangeReservationLimitOfUser(JObject jsonObject)
-		{
-			try
-            {
-				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeReservationLimit);
             }
             catch (Exception e)
             {
@@ -102,16 +82,6 @@ namespace ict_lab_website.Models.Users
             return apiCallString;
         }
 
-        //public JObject CheckReservationLimit(JObject jsonObject)
-        //{
-        //throw new NotImplementedException();
-        //}
-
-        //public JObject CheckRole(JObject jsonObject)
-        //{
-        //throw new NotImplementedException();
-        //}
-
         public JObject DeleteAnUser(JObject jsonObject)
 		{
 			try
@@ -147,36 +117,5 @@ namespace ict_lab_website.Models.Users
             }
 			return apiCallString;
 		}
-        
-        //      public List<User> GetUsers()
-    	//{
-    	//	List<User> users = new List<User>();
-
-    	//	try
-        //          {
-    	//		var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetUsers);
-        //              var classRooms = JObject.Parse(json)["Name"];
-
-        //              foreach (JToken classroom in classRooms)
-        //              {
-        //                  foreach (JToken room in classroom.Children())
-        //                  {
-        //                      User u = JsonConvert.DeserializeObject<User>(room.ToString());
-        //                      users.Add(u);
-        //                  }
-        //              }
-        //          }
-        //          catch (WebException e)
-        //          {
-        //              _logger.LogError("Cannot get users from API", e);
-        //          }
-                
-        //	return users;
-    	//}
-
-        //public User GetUserByName(string email)
-		//{
-		//	return users.Where(users => users.email.Equals(email)).First() ?? new User();
-		//}
 	}
 }

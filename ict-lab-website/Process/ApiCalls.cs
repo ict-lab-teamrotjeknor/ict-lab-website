@@ -12,7 +12,6 @@ namespace ict_lab_website.Process
 {
     public class ApiCalls : IApiCalls
     {
-        //public HttpResponse httpResponse;
         public JObject PostRequest(JObject postData, string url)
         {
             var result = new JObject();

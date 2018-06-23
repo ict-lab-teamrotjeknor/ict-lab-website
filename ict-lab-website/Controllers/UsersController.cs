@@ -78,19 +78,6 @@ namespace ictlabwebsite.Controllers
 			return RedirectToAction("Index");
 		}
         
-		//[HttpPost]
-		//public IActionResult ChangeReservationLimit(UserReservationLimit u, string _email)
-  //      {
-		//	ChangeReservationLimit changeReservationLimit = new ChangeReservationLimit(_email, u._reservationLimit);
-
-		//	var stringJson = JsonConvert.SerializeObject(changeReservationLimit);
-  //          var jsonObject = JObject.Parse(stringJson);
-            
-		//	var returnType = _users.ChangeReservationLimitOfUser(jsonObject);
-
-  //          return RedirectToAction("Index");
-  //      }
-        
 		[HttpPost]
 		public IActionResult DeleteUser(string email)
 		{

@@ -16,10 +16,8 @@ namespace ict_lab_website.Process
         public string UploadHour { get; set; }
 		public string ChangeRole { get; set; }
 		public string AddRole { get; set; }
-		public string ChangeReservationLimit { get; set; }
 		public string DeleteUser { get; set; }
 		public string CheckRole { get; set; }
-		public string CheckReservationLimit { get; set; }
         public string GetAllNotifications { get; set; }
         public string SendNotification { get; set; }
         public string SendNotificationToGroup { get; set; }
