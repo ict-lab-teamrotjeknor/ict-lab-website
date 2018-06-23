@@ -9,16 +9,19 @@ using Microsoft.Extensions.Logging;
 using ict_lab_website.Models.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
+using ict_lab_website.Models.Users;
 
 namespace ict_lab_website.Controllers
 {
     public class HomeController : Controller
     {
 		private readonly IHomeCredentials _homecredentials;
+        private readonly IUsers _users;
 		private readonly ILogger _logger;
 
-		public HomeController(IHomeCredentials homecredentials, ILogger<HomeController> logger){
+		public HomeController(IHomeCredentials homecredentials, IUsers users, ILogger<HomeController> logger){
 			_homecredentials = homecredentials;
+            _users = users;
 			_logger = logger;
         }
 
@@ -61,6 +64,8 @@ namespace ict_lab_website.Controllers
 				ViewBag.succeed = succeed;
 				return View();
 			}
+
+            var checkRoleOfUser = _users.CheckRole(c.email);
 
             if(c.email == "admin@admin.nl")
             {

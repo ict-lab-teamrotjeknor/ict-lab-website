@@ -84,17 +84,35 @@ namespace ict_lab_website.Models.Users
             return apiCall;
 		}
 
-		//public JObject CheckReservationLimit(JObject jsonObject)
-		//{
-			//throw new NotImplementedException();
-		//}
-        
-		//public JObject CheckRole(JObject jsonObject)
-		//{
-			//throw new NotImplementedException();
-		//}
+        public string CheckRole(string Email)
+        {
+            try
+            {
+                apiCallString = _apiCalls.GetRequest(apiConfig.Url + apiConfig.CheckRole + "/" + Email);
+            }
+            catch (Exception e)
+            {
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
 
-		public JObject DeleteAnUser(JObject jsonObject)
+                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot get users from API");
+            }
+            return apiCallString;
+        }
+
+        //public JObject CheckReservationLimit(JObject jsonObject)
+        //{
+        //throw new NotImplementedException();
+        //}
+
+        //public JObject CheckRole(JObject jsonObject)
+        //{
+        //throw new NotImplementedException();
+        //}
+
+        public JObject DeleteAnUser(JObject jsonObject)
 		{
 			try
             {
