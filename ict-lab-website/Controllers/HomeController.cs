@@ -40,7 +40,10 @@ namespace ict_lab_website.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            ViewBag.role = HttpContext.Session.GetString("Role");
+            if(HttpContext.Session.GetString("Role") != null)
+            {
+                return RedirectToAction("AlreadyLoggedIn");
+            }
             return View();
         }
         
@@ -82,7 +85,10 @@ namespace ict_lab_website.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-            ViewBag.role = HttpContext.Session.GetString("Role");
+            if (HttpContext.Session.GetString("Role") != null)
+            {
+                return RedirectToAction("AlreadyLoggedIn");
+            }
             return View();
         }
 
@@ -118,6 +124,12 @@ namespace ict_lab_website.Controllers
         }
 
         public IActionResult NotAuthorized()
+        {
+            ViewBag.role = HttpContext.Session.GetString("Role");
+            return View();
+        }
+
+        public IActionResult AlreadyLoggedIn()
         {
             ViewBag.role = HttpContext.Session.GetString("Role");
             return View();
