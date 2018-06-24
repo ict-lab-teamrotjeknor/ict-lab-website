@@ -38,6 +38,7 @@ namespace ict_lab_website.Controllers
                 ViewBag.IsNotificationAdded = IsNotificationAdded;
                 ViewBag.role = HttpContext.Session.GetString("Role");
                 var notifications = repository.GetAll();
+				ViewBag.internet = checkInternetConnection;
                 return View(notifications);
             } else{
                 return RedirectToAction("NotAuthorized", "Home");

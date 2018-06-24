@@ -66,7 +66,7 @@ namespace ict_lab_website.Controllers
 			if (succeed)
 			{
 				CookieOptions options = new CookieOptions();
-				options.Expires = DateTime.Now.AddMinutes(5);
+				options.Expires = DateTime.Now.AddDays(1);
 				Response.Cookies.Append(".AspNetCore.Identity.Application", UserObject.login);
 			}
 

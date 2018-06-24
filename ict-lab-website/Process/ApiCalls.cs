@@ -26,7 +26,7 @@ namespace ict_lab_website.Process
 				if(!string.IsNullOrEmpty(IdenticatieToken)){
 					CookieContainer container = new CookieContainer();
 					Cookie IdenticatieCookie = new Cookie();
-					IdenticatieCookie.Expires = DateTime.Now.AddMinutes(5);
+					IdenticatieCookie.Expires = DateTime.Now.AddDays(1);
 					IdenticatieCookie.Name = ".AspNetCore.Identity.Application";
 					IdenticatieCookie.Value = IdenticatieToken;
 					IdenticatieCookie.Domain = "145.24.222.103";
