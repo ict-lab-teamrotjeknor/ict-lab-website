@@ -12,7 +12,7 @@ namespace ict_lab_website.Process
 {
     public class ApiCalls : IApiCalls
     {
-        public JObject PostRequest(JObject postData, string url)
+		public JObject PostRequest(JObject postData, string url, string IdenticatieToken = null)
         {
             var result = new JObject();
 
@@ -20,7 +20,20 @@ namespace ict_lab_website.Process
             {
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
+				httpWebRequest.CookieContainer = new CookieContainer();
                 httpWebRequest.Method = "Post";
+
+				if(!string.IsNullOrEmpty(IdenticatieToken)){
+					CookieContainer container = new CookieContainer();
+					Cookie IdenticatieCookie = new Cookie();
+					IdenticatieCookie.Expires = DateTime.Now.AddMinutes(5);
+					IdenticatieCookie.Name = ".AspNetCore.Identity.Application";
+					IdenticatieCookie.Value = IdenticatieToken;
+					IdenticatieCookie.Domain = "145.24.222.103";
+					IdenticatieCookie.Path = "/";
+
+					httpWebRequest.CookieContainer.Add(IdenticatieCookie);
+				}
 
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
@@ -30,6 +43,23 @@ namespace ict_lab_website.Process
                 }
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+
+				string cookie = string.Empty;
+
+				try{
+					cookie = httpResponse.Headers.Get("Set-Cookie");
+				} catch(Exception e){
+					cookie = string.Empty;
+				}
+
+				if(!string.IsNullOrEmpty(cookie)){
+					if(cookie.Contains(".AspNetCore.Identity.Application")){
+						var token = cookie.Split(";");
+						var identicatie = token[0].Split("=");
+						UserObject.login = identicatie[1];
+					}
+				}
+
                 using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
                     result = JObject.Parse(streamReader.ReadToEnd());

@@ -8,7 +8,7 @@ namespace ict_lab_website.Process
 {
     public interface IApiCalls
     {
-        JObject PostRequest(JObject postData, string url);
+        JObject PostRequest(JObject postData, string url, string IdenticatieToken = null);
         string GetRequest(string url);
     }
 }

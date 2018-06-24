@@ -63,6 +63,13 @@ namespace ict_lab_website.Controllers
             
 			var succeed = returntype["Succeed"].Value<Boolean>();
 
+			if (succeed)
+			{
+				CookieOptions options = new CookieOptions();
+				options.Expires = DateTime.Now.AddMinutes(5);
+				Response.Cookies.Append(".AspNetCore.Identity.Application", UserObject.login);
+			}
+
 			if(succeed == false){
 				ViewBag.succeed = succeed;
 				return View();
