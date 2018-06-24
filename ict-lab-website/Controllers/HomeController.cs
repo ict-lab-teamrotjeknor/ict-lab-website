@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using ict_lab_website.Models.ViewModels;
 using Microsoft.Extensions.Logging;
 using ict_lab_website.Models.Home;
+using Microsoft.AspNetCore.Http;
 
 namespace ict_lab_website.Controllers
 {
@@ -44,8 +45,16 @@ namespace ict_lab_website.Controllers
             var stringJson = JsonConvert.SerializeObject(c);
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.LoginCredentials(rJson);
-            
+
 			var succeed = returntype["Succeed"].Value<Boolean>();
+
+			if (succeed)
+			{
+				CookieOptions option = new CookieOptions();
+				option.Expires = DateTime.Now.AddDays(1);
+
+				Response.Cookies.Append(".AspNetCore.Identity.Application", UserObject.login);
+			}
 
 			if(succeed == false){
 				ViewBag.succeed = succeed;
@@ -78,9 +87,9 @@ namespace ict_lab_website.Controllers
             return RedirectToAction("Index", "Rooms");
         }
 
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
     }
 }

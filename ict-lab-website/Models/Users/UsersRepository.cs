@@ -66,11 +66,11 @@ namespace ict_lab_website.Models.Users
             return apiCall;
 		}
 
-		public JObject ChangeRoleOfUser(JObject jsonObject)
+		public JObject ChangeRoleOfUser(JObject jsonObject, string userToken)
 		{
             try
             {
-				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeRole);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.ChangeRole, userToken);
             }
             catch (Exception e)
             {

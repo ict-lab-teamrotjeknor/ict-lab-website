@@ -64,7 +64,9 @@ namespace ictlabwebsite.Controllers
 			var stringJson = JsonConvert.SerializeObject(changeuserrole);
 			var jsonObject = JObject.Parse(stringJson);
 
-			var returnType = _users.ChangeRoleOfUser(jsonObject);
+			var test = Request.Cookies[".AspNetCore.Identity.Application"];
+
+			var returnType = _users.ChangeRoleOfUser(jsonObject, test);
 
 			return RedirectToAction("Index");
 		}
@@ -76,7 +78,7 @@ namespace ictlabwebsite.Controllers
 
 			var stringJson = JsonConvert.SerializeObject(changeReservationLimit);
             var jsonObject = JObject.Parse(stringJson);
-            
+         
 			var returnType = _users.ChangeReservationLimitOfUser(jsonObject);
 
             return RedirectToAction("Index");
