@@ -30,11 +30,13 @@
                 else
                 {
                     <td class="weekview-reservation">
-                        <div class="reservation-overlay">
-                            <a asp-controller="Schedule" asp-action="AddReservation" asp-route-roomName="@Model.RoomName" asp-route-startLessonHour="@day.Value[i]" asp-route-dateTime="@Model.DateAndTime.ToString("yyyy-MM-dd")" class="reservation-icon">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </a>
-                        </div>
+                        @if (ViewBag.role != null){
+                            <div class="reservation-overlay">
+                                <a asp-controller="Schedule" asp-action="AddReservation" asp-route-roomName="@Model.RoomName" asp-route-startLessonHour="@day.Value[i]" asp-route-dateTime="@Model.DateAndTime.ToString("yyyy-MM-dd")" class="reservation-icon">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </a>
+                            </div>
+                        }
                     </td>
                 }
              }
