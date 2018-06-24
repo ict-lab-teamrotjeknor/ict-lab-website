@@ -54,13 +54,10 @@ namespace ict_lab_website.Controllers
 
                 if (isNotificationSend)
                 {
-					ViewBag.IsNotificationAdded = true;
-                    return RedirectToAction("Index", "Notifications", new { area = "" });
+					return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Notifications", action = "Index", IsNotificationAdded = "success" }));
                 }
             }
-
-            ViewBag.IsNotificationAdded = false;
-            return RedirectToAction("Index", "Notifications", new { area = "" });
+			return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Notifications", action = "Index", IsNotificationAdded = "failed" }));
         }
 
         [HttpPost]

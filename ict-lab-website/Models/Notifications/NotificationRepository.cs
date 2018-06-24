@@ -60,7 +60,9 @@ namespace ict_lab_website.Models.Notifications
             logger.LogInformation($"{DateTime.Now} - Uploading notification to API.");
 			var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotification);
 
-            if (!result.HasValues)
+			var succeed = result["Succeed"].Value<Boolean>();
+
+			if (!succeed)
             {
                 logger.LogWarning($"{DateTime.Now} - Uploading notification failed");
                 return false;
@@ -76,7 +78,9 @@ namespace ict_lab_website.Models.Notifications
             logger.LogInformation($"{DateTime.Now} - Uploading notification to API..");
 			var result = apiCalls.PostRequest(notificationJsonObject, apiConfig.Url + apiConfig.SendNotificationToGroup);
 
-            if (!result.HasValues)
+			var succeed = result["Succeed"].Value<Boolean>();
+
+			if (!succeed)
             {
                 logger.LogWarning($"{DateTime.Now} - Uploading notification failed");
                 return false;
