@@ -41,6 +41,7 @@ namespace ictlabwebsite.Controllers
                 var returnType = _users.GetAllUsers();
                 if (returnType == null)
                 {
+                    ViewBag.role = HttpContext.Session.GetString("Role");
                     ViewBag.returnType = "error";
                     return View();
                 }

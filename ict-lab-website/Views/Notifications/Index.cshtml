@@ -3,23 +3,36 @@
     <br />
 <div class="row">
     <div class="col-md-12">
+        @if (ViewBag.internet == false) {
+                <td colspan="3">
+                    <div class="alert alert-danger">
+                        <strong>Error: </strong> Make sure you have connection with the internet.
+                    </div>
+                </td>
+        } else {
         <table class="table table-bordered table-striped">
             <thead>
                 <tr class="success">
                     <th width="20%">ID</th>
                     <th width="80%">Message</th>
                 </tr>
-            </thead>
-            <tbody>
+                <td colspan="3">
+                    <div class="alert alert-danger">
+                        <strong>Error: </strong> Make sure you have connection with the internet.
+                    </div>
+                </td>
+                </thead>
+                <tbody>
                     @foreach (Notification notification in Model)
                     {
                         <tr>
                             <td>@Html.DisplayFor(modelItem => notification.ID)</td>
-                            <td>@Html.DisplayFor(modelItem => notification.Message)</td>                                      
+                            <td>@Html.DisplayFor(modelItem => notification.Message)</td>
                         </tr>
                     }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+            }
         <table class="table table-bordered table-striped">
             <thead>
                 <tr class="success">
@@ -29,8 +42,15 @@
                 </tr>
             </thead>
             <tbody>
-                @Html.Partial("SendNotification", new UploadableNotification())
-                @Html.Partial("SendNotificationToGroup", new UploadableGroupNotification())
+                @if (ViewBag.internet == false)
+                { 
+
+                }
+                else
+                {
+                    @Html.Partial("SendNotification", new UploadableNotification())
+                    @Html.Partial("SendNotificationToGroup", new UploadableGroupNotification())
+                }
             </tbody>
         </table>
 

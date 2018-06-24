@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ict_lab_website.Models.Notifications;
+using ict_lab_website.Process;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -23,6 +24,15 @@ namespace ict_lab_website.Controllers
 
         public IActionResult Index(string IsNotificationAdded)
         {
+            var checkInternetConnection = CheckInternetConnection.CheckConnection();
+
+            if (checkInternetConnection == false)
+            {
+                ViewBag.role = HttpContext.Session.GetString("Role");
+                ViewBag.internet = checkInternetConnection;
+                return View();
+            }
+
             if (HttpContext.Session.GetString("Role") == "Admin")
             {
                 ViewBag.IsNotificationAdded = IsNotificationAdded;
