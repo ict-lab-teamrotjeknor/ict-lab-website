@@ -28,11 +28,11 @@ namespace ict_lab_website.Models.Users
 			apiCall = new JObject();
         }
 
-		public JObject AddRole(JObject jsonObject)
+		public JObject AddRole(JObject jsonObject, string userToken)
 		{         
             try
             {
-				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.AddRole, userToken);
             }
             catch (Exception e)
             {
@@ -82,11 +82,11 @@ namespace ict_lab_website.Models.Users
             return apiCallString;
         }
 
-        public JObject DeleteAnUser(JObject jsonObject)
+		public JObject DeleteAnUser(JObject jsonObject, string userToken)
 		{
 			try
             {
-				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.DeleteUser);
+				apiCall = _apiCalls.PostRequest(jsonObject, apiConfig.Url + apiConfig.DeleteUser, userToken);
             }
             catch (Exception e)
             {

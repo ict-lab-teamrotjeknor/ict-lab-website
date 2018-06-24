@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using System;
+using Microsoft.AspNetCore.Routing;
 
 namespace ictlabwebsite.Controllers
 {
@@ -22,7 +24,7 @@ namespace ictlabwebsite.Controllers
         }
         
         [HttpGet]
-        public IActionResult Index()
+		public IActionResult Index(string Succeed)
         {
             if (HttpContext.Session.GetString("Role") == "Admin")
             {
@@ -51,6 +53,7 @@ namespace ictlabwebsite.Controllers
                 UsersViewModel viewModel = new UsersViewModel(dataTable, roleList);
 
                 ViewBag.role = HttpContext.Session.GetString("Role");
+				ViewBag.Succeed = Succeed;
 
                 return View(viewModel);
             } else {
@@ -78,7 +81,13 @@ namespace ictlabwebsite.Controllers
 
 			var returnType = _users.ChangeRoleOfUser(jsonObject, requestCookie);
 
-			return RedirectToAction("Index");
+			var succeed = returnType["Succeed"].Value<Boolean>();
+
+            if (succeed)
+            {
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Users", action = "Index", Succeed = "success" }));
+            }
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Users", action = "Index", Succeed = "error" }));
 		}
         
 		[HttpPost]
@@ -88,10 +97,18 @@ namespace ictlabwebsite.Controllers
 
 			var stringJson = JsonConvert.SerializeObject(user);
             var jsonObject = JObject.Parse(stringJson);
-            
-			var returnType = _users.DeleteAnUser(jsonObject);
 
-			return RedirectToAction("Index");
+			var requestCookie = Request.Cookies[".AspNetCore.Identity.Application"];
+            
+			var returnType = _users.DeleteAnUser(jsonObject, requestCookie);
+
+			var succeed = returnType["Succeed"].Value<Boolean>();
+
+			if (succeed)
+            {
+                return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Users", action = "Index", Succeed = "success" }));
+            }
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Users", action = "Index", Succeed = "error" }));
 		}
 
 		[HttpPost]
@@ -102,9 +119,16 @@ namespace ictlabwebsite.Controllers
 			var stringJson = JsonConvert.SerializeObject(newRole);
             var jsonObject = JObject.Parse(stringJson);
 
-			var returnType = _users.AddRole(jsonObject);
+			var requestCookie = Request.Cookies[".AspNetCore.Identity.Application"];
 
-			return RedirectToAction("Index");
+			var returnType = _users.AddRole(jsonObject, requestCookie);
+
+			var succeed = returnType["Succeed"].Value<Boolean>();
+            
+			if(succeed){
+				return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Users", action = "Index", Succeed = "success" }));
+			}
+			return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Users", action = "Index", Succeed = "error" }));
 		}
     }
 }

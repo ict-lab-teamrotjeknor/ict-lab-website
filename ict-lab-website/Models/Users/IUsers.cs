@@ -7,8 +7,8 @@ namespace ict_lab_website.Models.Users
     {
 		string GetAllUsers();
 		JObject ChangeRoleOfUser(JObject jsonObject, string userToken);
-		JObject AddRole(JObject jsonObject);
-		JObject DeleteAnUser(JObject jsonObject);
+		JObject AddRole(JObject jsonObject, string userToken);
+		JObject DeleteAnUser(JObject jsonObject, string userToken);
 		string CheckRole(string Email);
     }
 }

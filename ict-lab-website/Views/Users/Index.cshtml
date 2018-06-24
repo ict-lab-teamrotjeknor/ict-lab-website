@@ -23,6 +23,23 @@
                     }
                     else
                     {
+                        @if (ViewBag.Succeed == "success")
+                        {
+                            <td colspan="3">
+                                <div class="alert alert-success">
+                                    <strong>Success: </strong>The data was successfully saved.
+                                </div>
+                            </td>
+
+                        } else if (ViewBag.Succeed == "error")
+                        {
+                            <td colspan="3">
+                                <div class="alert alert-danger">
+                                    <strong>Error: </strong>The data was not successfully saved.
+                                </div>
+                            </td>
+
+                        }
                         @foreach (DataRow row in Model._dataTable.Rows)
                         {
                             <tr>
