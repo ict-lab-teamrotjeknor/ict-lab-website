@@ -107,9 +107,9 @@
                                         <form method="post" asp-controller="Users" asp-action="AddRole">
                                             <tr>
                                                 <td><b>Add New Role</b></td>
-                                                <td><input asp-for="RoleName" type="text" placeholder="Enter New Role" /></td>
+                                                <td><input asp-for="RoleName" type="text" placeholder="Enter New Role" id="roleNameCheck" /></td>
                                                 <td>
-                                                    <input class="btn btn-success" type="submit" value="Save" />
+                                                    <input id="addRoleButton" class="btn btn-success" type="submit" value="Save" />
                                                 </td>
                                             </tr>
                                         </form>
@@ -125,6 +125,17 @@
 
 @section Scripts {
   <script>
+      $(document).ready(function(){
+        $("#addRoleButton").attr('disabled', true);
+
+        $("#roleNameCheck").keyup(function(){
+            if($("#roleNameCheck").val().length != 0)
+                $("#addRoleButton").attr('disabled', false);
+            else
+                $("#addRoleButton").attr('disabled', true);
+        });
+      });
+
       $(document).on('click', '#editUser', function(){
           var email = this.value;
           document.getElementById("email").value = email;
