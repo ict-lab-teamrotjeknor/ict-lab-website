@@ -7,7 +7,7 @@ namespace ict_lab_website.Models.Notifications
 {
     public interface INotificationRepository
     {
-        List<Notification> GetAll();
+        List<Notification> GetAll(string token);
         Boolean SendNotification(UploadableNotification notification);
         Boolean SendNotificationToGroup(UploadableGroupNotification notification);
     }

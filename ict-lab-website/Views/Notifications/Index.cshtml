@@ -21,8 +21,9 @@
                     @foreach (Notification notification in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(modelItem => notification.ID)</td>
-                            <td>@Html.DisplayFor(modelItem => notification.Message)</td>
+                            <td>@Html.DisplayFor(m => notification.ID)</td>
+                            <td>@Html.DisplayFor(m => notification.Message)</td>
+                            <td>@Html.HiddenFor(m => notification.New)</td>
                         </tr>
                     }
                 </tbody>

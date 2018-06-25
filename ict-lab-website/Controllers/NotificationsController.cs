@@ -37,7 +37,10 @@ namespace ict_lab_website.Controllers
             {
                 ViewBag.IsNotificationAdded = IsNotificationAdded;
                 ViewBag.role = HttpContext.Session.GetString("Role");
-                var notifications = repository.GetAll();
+
+                var requestCookie = Request.Cookies[".AspNetCore.Identity.Application"];
+                var notifications = repository.GetAll(requestCookie);
+
 				ViewBag.internet = checkInternetConnection;
                 return View(notifications);
             } else{

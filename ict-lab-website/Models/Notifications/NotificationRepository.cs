@@ -25,13 +25,13 @@ namespace ict_lab_website.Models.Notifications
             this.logger = logger;
         }
 
-        public List<Notification> GetAll()
+        public List<Notification> GetAll(string token)
         {
             List<Notification> notifications = new List<Notification>();
 
             try
             {
-                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetAllNotifications);
+                var json = apiCalls.GetRequest(apiConfig.Url + apiConfig.GetAllNotifications, token);
                 var messages = JObject.Parse(json)["Messages"];
                 foreach (var message in messages)
                 {
