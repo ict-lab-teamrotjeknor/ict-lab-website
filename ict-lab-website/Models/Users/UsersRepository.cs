@@ -64,11 +64,11 @@ namespace ict_lab_website.Models.Users
             return apiCall;
 		}
 
-        public string CheckRole(string Email)
+        public string CheckRole(string Email, string token)
         {
             try
             {
-                apiCallString = _apiCalls.GetRequest(apiConfig.Url + apiConfig.CheckRole + "/" + Email);
+                apiCallString = _apiCalls.GetRequest(apiConfig.Url + apiConfig.CheckRole + "/" + Email, token);
             }
             catch (Exception e)
             {

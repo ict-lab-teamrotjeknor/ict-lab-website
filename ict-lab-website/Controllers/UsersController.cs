@@ -29,13 +29,8 @@ namespace ictlabwebsite.Controllers
             if (HttpContext.Session.GetString("Role") == "Admin")
             {
                 List<Roles> rList = new List<Roles>();
-                //rList.Add(new Roles() { RoleId = 1, RoleName = "Guest", IsChecked = false });
-                rList.Add(new Roles() { RoleId = 2, RoleName = "Student", IsChecked = true });
-                //rList.Add(new Roles() { RoleId = 3, RoleName = "Teacher", IsChecked = false });
-                //rList.Add(new Roles() { RoleId = 4, RoleName = "Handyman", IsChecked = false });
-                //rList.Add(new Roles() { RoleId = 5, RoleName = "Servicedesk", IsChecked = false });
-                //rList.Add(new Roles() { RoleId = 6, RoleName = "Rastermaker", IsChecked = false });
-                rList.Add(new Roles() { RoleId = 7, RoleName = "Administrator", IsChecked = false });
+                rList.Add(new Roles() { RoleId = 1, RoleName = "Student", IsChecked = true });
+                rList.Add(new Roles() { RoleId = 2, RoleName = "Admin", IsChecked = false });
 
                 RoleList roleList = new RoleList();
                 roleList.roles = rList;

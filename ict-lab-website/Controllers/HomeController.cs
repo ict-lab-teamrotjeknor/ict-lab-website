@@ -65,7 +65,7 @@ namespace ict_lab_website.Controllers
             
 			var succeed = returntype["Succeed"].Value<Boolean>();
 
-			if (succeed)
+            if (succeed)
 			{
 				CookieOptions options = new CookieOptions();
 				options.Expires = DateTime.Now.AddDays(1);
@@ -76,13 +76,15 @@ namespace ict_lab_website.Controllers
                 return RedirectToAction("Login", new RouteValueDictionary(new { controller = "Home", action = "Login", Succeed = "failed" }));
             }
 
-            //var checkRoleOfUser = _users.CheckRole(c.email);
+            var requestCookie = Request.Cookies[".AspNetCore.Identity.Application"];
+            var checkRoleOfUser = _users.CheckRole(c.email, requestCookie);
 
-            if(c.email == "admin@admin.nl")
+            if(checkRoleOfUser != null)
             {
-                HttpContext.Session.SetString("Role", "Admin");
-            }
-            else
+                var message = JObject.Parse(checkRoleOfUser)["RoleName"];
+                var roleString = message.Value<string>();
+                HttpContext.Session.SetString("Role", roleString);
+            } else
             {
                 HttpContext.Session.SetString("Role", "Student");
             }

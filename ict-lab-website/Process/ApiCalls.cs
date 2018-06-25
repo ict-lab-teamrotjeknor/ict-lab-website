@@ -73,7 +73,7 @@ namespace ict_lab_website.Process
             return result;
         }
 
-        public string GetRequest(string url)
+        public string GetRequest(string url, string IdenticatieToken = null)
         {
             var json = "";
 
@@ -81,6 +81,7 @@ namespace ict_lab_website.Process
             {
                 using (var client = new WebClient())
                 {
+                    client.Headers.Add(HttpRequestHeader.Cookie, ".AspNetCore.Identity.Application=" + IdenticatieToken);
                     json = client.DownloadString(url);
                 }
                 return json;
