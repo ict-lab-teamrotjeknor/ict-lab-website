@@ -75,21 +75,7 @@ namespace ict_lab_website.Controllers
 			if(succeed == false){
                 return RedirectToAction("Login", new RouteValueDictionary(new { controller = "Home", action = "Login", Succeed = "failed" }));
             }
-
-            var requestCookie = Request.Cookies[".AspNetCore.Identity.Application"];
-            var checkRoleOfUser = _users.CheckRole(c.email, requestCookie);
-
-            if(checkRoleOfUser != null)
-            {
-                var message = JObject.Parse(checkRoleOfUser)["RoleName"];
-                var roleString = message.Value<string>();
-                HttpContext.Session.SetString("Role", roleString);
-            } else
-            {
-                HttpContext.Session.SetString("Role", "Student");
-            }
-           
-			return RedirectToAction("Index", "Rooms");
+            return RedirectToAction("BetweenPage", new RouteValueDictionary(new { controller = "Home", action = "BetweenPage", Email = c.email }));
         }
 
         [HttpGet]
@@ -126,16 +112,7 @@ namespace ict_lab_website.Controllers
                 return RedirectToAction("Register", new RouteValueDictionary(new { controller = "Home", action = "Register", Succeed = "failed" }));
             }
 
-            if (c.email == "admin@admin.nl")
-            {
-                HttpContext.Session.SetString("Role", "Admin");
-            }
-            else
-            {
-                HttpContext.Session.SetString("Role", "Student");
-            }
-
-            return RedirectToAction("Index", "Rooms");
+            return RedirectToAction("Login", "Home");
         }
 
         public IActionResult Error()
@@ -153,6 +130,18 @@ namespace ict_lab_website.Controllers
         {
             ViewBag.role = HttpContext.Session.GetString("Role");
             return View();
+        }
+
+        public IActionResult BetweenPage(string Email)
+        {
+            var requestCookie = Request.Cookies[".AspNetCore.Identity.Application"];
+            var checkRoleOfUser = _users.CheckRole(Email, requestCookie);
+
+            var message = JObject.Parse(checkRoleOfUser)["RoleName"];
+            var roleString = message.Value<string>();
+            HttpContext.Session.SetString("Role", roleString);
+
+            return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Rooms", action = "Index" }));
         }
     }
 }
