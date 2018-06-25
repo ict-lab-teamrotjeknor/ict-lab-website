@@ -13,11 +13,20 @@
     <div class="well">
         <table class="table table-bordered">
             <thead>
-                @if(ViewBag.internet == false)
+                @if (ViewBag.internet == false)
+                {
+                <td colspan="3">
+                    <div class="alert alert-danger">
+                        <strong>Error: </strong> Make sure you have connection with the internet.
+                    </div>
+                </td>
+                }
+
+                @if (@ViewBag.succeed == "success")
                 {
                     <td colspan="3">
                         <div class="alert alert-danger">
-                            <strong>Error: </strong> Make sure you have connection with the internet.
+                            <strong>Error: </strong> Password must be 6 characters and have at least one non alphanumeric character.
                         </div>
                     </td>
                 }
@@ -26,25 +35,25 @@
                         User Registration
                     </th>
                 </tr>
-            </thead>
-            <tbody>
-                <form method="post" asp-controller="Home" asp-action="Register">
-                <tr>
-                    <td>Email</td>
-                    <td><input asp-for="email" id="emailCheck"></td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td><input asp-for="password" id="passwordCheck"></td>
-                </tr>
-                <tr class="success">
-                    <td colspan="2">
-                        <input id="registerButton" class="btn btn-success" type="submit" value="Register" />
-                    </td>
-                </tr>
-                </form>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <form method="post" asp-controller="Home" asp-action="Register">
+                        <tr>
+                            <td>Email</td>
+                            <td><input asp-for="email" id="emailCheck"></td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td><input asp-for="password" id="passwordCheck"></td>
+                        </tr>
+                        <tr class="success">
+                            <td colspan="2">
+                                <input id="registerButton" class="btn btn-success" type="submit" value="Register" />
+                            </td>
+                        </tr>
+                    </form>
+                </tbody>
+            </table>
         
         <div class="modal fade" tabindex="-1" id="successModal"
              data-keyboard="false" data-backdrop="static">

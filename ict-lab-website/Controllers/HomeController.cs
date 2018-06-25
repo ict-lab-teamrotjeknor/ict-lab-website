@@ -10,6 +10,7 @@ using ict_lab_website.Models.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 using ict_lab_website.Models.Users;
+using Microsoft.AspNetCore.Routing;
 
 namespace ict_lab_website.Controllers
 {
@@ -90,12 +91,14 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Register(string Succeed)
         {
             if (HttpContext.Session.GetString("Role") != null)
             {
                 return RedirectToAction("AlreadyLoggedIn");
             }
+
+            ViewBag.succeed = Succeed;
             return View();
         }
 
@@ -114,12 +117,12 @@ namespace ict_lab_website.Controllers
             var rJson = JObject.Parse(stringJson);
 			var returntype = _homecredentials.RegisterCredentials(rJson);
 
-            //var succeed = returntype["Succeed"].Value<Boolean>();
+            var succeed = returntype["Succeed"].Value<Boolean>();
 
-            //if (succeed == false)
-            //{
-            //    return RedirectToAction("Register");
-            //}
+            if (succeed == false)
+            {
+                return RedirectToAction("Register", new RouteValueDictionary(new { controller = "Home", action = "Register", Succeed = "success" }));
+            }
 
             if (c.email == "admin@admin.nl")
             {
