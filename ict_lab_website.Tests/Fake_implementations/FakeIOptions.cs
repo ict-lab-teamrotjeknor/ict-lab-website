@@ -18,10 +18,8 @@ namespace ict_lab_website.Tests.Fake_implementations
             SignUp = "/authentication/signup",
             ChangeRole = "/authentication/changerole",
             AddRole = "/authentication/addrole",
-            ChangeReservationLimit = "/manage/changereservationlimit",
             DeleteUser = "/manage/deleteuser",
             CheckRole = "/authentication/checkrole",
-            CheckReservationLimit = "/authentication/checkreservationlimit",
             UploadHour = "/schedule/uploadhour"
         };
     }

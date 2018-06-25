@@ -8,7 +8,7 @@ namespace ict_lab_website.Tests.Rooms
 {
     public class FakeRoomsApiCalls : IApiCalls
     {
-        public string GetRequest(string url)
+		public string GetRequest(string url, string IdenticatieToken = null)
         {
             try
             {
@@ -19,10 +19,10 @@ namespace ict_lab_website.Tests.Rooms
                 throw e;
             }
         }
-
-        public JObject PostRequest(JObject postData, string url)
-        {
-            throw new NotImplementedException();
-        }
-    }
+              
+		public JObject PostRequest(JObject postData, string url, string IdenticatieToken = null)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
