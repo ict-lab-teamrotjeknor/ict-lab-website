@@ -117,5 +117,23 @@ namespace ict_lab_website.Models.Users
             }
 			return apiCallString;
 		}
+
+        public string GetRoles(string token)
+        {
+            try
+            {
+                apiCallString = _apiCalls.GetRequest(apiConfig.Url + apiConfig.GetRoles, token);
+            }
+            catch (Exception e)
+            {
+                var stackTrace = new StackTrace(e, true);
+                var frame = stackTrace.GetFrame(0);
+                var line = frame.GetFileLineNumber();
+                var file = frame.GetFileName();
+
+                _logger.LogError($"{DateTime.Now} - {file} : {line}] Cannot get users from API");
+            }
+            return apiCallString;
+        }
 	}
 }

@@ -10,5 +10,6 @@ namespace ict_lab_website.Models.Users
 		JObject AddRole(JObject jsonObject, string userToken);
 		JObject DeleteAnUser(JObject jsonObject, string userToken);
 		string CheckRole(string Email, string token);
+        string GetRoles(string token);
     }
 }

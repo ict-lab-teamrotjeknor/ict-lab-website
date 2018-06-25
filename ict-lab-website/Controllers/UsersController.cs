@@ -28,9 +28,22 @@ namespace ictlabwebsite.Controllers
         {
             if (HttpContext.Session.GetString("Role") == "Admin")
             {
+                var requestCookie = Request.Cookies[".AspNetCore.Identity.Application"];
+                var roles = _users.GetRoles(requestCookie);
+
+                AllRoles allroles = JsonConvert.DeserializeObject<AllRoles>(roles);
                 List<Roles> rList = new List<Roles>();
-                rList.Add(new Roles() { RoleId = 1, RoleName = "Student", IsChecked = true });
-                rList.Add(new Roles() { RoleId = 2, RoleName = "Admin", IsChecked = false });
+
+                for (int i = 0; i < allroles.random.Count; i++)
+                {
+                    if(i == 0)
+                    {
+                        rList.Add(new Roles() { RoleId = i, RoleName = allroles.random[i], IsChecked = true });
+                    } else
+                    {
+                        rList.Add(new Roles() { RoleId = i, RoleName = allroles.random[i], IsChecked = false });
+                    }
+                }
 
                 RoleList roleList = new RoleList();
                 roleList.roles = rList;

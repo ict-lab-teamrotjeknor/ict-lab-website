@@ -21,5 +21,6 @@ namespace ict_lab_website.Process
         public string GetAllNotifications { get; set; }
         public string SendNotification { get; set; }
         public string SendNotificationToGroup { get; set; }
+        public string GetRoles { get; set; }
     }
 }
