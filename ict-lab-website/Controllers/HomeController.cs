@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 using ict_lab_website.Models.Users;
 using Microsoft.AspNetCore.Routing;
+using System.Net;
 
 namespace ict_lab_website.Controllers
 {
@@ -35,6 +36,7 @@ namespace ict_lab_website.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("Role");
+            HttpContext.Response.Cookies.Delete(".AspNetCore.Identity.Application");
             return RedirectToAction("Login");
         }
 
