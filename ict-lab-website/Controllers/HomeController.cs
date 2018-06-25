@@ -39,12 +39,13 @@ namespace ict_lab_website.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string Succeed)
         {
             if(HttpContext.Session.GetString("Role") != null)
             {
                 return RedirectToAction("AlreadyLoggedIn");
             }
+            ViewBag.succeed = Succeed;
             return View();
         }
         
@@ -72,9 +73,8 @@ namespace ict_lab_website.Controllers
 			}
 
 			if(succeed == false){
-				ViewBag.succeed = succeed;
-				return View();
-			}
+                return RedirectToAction("Login", new RouteValueDictionary(new { controller = "Home", action = "Login", Succeed = "failed" }));
+            }
 
             //var checkRoleOfUser = _users.CheckRole(c.email);
 
@@ -121,7 +121,7 @@ namespace ict_lab_website.Controllers
 
             if (succeed == false)
             {
-                return RedirectToAction("Register", new RouteValueDictionary(new { controller = "Home", action = "Register", Succeed = "success" }));
+                return RedirectToAction("Register", new RouteValueDictionary(new { controller = "Home", action = "Register", Succeed = "failed" }));
             }
 
             if (c.email == "admin@admin.nl")
