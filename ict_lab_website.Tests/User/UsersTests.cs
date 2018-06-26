@@ -37,17 +37,5 @@ namespace ict_lab_website.Tests.User
             //Check if string is empty which should be false 
             Assert.False(users.Equals(""));
         }
-
-        [Fact]
-        public void GetAllUsers_ShouldReturnEmptyStringWithNotWorkingApiCalls()
-        {
-
-            IUsers usersRepository = new UsersRepository(apiConfig, logger, failingApiCalls);
-            string users = usersRepository.GetAllUsers();
-
-            //Check if string is empty which should be true
-            Assert.True(users.Equals(""));
-
-        }
     }
 }
